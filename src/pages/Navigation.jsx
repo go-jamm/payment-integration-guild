@@ -8,7 +8,7 @@ import IntegrationGuild from "./IntegrationGuild";
 const Navigation = () => {
   return (
     <Router>
-      <div style={{ minHeight: "64px", background: "#1976d2" }}>
+      <div style={{ minHeight: "64px", background: "#262D54" }}>
         <Container maxWidth="xl" style={{ padding: 0 }}>
           <AppBar />
         </Container>

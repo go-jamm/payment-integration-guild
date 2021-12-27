@@ -7,10 +7,13 @@ import GuildDetailSide from "./pages/partial/GuildDetailSide";
 
 function App() {
   return (
-    <Container maxWidth="xl" style={{ padding: 0 }}>
-      <Navigation />
-      {/* <GuildDetailSide /> */}
-    </Container>
+    <div>
+
+      {/* <Container maxWidth="xl" style={{ padding: 0 }}> */}
+        <Navigation />
+       
+      {/* </Container> */}
+    </div>
   );
 }
 

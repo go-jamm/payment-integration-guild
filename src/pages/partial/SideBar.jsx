@@ -11,7 +11,9 @@ import SendIcon from "@mui/icons-material/Send";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import CircleIcon from "@mui/icons-material/Circle";
+
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -19,11 +21,12 @@ const useStyles = makeStyles({
     color: "#212F3D",
     padding: "5px 16px",
     "& span": {
-      fontSize: "18px",
+      fontSize: "16px",
     },
   },
   menuItemActive: {
-    color: "#FC2861",
+    // color: "#FC2861",
+    color: "rgba(15, 188, 249,1.0)",
 
     "& span": {
       fontWeight: 700,
@@ -45,21 +48,28 @@ const useStyles = makeStyles({
     },
   },
   menuSubItemActive: {
-    color: "#FC2861",
+    // color: "#FC2861",
+    color: "rgba(15, 188, 249,1.0)",
 
     ["& .MuiSvgIcon-root"]: {
-      color: "#FC2861",
+      // color: "#FC2861",
+      color: "rgba(15, 188, 249,1.0)",
+       
     },
   },
 });
 
-export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
+export default function SideBar({
+  active,
+  setActive,
+  clickedOn,
+  setClickedOn,
+}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
   const fnActive = (id) => {
     setClickedOn(id);
-   
   };
   const handleClick = () => {
     setOpen(!open);
@@ -77,7 +87,6 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
     //   }
     >
       <ListItemButton
-      
         disableRipple={true}
         className={`${classes.menuItem} ${
           active === "synopsis" ? classes.menuItemActive : null
@@ -87,7 +96,6 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
         <ListItemText primary="Synopsis" />
       </ListItemButton>
       <ListItemButton
-     
         disableRipple={true}
         className={`${classes.menuItem} ${
           active === "how-it-works" ? classes.menuItemActive : null
@@ -99,7 +107,6 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
       {/* <ListItemButton
        disableRipple={true} onClick={handleClick}> */}
       <ListItemButton
-     
         disableRipple={true}
         className={`${classes.menuItem} ${
           active === "integration-steps" ? classes.menuItemActive : null
@@ -112,7 +119,6 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton
-        
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
@@ -123,12 +129,11 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
             onClick={() => fnActive("initiate-payment-sub")}
           >
             <ListItemIcon>
-              <DoubleArrowIcon />
+              <ArrowForwardIosIcon />
             </ListItemIcon>
             <ListItemText primary="Initiate Payment" />
           </ListItemButton>
           <ListItemButton
-      
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
@@ -139,12 +144,11 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
             onClick={() => fnActive("validate-payment-sub")}
           >
             <ListItemIcon>
-              <DoubleArrowIcon />
+              <ArrowForwardIosIcon />
             </ListItemIcon>
             <ListItemText primary="Validate Payment" />
           </ListItemButton>
           <ListItemButton
-        
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
@@ -155,12 +159,11 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
             onClick={() => fnActive("update-your-transaction")}
           >
             <ListItemIcon>
-              <DoubleArrowIcon />
+              <ArrowForwardIosIcon />
             </ListItemIcon>
             <ListItemText primary="Update your transaction" />
           </ListItemButton>
           <ListItemButton
-      
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
@@ -171,14 +174,13 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
             onClick={() => fnActive("enable-most-advanced-IPN")}
           >
             <ListItemIcon>
-              <DoubleArrowIcon />
+              <ArrowForwardIosIcon />
             </ListItemIcon>
             <ListItemText primary="Enable most advanced IPN" />
           </ListItemButton>
         </List>
       </Collapse>
       <ListItemButton
-    
         disableRipple={true}
         className={`${classes.menuItem} ${
           active === "payment-environment" ? classes.menuItemActive : null
@@ -188,7 +190,6 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
         <ListItemText primary="Payment Environment" />
       </ListItemButton>
       <ListItemButton
-   
         disableRipple={true}
         className={`${classes.menuItem} ${
           active === "initiate-payment" ? classes.menuItemActive : null
@@ -198,7 +199,6 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
         <ListItemText primary="Initiate Payment" />
       </ListItemButton>
       <ListItemButton
-  
         disableRipple={true}
         className={`${classes.menuItem} ${
           active === "validate-payment" ? classes.menuItemActive : null
@@ -211,7 +211,6 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton
-       
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
@@ -222,12 +221,11 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
             onClick={() => fnActive("grab-the-notification")}
           >
             <ListItemIcon>
-              <DoubleArrowIcon />
+              <ArrowForwardIosIcon />
             </ListItemIcon>
             <ListItemText primary="Grab The Notification" />
           </ListItemButton>
           <ListItemButton
-  
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
@@ -238,14 +236,13 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
             onClick={() => fnActive("validating-a-payment")}
           >
             <ListItemIcon>
-              <DoubleArrowIcon />
+              <ArrowForwardIosIcon />
             </ListItemIcon>
             <ListItemText primary="Validating A Payment" />
           </ListItemButton>
         </List>
       </Collapse>
       <ListItemButton
-      
         disableRipple={true}
         className={`${classes.menuItem} ${
           active === "refund-a-payment" ? classes.menuItemActive : null
@@ -258,7 +255,6 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton
-         
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
@@ -269,12 +265,11 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
             onClick={() => fnActive("initiate-payment-api")}
           >
             <ListItemIcon>
-              <DoubleArrowIcon />
+              <ArrowForwardIosIcon />
             </ListItemIcon>
             <ListItemText primary="Initiate Payment API" />
           </ListItemButton>
           <ListItemButton
-         
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
@@ -283,7 +278,7 @@ export default function SideBar({ active, setActive,clickedOn,setClickedOn }) {
             onClick={() => fnActive("refund-validation")}
           >
             <ListItemIcon>
-              <DoubleArrowIcon />
+              <ArrowForwardIosIcon />
             </ListItemIcon>
             <ListItemText primary="Refund Validation" />
           </ListItemButton>

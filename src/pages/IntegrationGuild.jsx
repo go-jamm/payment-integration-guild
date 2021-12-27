@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import SideBar from "./partial/SideBar";
 import GuildDetailSide from "./partial/GuildDetailSide";
+import Footer from "./Footer";
 
 const IntegrationGuild = () => {
   const [active, setActive] = useState("synopsis");
@@ -30,6 +31,9 @@ const IntegrationGuild = () => {
           />
         </Grid>
       </Grid>
+      <br />
+      <br />
+      <Footer />
     </div>
   );
 };
