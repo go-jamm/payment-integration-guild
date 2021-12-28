@@ -103,12 +103,27 @@ const IntegrationWithWebsiteGuildDetailSide = ({
       BaseURL: "https://apigw-merchant.fast-pay.iq",
     },
   ];
-  const sample = ` "code": 200,
+  const cartSampleJSON = `[
+    {
+      "name":"Scarf",
+      "qty":1,
+      "unit_price":5000,
+      "sub_total":5000
+    },
+    {
+      "name":"T-shirt",
+      "qty":2,
+      "unit_price":10000,
+      "sub_total":20000
+    },
+  ]`;
+  const sample = `
+  "code": 200,
   "messages": [
-      "Payment Initiation request processed successfully."
+    "Payment Initiation request processed successfully."
   ],
   "data": {
-      "redirect_url": "http://pgw.fast-pay.cash/pay?token=7b192dc5-1b48-491a-a1d7xxx"
+      "redirect_url": "http://staging-pgw.fast-pay.iq/pay?token=7b192dc5-1b48-491a-a1d7xxx"
   }`;
 
   const classes = useStyles();
@@ -459,7 +474,9 @@ const IntegrationWithWebsiteGuildDetailSide = ({
               >
                 <TableCell>store_id</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
+                <TableCell>
+                  Merchant Store ID. e.g. <code2>Aarong101</code2>
+                </TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
               <TableRow
@@ -467,7 +484,9 @@ const IntegrationWithWebsiteGuildDetailSide = ({
               >
                 <TableCell>store_password</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password ID. e.g. Aarong001</TableCell>
+                <TableCell>
+                  Merchant Password. e.g. <code2>A$Rong001</code2>
+                </TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
               <TableRow
@@ -477,7 +496,8 @@ const IntegrationWithWebsiteGuildDetailSide = ({
                 <TableCell> alphanumeric (8-32)</TableCell>
                 <TableCell>
                   {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
+                  Merchant Generated Unique Order ID. e.g.{" "}
+                  <code2>ARONGORD1001</code2>
                 </TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
@@ -493,7 +513,7 @@ const IntegrationWithWebsiteGuildDetailSide = ({
                   <div>
                     <CopyBlock
                       language={"jsx"}
-                      text={sample}
+                      text={cartSampleJSON}
                       showLineNumbers={false}
                       theme={a11yLight}
                       wrapLines={false}
@@ -517,7 +537,8 @@ const IntegrationWithWebsiteGuildDetailSide = ({
                 <TableCell>currency</TableCell>
                 <TableCell> string (3)</TableCell>
                 <TableCell>
-                  Currency in which customer will be charged. e.g. IQD
+                  Currency in which customer will be charged. e.g.{" "}
+                  <code2>IQD</code2>
                 </TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
@@ -536,9 +557,16 @@ const IntegrationWithWebsiteGuildDetailSide = ({
             codeBlock
           />
         </div>
+        <p className={classes.detailFontStyle}>
+          If everything works as expected customer needs to be redirected from
+          merchant website to Payment Gateway Redirect URL received in response
+          to the initiation request. Upon successful redirection customer will
+          be landed to a gateway page more or like below where customer can
+          authorize the transaction and pay accordingly.
+        </p>
         <br />
       </section>
-      <section id="validate-payment">
+      <section id="validate-payment-api">
         <p className={classes.title}>Payment Validation API</p>
         <hr />
         <p className={classes.detailFontStyle}>
@@ -555,71 +583,115 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           transaction properly to get rid of a fraudulent transaction.
         </p>
         <p className={classes.detailFontStyle}>
-          The IPN will send a POST request to your IPN URL with the below data
+          The IPN will send a POST request to your IPN URL with the below data -
         </p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
               <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type & Length</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Required</TableCell>
+                <TableCell>Parameters</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Sample Value</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>store_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password ID. e.g. Aarong001</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>order_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
                 <TableCell>
-                  {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
+                  <code2>gw_transaction_id</code2>
                 </TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>cart</TableCell>
-                <TableCell> JSON</TableCell>
-                <TableCell> Invoice in example JSON format as below.</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>bill_amount</TableCell>
-                <TableCell> integer</TableCell>
-                <TableCell> Total Payable. Minimum amount: 1000</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>currency</TableCell>
-                <TableCell> string (3)</TableCell>
                 <TableCell>
-                  Currency in which customer will be charged. e.g. IQD
+                  <code2>alphanumeric</code2>
                 </TableCell>
-                <TableCell>Yes</TableCell>
+
+                <TableCell>CUL1NUB731</TableCell>
+              </TableRow>
+
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>
+                  <code2>merchant_order_id</code2>
+                </TableCell>
+                <TableCell>
+                  <code2>alphanumeric</code2>
+                </TableCell>
+
+                <TableCell>LAREVEORD1005</TableCell>
+              </TableRow>
+
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>
+                  <code2>received_amount</code2>
+                </TableCell>
+                <TableCell>
+                  <code2>decimal</code2>
+                </TableCell>
+
+                <TableCell>5000.00</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>
+                  <code2>currency</code2>
+                </TableCell>
+                <TableCell>
+                  <code2>string</code2>
+                </TableCell>
+
+                <TableCell>IQD</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>
+                  <code2>status</code2>
+                </TableCell>
+                <TableCell>
+                  <code2>string</code2>
+                </TableCell>
+
+                <TableCell>Success</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>
+                  <code2>customer_name</code2>
+                </TableCell>
+                <TableCell>
+                  <code2>string</code2>
+                </TableCell>
+
+                <TableCell>John Doe</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>
+                  <code2>customer_mobile_number</code2>
+                </TableCell>
+                <TableCell>
+                  <code2>string</code2>
+                </TableCell>
+
+                <TableCell>+964xxxxxxxxxx</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>
+                  <code2>at</code2>
+                </TableCell>
+                <TableCell>
+                  <code2>datetime</code2> <i>(Y-m-d H:i:s)</i>
+                </TableCell>
+
+                <TableCell>2020-11-26 13:54:01</TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -630,52 +702,38 @@ const IntegrationWithWebsiteGuildDetailSide = ({
         <p className={classes.title}>Step 2: Validating A Payment</p>
         <p className={classes.detailFontStyle}>
           No matter it’s an IPN notification at your IPN URL or Successful
-          Redirection to your Success URL with order_id as URL Parameter, it is
-          mandatory to validate a payment using Validation API to get rid of
-          fraudulent activities.
+          Redirection to your Success URL with <code>order_id</code> as URL
+          Parameter, it is mandatory to validate a payment using Validation API
+          to get rid of fraudulent activities.
         </p>
 
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
               <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type & Length</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Required</TableCell>
+                <TableCell>URL</TableCell>
+                <TableCell>Method</TableCell>
+                <TableCell>Headers</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>store_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password ID. e.g. Aarong001</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>order_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
+                <TableCell>/api/v1/public/pgw/payment/validate</TableCell>
+                <TableCell> POST</TableCell>
                 <TableCell>
-                  {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
+                  Accept: application/json
+                  <br />
+                  Content-Type: application/json
                 </TableCell>
-                <TableCell>Yes</TableCell>
               </TableRow>
+             
+          
             </TableBody>
           </Table>
         </TableContainer>
+    
         <br />
         <br />
         <p className={classes.detailFontStyle}>Request Body:</p>
@@ -722,6 +780,7 @@ const IntegrationWithWebsiteGuildDetailSide = ({
         </TableContainer>
         <br />
       </section>
+          Start
       <section id="refund-a-payment">
         <p className={classes.title}>Refund A Payment</p>
         <hr />
@@ -827,7 +886,7 @@ const IntegrationWithWebsiteGuildDetailSide = ({
         </TableContainer>
         <br />
       </section>
-      <section id="validate-payment-api">
+      {/* <section id="validate-payment-api">
         <p className={classes.title}>Validate Payment API</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
@@ -915,7 +974,7 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           </Table>
         </TableContainer>
         <br />
-      </section>
+      </section> */}
       <section id="refund-validation">
         <p className={classes.title}>Refund Validation</p>
         <p className={classes.detailFontStyle}>
