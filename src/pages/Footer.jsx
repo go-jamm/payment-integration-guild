@@ -5,8 +5,6 @@ const Footer = () => {
     <div
       style={{
         padding: "20px",
-
-        borderTop: "1px solid #262D54",
       }}
     >
       <p style={{ textAlign: "center", margin: 0 }}>

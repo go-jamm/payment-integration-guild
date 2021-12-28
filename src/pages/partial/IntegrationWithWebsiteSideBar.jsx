@@ -14,6 +14,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import SquareIcon from "@mui/icons-material/Square";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -26,11 +27,7 @@ const useStyles = makeStyles({
   },
   menuItemActive: {
     // color: "#FC2861",
-    color: "rgba(15, 188, 249,1.0)",
-
-    "& span": {
-      fontWeight: 700,
-    },
+    color: "rgba(15, 188, 249,1.0) !important",
   },
   menuSubItem: {
     color: "#4D5656",
@@ -48,18 +45,15 @@ const useStyles = makeStyles({
     },
   },
   menuSubItemActive: {
-    // color: "#FC2861",
-    color: "rgba(15, 188, 249,1.0)",
+    color: "rgba(15, 188, 249,1.0) !important",
 
     ["& .MuiSvgIcon-root"]: {
-      // color: "#FC2861",
-      color: "rgba(15, 188, 249,1.0)",
-       
+      color: "rgba(15, 188, 249,1.0) !important",
     },
   },
 });
 
-export default function SideBar({
+export default function IntegrationWithWebsiteSideBar({
   active,
   setActive,
   clickedOn,
@@ -104,8 +98,55 @@ export default function SideBar({
       >
         <ListItemText primary="How It Works" />
       </ListItemButton>
-      {/* <ListItemButton
-       disableRipple={true} onClick={handleClick}> */}
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              active === "initiation-of-transaction"
+                ? classes.menuSubItemActive
+                : null
+            }`}
+            onClick={() => fnActive("initiation-of-transaction")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Initiation of Transaction" />
+          </ListItemButton>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              active === "handling-payment-notification"
+                ? classes.menuSubItemActive
+                : null
+            }`}
+            onClick={() => fnActive("handling-payment-notification")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Handling Payment Notification" />
+          </ListItemButton>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              active === "service-confirmation"
+                ? classes.menuSubItemActive
+                : null
+            }`}
+            onClick={() => fnActive("service-confirmation")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Service Confirmation" />
+          </ListItemButton>
+        </List>
+      </Collapse>
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
@@ -183,74 +224,20 @@ export default function SideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "payment-environment" ? classes.menuItemActive : null
+          active === "base-url" ? classes.menuItemActive : null
         }`}
-        onClick={() => fnActive("payment-environment")}
+        onClick={() => fnActive("base-url")}
       >
-        <ListItemText primary="Payment Environment" />
+        <ListItemText primary="Base URL" />
       </ListItemButton>
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "initiate-payment" ? classes.menuItemActive : null
+          active === "apis" ? classes.menuItemActive : null
         }`}
-        onClick={() => fnActive("initiate-payment")}
+        onClick={() => fnActive("apis")}
       >
-        <ListItemText primary="Initiate Payment" />
-      </ListItemButton>
-      <ListItemButton
-        disableRipple={true}
-        className={`${classes.menuItem} ${
-          active === "validate-payment" ? classes.menuItemActive : null
-        }`}
-        onClick={() => fnActive("validate-payment")}
-      >
-        <ListItemText primary="Validate Payment" />
-        {/* {open ? <ExpandLess /> : <ExpandMore />} */}
-      </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.menuSubItem} ${
-              active === "grab-the-notification"
-                ? classes.menuSubItemActive
-                : null
-            }`}
-            onClick={() => fnActive("grab-the-notification")}
-          >
-            <ListItemIcon>
-              <ArrowForwardIosIcon />
-            </ListItemIcon>
-            <ListItemText primary="Grab The Notification" />
-          </ListItemButton>
-          <ListItemButton
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.menuSubItem} ${
-              active === "validating-a-payment"
-                ? classes.menuSubItemActive
-                : null
-            }`}
-            onClick={() => fnActive("validating-a-payment")}
-          >
-            <ListItemIcon>
-              <ArrowForwardIosIcon />
-            </ListItemIcon>
-            <ListItemText primary="Validating A Payment" />
-          </ListItemButton>
-        </List>
-      </Collapse>
-      <ListItemButton
-        disableRipple={true}
-        className={`${classes.menuItem} ${
-          active === "refund-a-payment" ? classes.menuItemActive : null
-        }`}
-        onClick={() => fnActive("refund-a-payment")}
-      >
-        <ListItemText primary="Refund A Payment" />
-        {/* {open ? <ExpandLess /> : <ExpandMore />} */}
+        <ListItemText primary="APIs" />
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
@@ -273,15 +260,85 @@ export default function SideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "refund-validation" ? classes.menuSubItemActive : null
+              active === "validate-payment-api"
+                ? classes.menuSubItemActive
+                : null
             }`}
-            onClick={() => fnActive("refund-validation")}
+            onClick={() => fnActive("validate-payment-api")}
           >
             <ListItemIcon>
               <ArrowForwardIosIcon />
             </ListItemIcon>
-            <ListItemText primary="Refund Validation" />
+            <ListItemText primary="Validate Payment API" />
           </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton
+                style={{ paddingLeft: "50px" }}
+                disableRipple={true}
+                sx={{ pl: 4 }}
+                className={`${classes.menuSubItem} ${
+                  active === "grab-the-notification"
+                    ? classes.menuSubItemActive
+                    : null
+                }`}
+                onClick={() => fnActive("grab-the-notification")}
+              >
+                <ListItemIcon>
+                  <ArrowForwardIosIcon />
+                </ListItemIcon>
+                <ListItemText primary="Grab The Notification" />
+              </ListItemButton>
+              <ListItemButton
+                disableRipple={true}
+                style={{ paddingLeft: "50px" }}
+                sx={{ pl: 4 }}
+                className={`${classes.menuSubItem} ${
+                  active === "validating-a-payment"
+                    ? classes.menuSubItemActive
+                    : null
+                }`}
+                onClick={() => fnActive("validating-a-payment")}
+              >
+                <ListItemIcon>
+                  <ArrowForwardIosIcon />
+                </ListItemIcon>
+                <ListItemText primary="Validating A Payment" />
+              </ListItemButton>
+              <ListItemButton
+                style={{ paddingLeft: "50px" }}
+                disableRipple={true}
+                sx={{ pl: 4 }}
+                className={`${classes.menuSubItem} ${
+                  active === "refund-a-payment"
+                    ? classes.menuSubItemActive
+                    : null
+                }`}
+                onClick={() => fnActive("refund-a-payment")}
+              >
+                <ListItemIcon>
+                  <ArrowForwardIosIcon />
+                </ListItemIcon>
+                <ListItemText primary="Refund A Payment" />
+              </ListItemButton>
+              <ListItemButton
+                style={{ paddingLeft: "50px" }}
+                disableRipple={true}
+                sx={{ pl: 4 }}
+                className={`${classes.menuSubItem} ${
+                  active === "refund-validation"
+                    ? classes.menuSubItemActive
+                    : null
+                }`}
+                onClick={() => fnActive("refund-validation")}
+              >
+                <ListItemIcon>
+                  <ArrowForwardIosIcon />
+                </ListItemIcon>
+                <ListItemText primary="Refund Validation" />
+              </ListItemButton>
+            </List>
+          </Collapse>
         </List>
       </Collapse>
     </List>

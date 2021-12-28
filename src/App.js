@@ -1,18 +1,16 @@
 import logo from "./logo.svg";
 // import './App.css';
 import Navigation from "../src/pages/Navigation";
-
-import Container from "@mui/material/Container";
-import GuildDetailSide from "./pages/partial/GuildDetailSide";
-
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+const theme = createTheme({
+ 
+});
 function App() {
   return (
     <div>
-
-      {/* <Container maxWidth="xl" style={{ padding: 0 }}> */}
+      <ThemeProvider theme={theme}>
         <Navigation />
-       
-      {/* </Container> */}
+      </ThemeProvider>
     </div>
   );
 }
