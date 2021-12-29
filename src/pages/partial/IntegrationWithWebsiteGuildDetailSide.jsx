@@ -19,12 +19,32 @@ import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
 const useStyles = makeStyles({
   title: {
     color: "#262D54",
+    fontSize: "24px",
+    fontWeight: 700,
+    margin: 0,
+  },
+  subTitle: {
+    color: "#262D54",
     fontSize: "20px",
     fontWeight: 700,
+    margin: 0,
+  },
+  subTitle2: {
+    color: "#262D54",
+    fontSize: "18px",
+    fontWeight: 700,
+    margin: 0,
   },
   detailFontStyle: {
-    lineHeight: "22px",
+    lineHeight: "26px",
     color: "#181c34",
+    marginBottom: "35px !important",
+  },
+  tableTitle: {
+    fontSize: "20px",
+    color: "#181c34",
+    marginBottom: "35px !important",
+    marginTop: "35px !important",
   },
   tableStyle: {
     // background: "darkkhaki",
@@ -38,7 +58,7 @@ const useStyles = makeStyles({
   alertStyle: {
     // background: "#F5B7B1",
     background: "#FADBD8",
-    padding: "20px 10px",
+    padding: "20px 0px 30px",
     borderRadius: "10px",
   },
   alertTitle: {
@@ -54,7 +74,7 @@ const useStyles = makeStyles({
   ItemStyle: {
     color: "#262D54",
     cursor: "default",
-    padding: "0px 32px",
+    padding: "0px 32px !important",
 
     "& span": {
       fontSize: "16px",
@@ -71,7 +91,7 @@ const useStyles = makeStyles({
   alertItem: {
     color: "#E74C3C",
     cursor: "default",
-    padding: "0px 32px",
+    padding: "0px 32px !important",
 
     "& span": {
       fontSize: "16px",
@@ -85,6 +105,14 @@ const useStyles = makeStyles({
       fontSize: "10px",
     },
   },
+  sectionMarginBottom: {
+    marginBottom: "35px",
+  },
+  copyBlockStyle:{
+    '& button':{
+      display:'none'
+    }
+  }
 });
 const IntegrationWithWebsiteGuildDetailSide = ({
   setActive,
@@ -117,14 +145,49 @@ const IntegrationWithWebsiteGuildDetailSide = ({
       "sub_total":20000
     },
   ]`;
-  const sample = `
-  "code": 200,
+  const sample = `"code": 200,
   "messages": [
     "Payment Initiation request processed successfully."
   ],
   "data": {
       "redirect_url": "http://staging-pgw.fast-pay.iq/pay?token=7b192dc5-1b48-491a-a1d7xxx"
   }`;
+
+  const validateSampleData = `{
+    {
+      "code":200,
+      "received_amount": "5000.00",
+      "currency": "IQD",
+      "status": "Success",
+      "customer_name": "John Doe",
+      "customer_mobile_number": "+964xxxxxxxxxx",
+      "at": "2020-11-26 13:54:01"
+    }
+  }`;
+
+  const initiatePaymentSampleData = `"code": 200,
+  "messages": [],
+  "data": {
+    "summary": {
+      "recipient": {
+        "name": "John Doe",
+        "mobile_number": "+9640101010101",
+        "avatar": "https://revamp.fast-pay.cash/image/revamp.jpg",
+      }
+      "refund_invoice_id": "AUJHMA1634"
+    }
+  }
+  `;
+  const refundValidationSampleData = `{
+  "code": 200,
+  "messages": [],
+  "data": [
+    'order_id': 'LAREVEORD5006',
+    'refund_status': true,
+    'status_checked_at': '2021-03-01 00:00:05'
+  ]
+}
+`;
 
   const classes = useStyles();
   const [activeUseEffect, setActiveUseEffect] = useState(false);
@@ -172,10 +235,10 @@ const IntegrationWithWebsiteGuildDetailSide = ({
 
   return (
     <div>
-      <section id="synopsis">
+      <br />
+      <section className={classes.sectionMarginBottom} id="synopsis">
         <p className={classes.title}>Synopsis</p>
         <hr />
-
         <p className={classes.detailFontStyle}>
           Let’s say, <strong>La Reve</strong> is a merchant that sell clothes
           online and want to use <strong>FastPay</strong> as a payment method
@@ -242,21 +305,19 @@ const IntegrationWithWebsiteGuildDetailSide = ({
             <ListItemText primary="Account Information etc." />
           </ListItem>
         </List>
-
-        <br />
       </section>
-      <section id="how-it-works">
+      <section className={classes.sectionMarginBottom} id="how-it-works">
         <p className={classes.title}>
           How It Work -{" "}
-          <span style={{ fontWeight: 400 }}>
+          <span className={classes.subTitle} style={{ fontWeight: 400 }}>
             a technical overview of the payment journey
           </span>
         </p>
+        <hr />
         <br />
         <img
           src={steps}
-          width="70%"
-          style={{ display: "block", margin: "auto" }}
+          style={{ maxWidth: "70%", display: "block", margin: "auto" }}
         />
         <br />
         <p className={classes.detailFontStyle}>
@@ -264,8 +325,11 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           development process described below.
         </p>
       </section>
-      <section id="initiation-of-transaction">
-        <p className={classes.title}>Initiation of Transaction:</p>
+      <section
+        className={classes.sectionMarginBottom}
+        id="initiation-of-transaction"
+      >
+        <p className={classes.subTitle}>Initiation of Transaction:</p>
         <p className={classes.detailFontStyle}>
           The Steps 1, 2 and 3 are used to make request for a new transaction.
           After getting confirmation of checkout from customer, merchant server
@@ -277,8 +341,11 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           initiation request.
         </p>
       </section>
-      <section id="handling-payment-notification">
-        <p className={classes.title}>Handling Payment Notification:</p>
+      <section
+        className={classes.sectionMarginBottom}
+        id="handling-payment-notification"
+      >
+        <p className={classes.subTitle}>Handling Payment Notification:</p>
         <p className={classes.detailFontStyle}>
           Steps 4 & 5 describes how payment notification should be handled in
           merchant side. For any notification, <strong>FastPay</strong> will
@@ -290,8 +357,11 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           <strong>Transaction Validation</strong>
         </p>
       </section>
-      <section id="service-confirmation">
-        <p className={classes.title}>Service Confirmation:</p>
+      <section
+        className={classes.sectionMarginBottom}
+        id="service-confirmation"
+      >
+        <p className={classes.subTitle}>Service Confirmation:</p>
         <p className={classes.detailFontStyle}>
           At Step 5, <strong>FastPay</strong> will redirect the customer to
           merchant’s website URL i.e. <code>success_url</code> or{" "}
@@ -300,14 +370,16 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           service confirmation in case of Success, otherwise, service denial in
           case of failure or cancellation of payment.
         </p>
-        <br />
       </section>
-      <section id="integration-steps">
+      <section className={classes.sectionMarginBottom} id="integration-steps">
         <p className={classes.title}>Integration Steps</p>
         <hr />
       </section>
-      <section id="initiate-payment-sub">
-        <p className={classes.title}>Initiate Payment</p>
+      <section
+        className={classes.sectionMarginBottom}
+        id="initiate-payment-sub"
+      >
+        <p className={classes.subTitle}>Initiate Payment</p>
         <p className={classes.detailFontStyle}>
           Provide Information about your customer and order to{" "}
           <strong>FastPay</strong> along with your store id to initiate the
@@ -315,8 +387,11 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           <strong>FastPay</strong>
         </p>
       </section>
-      <section id="validate-payment-sub">
-        <p className={classes.title}>Validate Payment</p>
+      <section
+        className={classes.sectionMarginBottom}
+        id="validate-payment-sub"
+      >
+        <p className={classes.subTitle}>Validate Payment</p>
         <p className={classes.detailFontStyle}>
           After successfully receiving the payment, <strong>FastPay PGW</strong>{" "}
           will redirect back the customer to the merchant website as per
@@ -328,8 +403,11 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           <code>order_id</code>.
         </p>
       </section>
-      <section id="update-your-transaction">
-        <p className={classes.title}>Update your transaction</p>
+      <section
+        className={classes.sectionMarginBottom}
+        id="update-your-transaction"
+      >
+        <p className={classes.subTitle}>Update your transaction</p>
         <p className={classes.detailFontStyle}>
           After validation of the transaction that you have received, depending
           on the status you have to update your transaction in your Database.
@@ -345,8 +423,11 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           or <strong>Cancelled</strong> depending on payment status.
         </p>
       </section>
-      <section id="enable-most-advanced-IPN">
-        <p className={classes.title}>Enable most advanced IPN</p>
+      <section
+        className={classes.sectionMarginBottom}
+        id="enable-most-advanced-IPN"
+      >
+        <p className={classes.subTitle}>Enable most advanced IPN</p>
         <p className={classes.detailFontStyle}>
           If somehow your consumer pays your payable amount to PGW side and
           FastPay accept it as Success , but your Website/Connectivity/Customer
@@ -397,11 +478,10 @@ const IntegrationWithWebsiteGuildDetailSide = ({
             </ListItem>
           </List>
         </div>
-        <br />
       </section>
-      <section id="base-url">
+      <section className={classes.sectionMarginBottom} id="base-url">
         <p className={classes.title}>Base URL</p>
-        <hr />
+        <hr className={classes.sectionMarginBottom} />
 
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
@@ -424,14 +504,21 @@ const IntegrationWithWebsiteGuildDetailSide = ({
             </TableBody>
           </Table>
         </TableContainer>
-        <br />
       </section>
-      <section id="apis">
+      <section className={classes.sectionMarginBottom} id="apis">
         <p className={classes.title}>APIs</p>
         <hr />
       </section>
-      <section id="initiate-payment-api">
-        <p className={classes.title}>Initiate Payment API</p>
+      <section
+        className={classes.sectionMarginBottom}
+        id="initiate-payment-api"
+      >
+        <p
+          className={classes.subTitle}
+          style={{ marginTop: "16px", marginBottom: "35px" }}
+        >
+          Initiate Payment API
+        </p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -456,8 +543,8 @@ const IntegrationWithWebsiteGuildDetailSide = ({
             </TableBody>
           </Table>
         </TableContainer>
-        <br />
-        <p className={classes.detailFontStyle}>Request Body:</p>
+
+        <p className={classes.tableTitle}>Request Body :</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -474,9 +561,7 @@ const IntegrationWithWebsiteGuildDetailSide = ({
               >
                 <TableCell>store_id</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>
-                  Merchant Store ID. e.g. <code2>Aarong101</code2>
-                </TableCell>
+                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
               <TableRow
@@ -484,9 +569,7 @@ const IntegrationWithWebsiteGuildDetailSide = ({
               >
                 <TableCell>store_password</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>
-                  Merchant Password. e.g. <code2>A$Rong001</code2>
-                </TableCell>
+                <TableCell>Merchant Password. e.g. A$Rong001</TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
               <TableRow
@@ -496,8 +579,7 @@ const IntegrationWithWebsiteGuildDetailSide = ({
                 <TableCell> alphanumeric (8-32)</TableCell>
                 <TableCell>
                   {" "}
-                  Merchant Generated Unique Order ID. e.g.{" "}
-                  <code2>ARONGORD1001</code2>
+                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
                 </TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
@@ -510,7 +592,7 @@ const IntegrationWithWebsiteGuildDetailSide = ({
                   {" "}
                   Invoice in example JSON format as below.
                   <br />
-                  <div>
+                  <div className={classes.copyBlockStyle}>
                     <CopyBlock
                       language={"jsx"}
                       text={cartSampleJSON}
@@ -537,17 +619,16 @@ const IntegrationWithWebsiteGuildDetailSide = ({
                 <TableCell>currency</TableCell>
                 <TableCell> string (3)</TableCell>
                 <TableCell>
-                  Currency in which customer will be charged. e.g.{" "}
-                  <code2>IQD</code2>
+                  Currency in which customer will be charged. e.g. IQD
                 </TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
-        <br />
-        <p className={classes.detailFontStyle}>Sample Response:</p>
-        <div>
+
+        <p className={classes.tableTitle}>Sample Response:</p>
+        <div className={classes.copyBlockStyle}>
           <CopyBlock
             language={"jsx"}
             text={sample}
@@ -564,18 +645,23 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           be landed to a gateway page more or like below where customer can
           authorize the transaction and pay accordingly.
         </p>
-        <br />
       </section>
-      <section id="validate-payment-api">
-        <p className={classes.title}>Payment Validation API</p>
-        <hr />
+      <section
+        className={classes.sectionMarginBottom}
+        id="validate-payment-api"
+      >
+        <p className={classes.subTitle}>Payment Validation API</p>
+
         <p className={classes.detailFontStyle}>
           It is important to validate the transaction notification for security
           purposes.
         </p>
       </section>
-      <section id="grab-the-notification">
-        <p className={classes.title}>Step 1: Grap The Notification</p>
+      <section
+        className={classes.sectionMarginBottom}
+        id="grab-the-notification"
+      >
+        <p className={classes.subTitle}>Step 1: Grap The Notification</p>
         <p className={classes.detailFontStyle}>
           As IPN URL is already set in the panel, almost all of the payment
           notifications will reach towards IPN URL prior to user redirection to
@@ -598,12 +684,8 @@ const IntegrationWithWebsiteGuildDetailSide = ({
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>
-                  <code2>gw_transaction_id</code2>
-                </TableCell>
-                <TableCell>
-                  <code2>alphanumeric</code2>
-                </TableCell>
+                <TableCell>gw_transaction_id</TableCell>
+                <TableCell>alphanumeric</TableCell>
 
                 <TableCell>CUL1NUB731</TableCell>
               </TableRow>
@@ -611,12 +693,8 @@ const IntegrationWithWebsiteGuildDetailSide = ({
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>
-                  <code2>merchant_order_id</code2>
-                </TableCell>
-                <TableCell>
-                  <code2>alphanumeric</code2>
-                </TableCell>
+                <TableCell>merchant_order_id</TableCell>
+                <TableCell>alphanumeric</TableCell>
 
                 <TableCell>LAREVEORD1005</TableCell>
               </TableRow>
@@ -624,71 +702,49 @@ const IntegrationWithWebsiteGuildDetailSide = ({
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>
-                  <code2>received_amount</code2>
-                </TableCell>
-                <TableCell>
-                  <code2>decimal</code2>
-                </TableCell>
+                <TableCell>received_amount</TableCell>
+                <TableCell>decimal</TableCell>
 
                 <TableCell>5000.00</TableCell>
               </TableRow>
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>
-                  <code2>currency</code2>
-                </TableCell>
-                <TableCell>
-                  <code2>string</code2>
-                </TableCell>
+                <TableCell>currency</TableCell>
+                <TableCell>string</TableCell>
 
                 <TableCell>IQD</TableCell>
               </TableRow>
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>
-                  <code2>status</code2>
-                </TableCell>
-                <TableCell>
-                  <code2>string</code2>
-                </TableCell>
+                <TableCell>status</TableCell>
+                <TableCell>string</TableCell>
 
                 <TableCell>Success</TableCell>
               </TableRow>
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>
-                  <code2>customer_name</code2>
-                </TableCell>
-                <TableCell>
-                  <code2>string</code2>
-                </TableCell>
+                <TableCell>customer_name</TableCell>
+                <TableCell>string</TableCell>
 
                 <TableCell>John Doe</TableCell>
               </TableRow>
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>
-                  <code2>customer_mobile_number</code2>
-                </TableCell>
-                <TableCell>
-                  <code2>string</code2>
-                </TableCell>
+                <TableCell>customer_mobile_number</TableCell>
+                <TableCell>string</TableCell>
 
                 <TableCell>+964xxxxxxxxxx</TableCell>
               </TableRow>
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
+                <TableCell>at</TableCell>
                 <TableCell>
-                  <code2>at</code2>
-                </TableCell>
-                <TableCell>
-                  <code2>datetime</code2> <i>(Y-m-d H:i:s)</i>
+                  datetime <i>(Y-m-d H:i:s)</i>
                 </TableCell>
 
                 <TableCell>2020-11-26 13:54:01</TableCell>
@@ -696,10 +752,12 @@ const IntegrationWithWebsiteGuildDetailSide = ({
             </TableBody>
           </Table>
         </TableContainer>
-        <br />
       </section>
-      <section id="validating-a-payment">
-        <p className={classes.title}>Step 2: Validating A Payment</p>
+      <section
+        className={classes.sectionMarginBottom}
+        id="validating-a-payment"
+      >
+        <p className={classes.subTitle}>Step 2: Validating A Payment</p>
         <p className={classes.detailFontStyle}>
           No matter it’s an IPN notification at your IPN URL or Successful
           Redirection to your Success URL with <code>order_id</code> as URL
@@ -728,15 +786,10 @@ const IntegrationWithWebsiteGuildDetailSide = ({
                   Content-Type: application/json
                 </TableCell>
               </TableRow>
-             
-          
             </TableBody>
           </Table>
         </TableContainer>
-    
-        <br />
-        <br />
-        <p className={classes.detailFontStyle}>Request Body:</p>
+        <p className={classes.tableTitle}>Request Body :</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -778,12 +831,23 @@ const IntegrationWithWebsiteGuildDetailSide = ({
             </TableBody>
           </Table>
         </TableContainer>
-        <br />
+
+        <p className={classes.tableTitle}>Sample Response:</p>
+        <div className={classes.copyBlockStyle}>
+          <CopyBlock
+            language={"jsx"}
+            text={validateSampleData}
+            showLineNumbers={false}
+            theme={dracula}
+            wrapLines={false}
+            codeBlock
+          />
+        </div>
       </section>
-          Start
-      <section id="refund-a-payment">
-        <p className={classes.title}>Refund A Payment</p>
-        <hr />
+
+      <section className={classes.sectionMarginBottom} id="refund-a-payment">
+        <p className={classes.subTitle}>Refund A Payment</p>
+
         <p className={classes.detailFontStyle}>
           FastPay Merchants can refund the transactions to their customers that
           are generated by the payment receive process. This API will help
@@ -795,10 +859,33 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           and AMOUNT. For each successful full refund both sender or receiver
           will not get any notification.
         </p>
-        <br />
-      </section>
-      <section id="initiate-payment-api2">
-        <p className={classes.title}>Initiate Payment API</p>
+        <p className={`${classes.tableTitle}`}>Initiate Payment API :</p>
+        <TableContainer component={Paper}>
+          <Table sx={{ Width: 650 }} aria-label="simple table">
+            <TableHead className={classes.tableStyle}>
+              <TableRow>
+                <TableCell>URL</TableCell>
+                <TableCell>Method</TableCell>
+                <TableCell>Headers</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>/api/v1/public/pgw/payment/refund</TableCell>
+                <TableCell> POST</TableCell>
+                <TableCell>
+                  Accept: application/json
+                  <br />
+                  Content-Type: application/json
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <p className={classes.tableTitle}>Request Body :</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -823,7 +910,7 @@ const IntegrationWithWebsiteGuildDetailSide = ({
               >
                 <TableCell>store_password</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password ID. e.g. Aarong001</TableCell>
+                <TableCell>Merchant Password. e.g. A$Rong001</TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
               <TableRow
@@ -835,198 +922,78 @@ const IntegrationWithWebsiteGuildDetailSide = ({
                   {" "}
                   Merchant Generated Unique Order ID. e.g. ARONGORD1001
                 </TableCell>
+                <TableCell>Yes</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>msisdn</TableCell>
+                <TableCell>string</TableCell>
+                <TableCell> Receiver(Customer) Phone Number</TableCell>
+                <TableCell>Yes</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>amount</TableCell>
+                <TableCell>decimal</TableCell>
+                <TableCell> Amount to be refunded</TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
 
-        <br />
-        <p className={classes.detailFontStyle}>Request Body:</p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type & Length</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Required</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password ID. e.g. Aarong001</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>order_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>
-                  {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
-                </TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <br />
+        <p className={classes.tableTitle}>Sample Response:</p>
+        <div className={classes.copyBlockStyle}>
+          <CopyBlock
+            language={"jsx"}
+            text={initiatePaymentSampleData}
+            showLineNumbers={false}
+            theme={dracula}
+            wrapLines={false}
+            codeBlock
+          />
+        </div>
       </section>
-      {/* <section id="validate-payment-api">
-        <p className={classes.title}>Validate Payment API</p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type & Length</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Required</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password ID. e.g. Aarong001</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>order_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>
-                  {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
-                </TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
 
-        <br />
-        <p className={classes.detailFontStyle}>Request Body:</p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type & Length</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Required</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password ID. e.g. Aarong001</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>order_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>
-                  {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
-                </TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <br />
-      </section> */}
-      <section id="refund-validation">
-        <p className={classes.title}>Refund Validation</p>
+      <section className={classes.sectionMarginBottom} id="refund-validation">
+        <p className={classes.subTitle}>Refund Validation</p>
         <p className={classes.detailFontStyle}>
           Merchant can refund their transaction and check the status of your
           refund using ORDER_ID. API returns a boolean response based on
           validation status TRUE or FALSE, true means refund done, false means
           not refunded yet.
         </p>
-        <p className={classes.title}>Request Endpoint:</p>
+        <p className={classes.tableTitle}>Request Endpoint:</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
               <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type & Length</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Required</TableCell>
+                <TableCell>URL</TableCell>
+                <TableCell>Method</TableCell>
+                <TableCell>Headers</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>store_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password ID. e.g. Aarong001</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>order_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
                 <TableCell>
-                  {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
+                  /api/v1/public/pgw/payment/refund/validation
                 </TableCell>
-                <TableCell>Yes</TableCell>
+                <TableCell>POST</TableCell>
+                <TableCell>
+                  Accept: application/json
+                  <br />
+                  Content-Type: application/json
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
-        <br />
-        <p className={classes.detailFontStyle}>Request Body:</p>
+
+        <p className={classes.tableTitle}>Request Body :</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -1069,12 +1036,12 @@ const IntegrationWithWebsiteGuildDetailSide = ({
           </Table>
           <br />{" "}
         </TableContainer>
-        <br />
-        <p className={classes.detailFontStyle}>Sample Response:</p>
-        <div>
+
+        <p className={classes.tableTitle}>Sample Response:</p>
+        <div className={classes.copyBlockStyle}>
           <CopyBlock
             language={"jsx"}
-            text={sample}
+            text={refundValidationSampleData}
             showLineNumbers={true}
             theme={dracula}
             wrapLines={true}
@@ -1100,7 +1067,7 @@ const IntegrationWithWebsiteGuildDetailSide = ({
               <ListItemIcon>
                 <CircleIcon />
               </ListItemIcon>
-              <ListItemText primary="Track your order by transaction ID and check it in your database for existence" />
+              <ListItemText primary="Track your order by transaction ID and check it in your database for existence." />
             </ListItem>
             <ListItem
               disableRipple={true}

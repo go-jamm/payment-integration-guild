@@ -20,7 +20,8 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
   menuItem: {
     color: "#212F3D",
-    padding: "5px 16px",
+    padding: "2px 16px !important",
+    
     "& span": {
       fontSize: "16px",
     },
@@ -32,7 +33,22 @@ const useStyles = makeStyles({
   menuSubItem: {
     color: "#4D5656",
 
-    padding: "0px 32px",
+    padding: "2px 32px !important",
+    "& span": {
+      fontSize: "14px",
+    },
+    ["& .MuiListItemIcon-root"]: {
+      minWidth: "24px",
+    },
+    ["& .MuiSvgIcon-root"]: {
+      color: "#4D5656",
+      fontSize: "12px",
+    },
+  },
+  menuSubItem2: {
+    color: "#4D5656",
+
+    padding: "2px 32px 2px 50px !important",
     "& span": {
       fontSize: "14px",
     },
@@ -274,10 +290,9 @@ export default function IntegrationWithWebsiteSideBar({
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItemButton
-                style={{ paddingLeft: "50px" }}
                 disableRipple={true}
                 sx={{ pl: 4 }}
-                className={`${classes.menuSubItem} ${
+                className={`${classes.menuSubItem2} ${
                   active === "grab-the-notification"
                     ? classes.menuSubItemActive
                     : null
@@ -291,9 +306,8 @@ export default function IntegrationWithWebsiteSideBar({
               </ListItemButton>
               <ListItemButton
                 disableRipple={true}
-                style={{ paddingLeft: "50px" }}
                 sx={{ pl: 4 }}
-                className={`${classes.menuSubItem} ${
+                className={`${classes.menuSubItem2} ${
                   active === "validating-a-payment"
                     ? classes.menuSubItemActive
                     : null
@@ -306,10 +320,9 @@ export default function IntegrationWithWebsiteSideBar({
                 <ListItemText primary="Validating A Payment" />
               </ListItemButton>
               <ListItemButton
-                style={{ paddingLeft: "50px" }}
                 disableRipple={true}
                 sx={{ pl: 4 }}
-                className={`${classes.menuSubItem} ${
+                className={`${classes.menuSubItem2} ${
                   active === "refund-a-payment"
                     ? classes.menuSubItemActive
                     : null
@@ -322,10 +335,9 @@ export default function IntegrationWithWebsiteSideBar({
                 <ListItemText primary="Refund A Payment" />
               </ListItemButton>
               <ListItemButton
-                style={{ paddingLeft: "50px" }}
                 disableRipple={true}
                 sx={{ pl: 4 }}
-                className={`${classes.menuSubItem} ${
+                className={`${classes.menuSubItem2} ${
                   active === "refund-validation"
                     ? classes.menuSubItemActive
                     : null

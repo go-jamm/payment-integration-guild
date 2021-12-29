@@ -21,7 +21,13 @@ const Navigation = () => {
   const classes = useStyles();
   return (
     <Router>
-      <div style={{ minHeight: "64px", background: "#262D54",marginBottom:'20px' }}>
+      <div
+        style={{
+          minHeight: "64px",
+          background: "#262D54",
+          marginBottom: "20px",
+        }}
+      >
         <Container maxWidth="xl" style={{ padding: 0 }}>
           <AppBar />
         </Container>
@@ -42,6 +48,8 @@ const Navigation = () => {
           </Switch>
         </Container>
       </div>
+      <br />
+      <br />
       <div
         style={{
           borderTop: "1px solid #E5E7E9 ",
