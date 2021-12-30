@@ -47,7 +47,6 @@ const useStyles = makeStyles({
     marginTop: "35px !important",
   },
   tableStyle: {
-    // background: "darkkhaki",
     background: "rgba(15, 188, 249,0.1)",
     "& th": {
       color: "#262D54",
@@ -56,7 +55,6 @@ const useStyles = makeStyles({
   },
 
   alertStyle: {
-    // background: "#F5B7B1",
     background: "#FADBD8",
     padding: "20px 0px 30px",
     borderRadius: "10px",
@@ -108,19 +106,13 @@ const useStyles = makeStyles({
   sectionMarginBottom: {
     marginBottom: "35px",
   },
-  copyBlockStyle:{
-    '& button':{
-      display:'none'
-    }
-  }
+  copyBlockStyle: {
+    "& button": {
+      display: "none",
+    },
+  },
 });
-const IntegrationWithWebsiteGuildDetailSide = ({
-  setActive,
-  clickedOn,
-  code,
-  language,
-  showLineNumbers,
-}) => {
+const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
   const baseUrlData = [
     {
       Environment: "Staging",
@@ -305,6 +297,17 @@ const IntegrationWithWebsiteGuildDetailSide = ({
             <ListItemText primary="Account Information etc." />
           </ListItem>
         </List>
+        <p className={classes.detailFontStyle}>
+          Clicking on <strong>Store Configuration</strong> will redirect the
+          user to the <strong>Store Configuration</strong> page where they can set up their store
+          related information like <code>store_password</code> ,{" "}
+          <code>success_url</code> , <code>cancel_url</code> ,{" "}
+          <code>fail_url</code> ,<code>ipn_url</code> .
+        </p>
+        <p className={classes.detailFontStyle}>
+          <code>store_id</code> and <code>store_url</code> fields will be
+          pre-filled and available in read-only mode.
+        </p>
       </section>
       <section className={classes.sectionMarginBottom} id="how-it-works">
         <p className={classes.title}>
@@ -1096,4 +1099,4 @@ const IntegrationWithWebsiteGuildDetailSide = ({
   );
 };
 
-export default IntegrationWithWebsiteGuildDetailSide;
+export default WebsiteGuideDetailSide;

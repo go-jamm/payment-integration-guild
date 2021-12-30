@@ -4,9 +4,12 @@ import { makeStyles } from "@mui/styles";
 import Container from "@mui/material/Container";
 import AppBar from "./AppBar";
 import Message from "./Message";
-import IntegrationWithWebsiteGuild from "./IntegrationWithWebsiteGuild";
+import IntegrationWithWebsiteGuide from "./IntegrationWithWebsiteGuide";
 import Home from "./Home";
 import Footer from "./Footer";
+import IntegrationWithIOSGuide from "./IntegrationWithIOSGuide";
+import IntegrationWithAndroidGuide from "./IntegrationWithAndroidGuide";
+import IntegrationWithQRGuide from "./IntegrationWithQRGuide";
 
 const useStyles = makeStyles((theme) => ({
   // containerStyle: {
@@ -40,9 +43,18 @@ const Navigation = () => {
             </Route>
 
             <Route exact path="/website-integration">
-              <IntegrationWithWebsiteGuild />
+              <IntegrationWithWebsiteGuide />
             </Route>
-            <Route path="/">
+            <Route exact path="/ios-integration">
+              <IntegrationWithIOSGuide />
+            </Route>
+            <Route exact path="/android-integration">
+              <IntegrationWithAndroidGuide />
+            </Route>
+            <Route exact path="/qr-integration">
+              <IntegrationWithQRGuide />
+            </Route>
+            <Route exact path="/">
               <Home />
             </Route>
           </Switch>

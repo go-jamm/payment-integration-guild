@@ -18,7 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import logo from "../assets/images/logo.png";
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -62,6 +62,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
   let history = useHistory();
+  let location = useLocation();
+  let pathName = location.pathname;
+  console.log("pathName", pathName);
+
+  if (pathName === "/website-integration") {
+  }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -345,8 +351,12 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <p style={{ fontSize: "24px", color: "#fff", margin: 0 }}>
-              Web Integration Guide
-              
+              {pathName === "/website-integration" && "Integrate With Website"}
+              {pathName === "/ios-integration" &&
+                "Integrate With Mobile App (IOS)"}
+              {pathName === "/android-integration" &&
+                "Integrate With Mobile App (Android)"}
+              {pathName === "/qr-integration" && "QR Gereration API"}
               {/* <span style={{ color: "red" }}>Guide</span> */}
             </p>
             {/* <IconButton

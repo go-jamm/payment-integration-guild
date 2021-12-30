@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
-import IntegrationWithWebsiteSideBar from "./partial/IntegrationWithWebsiteSideBar";
-import IntegrationWithWebsiteGuildDetailSide from "./partial/IntegrationWithWebsiteGuildDetailSide";
-import Footer from "./Footer";
+import AndroidGuideSideBar from "./partial/AndroidGuideSideBar";
+import AndroidGuideDetailSide from "./partial/AndroidGuideDetailSide";
+
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
@@ -18,14 +18,13 @@ const useStyles = makeStyles({
     },
   },
 });
-const IntegrationWithWebSiteGuild = () => {
+const IntegrationWithAndroidGuide = () => {
   const classes = useStyles();
-  const [active, setActive] = useState("synopsis");
+  const [active, setActive] = useState("scaffolding-provided");
   const [clickedOn, setClickedOn] = useState("");
 
   return (
     <div>
-      {/* <h1 style={{ color: "#262D54" }}>Web Integration Guide</h1> */}
       <Button
         variant="outlined"
         disableRipple={true}
@@ -39,7 +38,7 @@ const IntegrationWithWebSiteGuild = () => {
       <Grid container>
         <Grid item xs={2.5}>
           <div style={{ position: "sticky", top: 0 }}>
-            <IntegrationWithWebsiteSideBar
+            <AndroidGuideSideBar
               active={active}
               setActive={setActive}
               clickedOn={clickedOn}
@@ -48,7 +47,7 @@ const IntegrationWithWebSiteGuild = () => {
           </div>
         </Grid>
         <Grid item xs={9.5}>
-          <IntegrationWithWebsiteGuildDetailSide
+          <AndroidGuideDetailSide
             active={active}
             setActive={setActive}
             clickedOn={clickedOn}
@@ -56,11 +55,8 @@ const IntegrationWithWebSiteGuild = () => {
           />
         </Grid>
       </Grid>
-      {/* <br />
-      <br />
-      <Footer /> */}
     </div>
   );
 };
 
-export default IntegrationWithWebSiteGuild;
+export default IntegrationWithAndroidGuide;

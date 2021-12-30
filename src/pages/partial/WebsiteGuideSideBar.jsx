@@ -1,27 +1,17 @@
 import React, { useState, useEffect } from "react";
-import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
-import SendIcon from "@mui/icons-material/Send";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import CircleIcon from "@mui/icons-material/Circle";
-
-import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import SquareIcon from "@mui/icons-material/Square";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   menuItem: {
     color: "#212F3D",
     padding: "2px 16px !important",
-    
+
     "& span": {
       fontSize: "16px",
     },
@@ -69,10 +59,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function IntegrationWithWebsiteSideBar({
-  active,
-  setActive,
-  clickedOn,
+export default function WebsiteGuildSideBar({
+  active, 
   setClickedOn,
 }) {
   const classes = useStyles();
@@ -87,14 +75,7 @@ export default function IntegrationWithWebsiteSideBar({
 
   return (
     <List
-    //   sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-    //   component="nav"
-    //   aria-labelledby="nested-list-subheader"
-    //   subheader={
-    //     <ListSubheader component="div" id="nested-list-subheader">
-    //       Nested List Items
-    //     </ListSubheader>
-    //   }
+     
     >
       <ListItemButton
         disableRipple={true}

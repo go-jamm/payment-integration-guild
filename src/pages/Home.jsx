@@ -86,30 +86,38 @@ const Home = () => {
               </Link>
             </Grid>
             <Grid item xs={6}>
-              <div className={classes.card}>
-                <p className={classes.title}>Integrate With Mobile App (IOS)</p>
-                <p className={classes.cardDetailFontStyle}>
-                  Easiest payment gateway to integrate with 24x7 support
-                </p>
-              </div>
+              <Link to="/ios-integration" className={classes.linkStyle}>
+                <div className={classes.card}>
+                  <p className={classes.title}>
+                    Integrate With Mobile App (IOS)
+                  </p>
+                  <p className={classes.cardDetailFontStyle}>
+                    Easiest payment gateway to integrate with 24x7 support
+                  </p>
+                </div>
+              </Link>
             </Grid>
             <Grid item xs={6}>
-              <div className={classes.card}>
-                <p className={classes.title}>
-                  Integrate With Mobile App (Android)
-                </p>
-                <p className={classes.cardDetailFontStyle}>
-                  Easiest payment gateway to integrate with 24x7 support
-                </p>
-              </div>
+              <Link to="/android-integration" className={classes.linkStyle}>
+                <div className={classes.card}>
+                  <p className={classes.title}>
+                    Integrate With Mobile App (Android)
+                  </p>
+                  <p className={classes.cardDetailFontStyle}>
+                    Easiest payment gateway to integrate with 24x7 support
+                  </p>
+                </div>
+              </Link>
             </Grid>
             <Grid item xs={6}>
-              <div className={classes.card}>
-                <p className={classes.title}>QR Gereration API</p>
-                <p className={classes.cardDetailFontStyle}>
-                  Easiest payment gateway to integrate with 24x7 support
-                </p>
-              </div>
+              <Link to="/qr-integration" className={classes.linkStyle}>
+                <div className={classes.card}>
+                  <p className={classes.title}>QR Gereration API</p>
+                  <p className={classes.cardDetailFontStyle}>
+                    Easiest payment gateway to integrate with 24x7 support
+                  </p>
+                </div>
+              </Link>
             </Grid>
           </Grid>
         </div>
