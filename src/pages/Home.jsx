@@ -77,45 +77,81 @@ const Home = () => {
             <Grid item xs={6}>
               <Link to="/website-integration" className={classes.linkStyle}>
                 <div className={classes.card}>
-                  <p className={classes.title}>Integrate With Website</p>
-                  <p className={classes.cardDetailFontStyle}>
-                    No Delays or closing times. Receive Payments around the
-                    clock from the comfort of your mobile
-                  </p>
+                  <Grid container alignItems="center">
+                    <Grid item xs={9}>
+                      <p className={classes.title}>Integrate With Website</p>
+                      <p className={classes.cardDetailFontStyle}>
+                        No Delays or closing times. Receive Payments around the
+                        clock from the comfort of your mobile
+                      </p>
+                    </Grid>
+                    <Grid item xs={3} style={{ textAlign: "right" }}>
+                      <LaptopMacIcon
+                        style={{ fontSize: "80px", color: "#E5E7E9 " }}
+                      />
+                    </Grid>
+                  </Grid>
                 </div>
               </Link>
             </Grid>
             <Grid item xs={6}>
               <Link to="/ios-integration" className={classes.linkStyle}>
                 <div className={classes.card}>
-                  <p className={classes.title}>
-                    Integrate With Mobile App (IOS)
-                  </p>
-                  <p className={classes.cardDetailFontStyle}>
-                    Easiest payment gateway to integrate with 24x7 support
-                  </p>
+                  <Grid container alignItems="center">
+                    <Grid item xs={9}>
+                      <p className={classes.title}>
+                        Integrate With Mobile App (IOS)
+                      </p>
+                      <p className={classes.cardDetailFontStyle}>
+                        Easiest payment gateway to integrate with 24x7 support
+                      </p>
+                    </Grid>
+                    <Grid item xs={3} style={{ textAlign: "right" }}>
+                      <AppleIcon
+                        style={{ fontSize: "80px", color: "#E5E7E9 " }}
+                      />
+                    </Grid>
+                  </Grid>
                 </div>
               </Link>
             </Grid>
             <Grid item xs={6}>
               <Link to="/android-integration" className={classes.linkStyle}>
                 <div className={classes.card}>
-                  <p className={classes.title}>
-                    Integrate With Mobile App (Android)
-                  </p>
-                  <p className={classes.cardDetailFontStyle}>
-                    Easiest payment gateway to integrate with 24x7 support
-                  </p>
+                  <Grid container alignItems="center">
+                    <Grid item xs={9}>
+                      <p className={classes.title}>
+                        Integrate With Mobile App (Android)
+                      </p>
+                      <p className={classes.cardDetailFontStyle}>
+                        Easiest payment gateway to integrate with 24x7 support
+                      </p>
+                    </Grid>
+                    <Grid item xs={3} style={{ textAlign: "right" }}>
+                      <AndroidIcon
+                        style={{ fontSize: "80px", color: "#E5E7E9 " }}
+                      />
+                    </Grid>
+                  </Grid>
                 </div>
               </Link>
             </Grid>
             <Grid item xs={6}>
               <Link to="/qr-integration" className={classes.linkStyle}>
                 <div className={classes.card}>
-                  <p className={classes.title}>QR Gereration API</p>
-                  <p className={classes.cardDetailFontStyle}>
-                    Easiest payment gateway to integrate with 24x7 support
-                  </p>
+                  <Grid container alignItems="center">
+                    <Grid item xs={9}>
+                      <p className={classes.title}>QR Gereration API</p>
+                      <p className={classes.cardDetailFontStyle}>
+                        Easiest payment gateway to integrate with 24x7 support
+                      </p>
+                    </Grid>
+                    <Grid item xs={3} style={{ textAlign: "right" }}>
+                      <QrCode2Icon
+                        style={{ fontSize: "80px", color: "#E5E7E9 " }}
+                      />
+                    </Grid>
+                  </Grid>
                 </div>
               </Link>
             </Grid>
