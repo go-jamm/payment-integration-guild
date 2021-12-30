@@ -88,63 +88,30 @@ export default function IOSGuideSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "steps" ? classes.menuItemActive : null
+          active === "get-started" ? classes.menuItemActive : null
         }`}
-        onClick={() => fnActive("steps")}
+        onClick={() => fnActive("get-started")}
       >
-        <ListItemText primary="Steps" />
+        <ListItemText primary="Get Started" />
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.menuSubItem} ${
-              active === "step-1"
-                ? classes.menuSubItemActive
-                : null
-            }`}
-            onClick={() => fnActive("step-1")}
-          >
-            <ListItemIcon>
-              <ArrowForwardIosIcon />
-            </ListItemIcon>
-            <ListItemText primary="Step-1" />
-          </ListItemButton>
-          <ListItemButton
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.menuSubItem} ${
-              active === "step-2"
-                ? classes.menuSubItemActive
-                : null
-            }`}
-            onClick={() => fnActive("step-2")}
-          >
-            <ListItemIcon>
-              <ArrowForwardIosIcon />
-            </ListItemIcon>
-            <ListItemText primary="Step-2" />
-          </ListItemButton>
-          <ListItemButton
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.menuSubItem} ${
-              active === "step-3"
-                ? classes.menuSubItemActive
-                : null
-            }`}
-            onClick={() => fnActive("step-3")}
-          >
-            <ListItemIcon>
-              <ArrowForwardIosIcon />
-            </ListItemIcon>
-            <ListItemText primary="Step-3 (Implementation)" />
-          </ListItemButton>
-         
-         
-        </List>
-      </Collapse>
+      <ListItemButton
+        disableRipple={true}
+        className={`${classes.menuItem} ${
+          active === "implementation" ? classes.menuItemActive : null
+        }`}
+        onClick={() => fnActive("implementation")}
+      >
+        <ListItemText primary="Implementation" />
+      </ListItemButton>
+      <ListItemButton
+        disableRipple={true}
+        className={`${classes.menuItem} ${
+          active === "sample-test-code" ? classes.menuItemActive : null
+        }`}
+        onClick={() => fnActive("sample-test-code")}
+      >
+        <ListItemText primary="Sample Test Code" />
+      </ListItemButton>
     </List>
   );
 }

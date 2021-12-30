@@ -88,30 +88,55 @@ export default function AndroidGuideSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "get-started" ? classes.menuItemActive : null
+          active === "steps" ? classes.menuItemActive : null
         }`}
-        onClick={() => fnActive("get-started")}
+        onClick={() => fnActive("steps")}
       >
-        <ListItemText primary="Get Started" />
+        <ListItemText primary="Steps" />
       </ListItemButton>
-      <ListItemButton
-        disableRipple={true}
-        className={`${classes.menuItem} ${
-          active === "implementation" ? classes.menuItemActive : null
-        }`}
-        onClick={() => fnActive("implementation")}
-      >
-        <ListItemText primary="Implementation" />
-      </ListItemButton>
-      <ListItemButton
-        disableRipple={true}
-        className={`${classes.menuItem} ${
-          active === "sample-test-code" ? classes.menuItemActive : null
-        }`}
-        onClick={() => fnActive("sample-test-code")}
-      >
-        <ListItemText primary="Sample Test Code" />
-      </ListItemButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              active === "step-1" ? classes.menuSubItemActive : null
+            }`}
+            onClick={() => fnActive("step-1")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Step-1" />
+          </ListItemButton>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              active === "step-2" ? classes.menuSubItemActive : null
+            }`}
+            onClick={() => fnActive("step-2")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Step-2" />
+          </ListItemButton>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              active === "step-3" ? classes.menuSubItemActive : null
+            }`}
+            onClick={() => fnActive("step-3")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Step-3 (Implementation)" />
+          </ListItemButton>
+        </List>
+      </Collapse>
     </List>
   );
 }

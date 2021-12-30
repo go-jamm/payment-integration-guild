@@ -113,52 +113,42 @@ const useStyles = makeStyles({
   },
 });
 const IOSGuideDetailSide = ({ setActive, clickedOn }) => {
-  const android = `android{
-    ...
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+  const sampleTestCodeData = `class ViewController: UIViewController, FastPayDelegate {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+
+    @IBAction func showAction(_ sender: UIButton){
+        callSDK()
+    }
+    
+    func callSDK(){
+        let testObj = Fastpay(storeId: "1953_693", storePassword: "Password100@", orderId: "order240", amount: 500, currency: .IQD)
+        testObj.delegate = self
+        testObj.start(in: self, for: .Sandbox)
+    }
+    
+    func fastpayTransactionSucceeded(with transaction: FPTransaction) {
+
+        if let transactionId = transaction.transactionId, let orderID = transaction.orderId, let billAmount = transaction.amount, let currency = transaction.currency, let customerMobileNo = transaction.customerMobileNo, let name = transaction.customerName, let status = transaction.status, let transactionTime = transaction.transactionTime{
+            print("Transaction ID : \(transactionId)")
+            print("Order ID : \(orderID)")
+            print("Amount : \(orderID)")
+            print("Bill Amount : \(billAmount)")
+            print("Currency : \(currency)")
+            print("Mobile Number : \(customerMobileNo)")
+            print("Name : \(name)")
+            print("Status : \(status)")
+            print("Transaction Time : \(transactionTime)")
+        }
+    }
+    
+    func fastpayTransactionFailed(with orderId: String) {
+        print("Failed Order ID: \(orderId)")
     }
 }`;
-
-  const dependencies = `dependencies {
-  implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
-  implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
-}`;
-
-  const FastPaySDK = `FastpayRequest request = new FastpayRequest(this, "1111_1111", "password1234",amount, orderId, FastpaySDK.SANDBOX);
-startActivityForResult(request.getIntent(), FASTPAY_REQUEST_CODE);`;
-
-  const allprojects = `allprojects {
-  repositories {
-      google()
-      mavenCentral()
-  }
-}`;
-
-  const importData = `import com.fastpay.payment.model.merchant.FastpayRequest;
-import com.fastpay.payment.model.merchant.FastpayResult;`;
-
-  const overrideData = `@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-   super.onActivityResult(requestCode, resultCode, data);
-
-   if (requestCode == FASTPAY_REQUEST_CODE) {
-       switch (resultCode) {
-           case Activity.RESULT_OK:
-               if (data != null && data.hasExtra(FastpayResult.EXTRA_PAYMENT_RESULT)) {
-                   FastpayResult result = data.getParcelableExtra(FastpayResult.EXTRA_PAYMENT_RESULT);
-                   Log.d("payment_result", result.getTransactionId());
-               }
-               break;
-           case Activity.RESULT_CANCELED:
-               if (data != null && data.hasExtra(FastpayRequest.EXTRA_PAYMENT_MESSAGE)) {
-                   String message = data.getStringExtra(FastpayRequest.EXTRA_PAYMENT_MESSAGE);
-                   Log.d("payment_result", "Canceled : " + message);
-               }
-               break;
-       }
-   }`;
 
   const classes = useStyles();
   const [activeUseEffect, setActiveUseEffect] = useState(false);
@@ -214,7 +204,8 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         <p className={classes.title}>Scaffolding Provided</p>
         <hr />
         <p className={classes.detailFontStyle}>
-          This repository provides the following components:
+          This repository provides the following components that are common to
+          our open source projects:
         </p>
         <List component="div" disablePadding className={classes.listStyle}>
           <ListItem
@@ -225,7 +216,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             <ListItemIcon>
               <CircleIcon />
             </ListItemIcon>
-            <ListItemText primary="FastpaySDK.aar" />
+            <ListItemText primary="FastpayMerchantSDK.framework.zip" />
           </ListItem>
           <ListItem
             disableRipple={true}
@@ -235,163 +226,94 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             <ListItemIcon>
               <CircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Usermanual.pdf (Documentation)" />
+            <ListItemText primary="FastPaySDKDocumentation.pdf" />
           </ListItem>
         </List>
       </section>
-      <section className={classes.sectionMarginBottom} id="steps">
-        <p className={classes.title}>Steps</p>
+      <section className={classes.sectionMarginBottom} id="get-started">
+        <p className={classes.title}>Get Started</p>
         <hr />
         <p className={classes.detailFontStyle}>
-          Please follow the below steps to integrate the payment SDK to an
-          applications.
+          Drag and drop the framework file in your project. Check ‘Copy items if
+          needed’ and select your target.
         </p>
-      </section>
-      <section className={classes.sectionMarginBottom} id="step-1">
-        <p className={classes.subTitle}>Step-1</p>
         <p className={classes.detailFontStyle}>
-          Users need to add below dependency to their application module
-          build.gradle file :
+          After successfully adding the framework file in your project, select
+          project file from Xcode’s Project Navigator and follow the selections
+          below:
         </p>
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={android}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-        <br />
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={dependencies}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-      </section>
-      <section className={classes.sectionMarginBottom} id="step-2">
-        <p className={classes.subTitle}>Step-2</p>
         <p className={classes.detailFontStyle}>
-          Users need to add below dependency to their project module
-          build.gradle file :
+          Target → General → Framework, Libraries and Embedded Content and then
+          select ​Embed & Sign​ for the added framework as shown below
         </p>
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={allprojects}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
       </section>
-      <section className={classes.sectionMarginBottom} id="step-3">
-        <p className={classes.subTitle}>Step-3 (Implementation)</p>
-        <p className={classes.tableTitle}>Import FastPaySDK in your class</p>
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={importData}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-        <p className={classes.tableTitle}>Initiate FastPaySDK</p>
-        <List component="div" disablePadding className={classes.listStyle}>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.ItemStyle} `}
-          >
-            <ListItemIcon>
-              <CircleIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <strong>Store ID:</strong> Merchant’s Store Id to initiate
-              transaction
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.ItemStyle} `}
-          >
-            <ListItemIcon>
-              <CircleIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <strong>Store Password:</strong> Merchant’s Store password to
-              initiate transaction
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.ItemStyle} `}
-          >
-            <ListItemIcon>
-              <CircleIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <strong>Order ID/ Bill No:</strong> Order ID/Bill number for the
-              transaction, this value should be unique in every transaction
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.ItemStyle} `}
-          >
-            <ListItemIcon>
-              <CircleIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <strong>Amount:</strong> Payable amount in the transaction ex:
-              “1000”
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.ItemStyle} `}
-          >
-            <ListItemIcon>
-              <CircleIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <strong>Currency:</strong> Payment currency in the transaction
-              (Default: IQD)
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.ItemStyle} `}
-          >
-            <ListItemIcon>
-              <CircleIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <strong>Environment:</strong> Payment Environment to initiate
-              transaction (SANDBOX for test & PRODUCTION for real life
-              transaction)
-            </ListItemText>
-          </ListItem>
-        </List>
-        <br />
+      <section className={classes.sectionMarginBottom} id="implementation">
+        <p className={classes.title}>Implementation</p>
+        <hr />
+        <p className={classes.detailFontStyle}>
+          Import FastpayMerchantSDK in your class
+        </p>
         <div className={classes.sectionMarginBottom}>
           <CopyBlock
             language={"jsx"}
-            text={FastPaySDK}
+            text={`import FastpayMerchantSDK`}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+        <p className={classes.detailFontStyle}>
+          Make your class conform to FastPayDelegate delegate
+        </p>
+        <div className={classes.sectionMarginBottom}>
+          <CopyBlock
+            language={"jsx"}
+            text={`class ViewController: UIViewController, FastPayDelegate {`}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+        <p className={classes.detailFontStyle}>
+          Initialize the instance of FastPay
+        </p>
+        <div className={classes.sectionMarginBottom}>
+          <CopyBlock
+            language={"jsx"}
+            text={`let testObj = Fastpay(storeId: "*****", storePassword: "****", orderId: "*****", amount: 500, currency: .IQD)`}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+        <p className={classes.detailFontStyle}>
+          Set your class as delegate for FastPayDelegate
+        </p>
+        <div className={classes.sectionMarginBottom}>
+          <CopyBlock
+            language={"jsx"}
+            text={`testObj.delegate = self`}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+        <p className={classes.detailFontStyle}>
+          Parameters to pass when initiating
+        </p>
+        <div className={classes.sectionMarginBottom}>
+          <CopyBlock
+            language={"jsx"}
+            text={`start(in: ….)  → your view controller class that you want the SDK to present on
+            storeId → Merchant’s provided store ID.
+            storePassword → Merchant’s provided store password.
+            orderId → Merchant’s provided order ID.
+            amount → Payable amount in the transaction.
+            currency → In which currency order will  perform.`}
             showLineNumbers={true}
             theme={dracula}
             wrapLines={true}
@@ -399,128 +321,60 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
           />
         </div>
         <div className={classes.sectionMarginBottom}>
-          <p className={classes.detailFontStyle}>
-            Receive Payment result Implement onActivityResult() overridden
-            method to get transaction success & failure result using result
-            code. Transaction success result can be receive from FastpayResult
-            parcelable model using FastpayResult.EXTRA_PAYMENT_RESULT key and
-            failure message can be receive as string using
-            FastpayRequest.EXTRA_PAYMENT_MESSAGE key.
-          </p>
-          <p className={classes.tableTitle}>Payment Success Data definition</p>
-          <List component="div" disablePadding className={classes.listStyle}>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.ItemStyle} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <strong>Transaction Status:</strong> Payment status weather it
-                is success / failed.
-              </ListItemText>
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.ItemStyle} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <strong>Transaction ID:</strong> If payment is successful then a
-                transaction id will be available.
-              </ListItemText>
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.ItemStyle} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <strong>Order ID:</strong> Unique Order ID/Bill number for the
-                transaction which was passed at initiation time.
-              </ListItemText>
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.ItemStyle} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <strong>Payment Amount:</strong> Payment amount for the
-                transaction. “1000”
-              </ListItemText>
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.ItemStyle} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <strong>Payment Currency:</strong> Payment currency for the
-                transaction. (Default: IQD)
-              </ListItemText>
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.ItemStyle} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <strong>Payee Name:</strong> Payee name for a successful
-                transaction.
-              </ListItemText>
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.ItemStyle} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <strong>Payee Mobile Number:</strong> Payee name for a
-                successful transaction.
-              </ListItemText>
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.ItemStyle} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText>
-                <strong>Payment Time:</strong> Payment occurrence time as the
-                timestamp.
-              </ListItemText>
-            </ListItem>
-          </List>
-        </div>
-        <div
-          className={`${classes.sectionMarginBottom} ${classes.copyBlockStyle}`}
-        >
           <CopyBlock
             language={"jsx"}
-            text={overrideData}
+            text={`Fastpay(storeId: "*****", storePassword: "****", orderId: "*****", amount: 500, currency: .IQD)`}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+
+        <p className={classes.detailFontStyle}>
+          Implement FastPaySDK delegate method to get transaction result
+        </p>
+        <p className={classes.detailFontStyle}>For Success Case</p>
+        <div className={classes.sectionMarginBottom}>
+          <CopyBlock
+            language={"jsx"}
+            text={`func fastpayTransactionSucceeded(with transaction: FPTransaction) {}`}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+        <p className={classes.detailFontStyle}>
+          You will get the following data from transaction object in the
+          delegate function
+        </p>
+        <div className={classes.sectionMarginBottom}>
+          <CopyBlock
+            language={"jsx"}
+            text={`transactionId: String? 
+orderId: String? 
+amount: Int? 
+currency: FPCurrency? 
+customerMobileNo: String? 
+customerName: String? 
+status: String? 
+transactionTime: String?`}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+      </section>
+      <section className={classes.sectionMarginBottom} id="sample-test-code">
+        <p className={classes.title}>Sample Test Code</p>
+        <hr className={classes.sectionMarginBottom} />
+
+        <div className={classes.copyBlockStyle}>
+          <CopyBlock
+            language={"jsx"}
+            text={sampleTestCodeData}
             showLineNumbers={true}
             theme={dracula}
             wrapLines={true}
