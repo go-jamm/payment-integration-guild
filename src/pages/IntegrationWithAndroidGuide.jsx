@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   buttonStyle: {
     border: "none !important",
     color: "#A6ACAF !important",
@@ -17,7 +17,12 @@ const useStyles = makeStyles({
       background: "none",
     },
   },
-});
+  hide: {
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+  },
+}));
 const IntegrationWithAndroidGuide = () => {
   const classes = useStyles();
   const [active, setActive] = useState("scaffolding-provided");
@@ -36,23 +41,13 @@ const IntegrationWithAndroidGuide = () => {
         Back To Home
       </Button>
       <Grid container>
-        <Grid item xs={2.5}>
+        <Grid className={classes.hide} item sm={3} md={2.5} lg={2.5}>
           <div style={{ position: "sticky", top: 0 }}>
-            <AndroidGuideSideBar
-              active={active}
-              setActive={setActive}
-              clickedOn={clickedOn}
-              setClickedOn={setClickedOn}
-            />
+            <AndroidGuideSideBar />
           </div>
         </Grid>
-        <Grid item xs={9.5}>
-          <AndroidGuideDetailSide
-            active={active}
-            setActive={setActive}
-            clickedOn={clickedOn}
-            setClickedOn={setClickedOn}
-          />
+        <Grid item xs={12} sm={12} md={9.5} lg={9.5}>
+          <AndroidGuideDetailSide />
         </Grid>
       </Grid>
     </div>

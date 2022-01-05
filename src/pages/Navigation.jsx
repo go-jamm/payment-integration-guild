@@ -6,6 +6,7 @@ import AppBar from "./AppBar";
 import Message from "./Message";
 import IntegrationWithWebsiteGuide from "./IntegrationWithWebsiteGuide";
 import Home from "./Home";
+import NotFound from "./NotFound";
 import Footer from "./Footer";
 import IntegrationWithIOSGuide from "./IntegrationWithIOSGuide";
 import IntegrationWithAndroidGuide from "./IntegrationWithAndroidGuide";
@@ -26,7 +27,7 @@ const Navigation = () => {
     <Router>
       <div
         style={{
-          minHeight: "64px",
+          // minHeight: "64px",
           background: "#262D54",
           marginBottom: "20px",
         }}
@@ -57,6 +58,9 @@ const Navigation = () => {
             <Route exact path="/">
               <Home />
             </Route>
+            <Route>
+          <NotFound />
+        </Route>
           </Switch>
         </Container>
       </div>

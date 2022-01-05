@@ -13,8 +13,14 @@ code {
     monospace;
   font-size: 14px;
 }
-code2 {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-  font-size: 11px;
+
+@media only screen and (max-width: 900px) {
+  code {
+    font-size: 10px;
+  }
 }
+/* @media only screen and (max-width: 600px) {
+  code {
+    font-size: 10px;
+  }
+} */

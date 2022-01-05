@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -6,18 +6,25 @@ import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { makeStyles } from "@mui/styles";
+import { useLocation } from "react-router-dom";
+import { MenuContext } from "../../context/MenuContext";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   menuItem: {
     color: "#212F3D",
     padding: "2px 16px !important",
 
     "& span": {
       fontSize: "16px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "14px",
+      },
+      [theme.breakpoints.down("md")]: {
+        fontSize: "12px",
+      },
     },
   },
   menuItemActive: {
-    // color: "#FC2861",
     color: "rgba(15, 188, 249,1.0) !important",
   },
   menuSubItem: {
@@ -26,6 +33,12 @@ const useStyles = makeStyles({
     padding: "2px 32px !important",
     "& span": {
       fontSize: "14px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "12px",
+      },
+      [theme.breakpoints.down("md")]: {
+        fontSize: "10px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -33,6 +46,9 @@ const useStyles = makeStyles({
     ["& .MuiSvgIcon-root"]: {
       color: "#4D5656",
       fontSize: "12px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "10px",
+      },
     },
   },
   menuSubItem2: {
@@ -41,6 +57,12 @@ const useStyles = makeStyles({
     padding: "2px 32px 2px 50px !important",
     "& span": {
       fontSize: "14px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "12px",
+      },
+      [theme.breakpoints.down("md")]: {
+        fontSize: "10px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -48,6 +70,9 @@ const useStyles = makeStyles({
     ["& .MuiSvgIcon-root"]: {
       color: "#4D5656",
       fontSize: "12px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "10px",
+      },
     },
   },
   menuSubItemActive: {
@@ -57,30 +82,27 @@ const useStyles = makeStyles({
       color: "rgba(15, 188, 249,1.0) !important",
     },
   },
-});
+}));
 
-export default function WebsiteGuildSideBar({
-  active, 
-  setClickedOn,
-}) {
+export default function WebsiteGuildSideBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-
+  const { addList } = useContext(MenuContext);
+  const search = useLocation().search;
+  const topic = new URLSearchParams(search).get("topic");
   const fnActive = (id) => {
-    setClickedOn(id);
+    addList({ goTo: id });
   };
   const handleClick = () => {
     setOpen(!open);
   };
 
   return (
-    <List
-     
-    >
+    <List>
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "synopsis" ? classes.menuItemActive : null
+          topic === "synopsis" || topic === null ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("synopsis")}
       >
@@ -89,7 +111,7 @@ export default function WebsiteGuildSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "how-it-works" ? classes.menuItemActive : null
+          topic === "how-it-works" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("how-it-works")}
       >
@@ -101,7 +123,7 @@ export default function WebsiteGuildSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "initiation-of-transaction"
+              topic === "initiation-of-transaction"
                 ? classes.menuSubItemActive
                 : null
             }`}
@@ -116,7 +138,7 @@ export default function WebsiteGuildSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "handling-payment-notification"
+              topic === "handling-payment-notification"
                 ? classes.menuSubItemActive
                 : null
             }`}
@@ -131,7 +153,7 @@ export default function WebsiteGuildSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "service-confirmation"
+              topic === "service-confirmation"
                 ? classes.menuSubItemActive
                 : null
             }`}
@@ -147,7 +169,7 @@ export default function WebsiteGuildSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "integration-steps" ? classes.menuItemActive : null
+          topic === "integration-steps" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("integration-steps")}
       >
@@ -160,7 +182,7 @@ export default function WebsiteGuildSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "initiate-payment-sub"
+              topic === "initiate-payment-sub"
                 ? classes.menuSubItemActive
                 : null
             }`}
@@ -175,7 +197,7 @@ export default function WebsiteGuildSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "validate-payment-sub"
+              topic === "validate-payment-sub"
                 ? classes.menuSubItemActive
                 : null
             }`}
@@ -190,7 +212,7 @@ export default function WebsiteGuildSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "update-your-transaction"
+              topic === "update-your-transaction"
                 ? classes.menuSubItemActive
                 : null
             }`}
@@ -205,7 +227,7 @@ export default function WebsiteGuildSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "enable-most-advanced-IPN"
+              topic === "enable-most-advanced-IPN"
                 ? classes.menuSubItemActive
                 : null
             }`}
@@ -221,7 +243,7 @@ export default function WebsiteGuildSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "base-url" ? classes.menuItemActive : null
+          topic === "base-url" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("base-url")}
       >
@@ -230,7 +252,7 @@ export default function WebsiteGuildSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "apis" ? classes.menuItemActive : null
+          topic === "apis" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("apis")}
       >
@@ -242,7 +264,7 @@ export default function WebsiteGuildSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "initiate-payment-api"
+              topic === "initiate-payment-api"
                 ? classes.menuSubItemActive
                 : null
             }`}
@@ -257,7 +279,7 @@ export default function WebsiteGuildSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "validate-payment-api"
+              topic === "validate-payment-api"
                 ? classes.menuSubItemActive
                 : null
             }`}
@@ -274,7 +296,7 @@ export default function WebsiteGuildSideBar({
                 disableRipple={true}
                 sx={{ pl: 4 }}
                 className={`${classes.menuSubItem2} ${
-                  active === "grab-the-notification"
+                  topic === "grab-the-notification"
                     ? classes.menuSubItemActive
                     : null
                 }`}
@@ -289,7 +311,7 @@ export default function WebsiteGuildSideBar({
                 disableRipple={true}
                 sx={{ pl: 4 }}
                 className={`${classes.menuSubItem2} ${
-                  active === "validating-a-payment"
+                  topic === "validating-a-payment"
                     ? classes.menuSubItemActive
                     : null
                 }`}
@@ -304,7 +326,7 @@ export default function WebsiteGuildSideBar({
                 disableRipple={true}
                 sx={{ pl: 4 }}
                 className={`${classes.menuSubItem2} ${
-                  active === "refund-a-payment"
+                  topic === "refund-a-payment"
                     ? classes.menuSubItemActive
                     : null
                 }`}
@@ -319,7 +341,7 @@ export default function WebsiteGuildSideBar({
                 disableRipple={true}
                 sx={{ pl: 4 }}
                 className={`${classes.menuSubItem2} ${
-                  active === "refund-validation"
+                  topic === "refund-validation"
                     ? classes.menuSubItemActive
                     : null
                 }`}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -6,14 +6,19 @@ import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { makeStyles } from "@mui/styles";
+import { useLocation } from "react-router-dom";
+import { MenuContext } from "../../context/MenuContext";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   menuItem: {
     color: "#212F3D",
     padding: "2px 16px !important",
 
     "& span": {
       fontSize: "16px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "14px",
+      },
     },
   },
   menuItemActive: {
@@ -26,6 +31,9 @@ const useStyles = makeStyles({
     padding: "2px 32px !important",
     "& span": {
       fontSize: "14px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "12px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -41,6 +49,9 @@ const useStyles = makeStyles({
     padding: "2px 32px 2px 50px !important",
     "& span": {
       fontSize: "14px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "12px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -57,18 +68,16 @@ const useStyles = makeStyles({
       color: "rgba(15, 188, 249,1.0) !important",
     },
   },
-});
+}));
 
-export default function IOSGuideSideBar({
-  active,
-
-  setClickedOn,
-}) {
+export default function IOSGuideSideBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-
+  const { addList } = useContext(MenuContext); 
+  const search = useLocation().search;
+  const topic = new URLSearchParams(search).get("topic");
   const fnActive = (id) => {
-    setClickedOn(id);
+    addList({ goTo: id });
   };
   const handleClick = () => {
     setOpen(!open);
@@ -79,7 +88,9 @@ export default function IOSGuideSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "scaffolding-provided" ? classes.menuItemActive : null
+          topic === "scaffolding-provided" || topic === null
+            ? classes.menuItemActive
+            : null
         }`}
         onClick={() => fnActive("scaffolding-provided")}
       >
@@ -88,7 +99,7 @@ export default function IOSGuideSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "get-started" ? classes.menuItemActive : null
+          topic === "get-started" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("get-started")}
       >
@@ -97,7 +108,7 @@ export default function IOSGuideSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "implementation" ? classes.menuItemActive : null
+          topic === "implementation" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("implementation")}
       >
@@ -106,7 +117,7 @@ export default function IOSGuideSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "sample-test-code" ? classes.menuItemActive : null
+          topic === "sample-test-code" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("sample-test-code")}
       >

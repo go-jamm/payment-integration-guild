@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@mui/styles";
-import steps from "../../assets/images/steps.jpg";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CircleIcon from "@mui/icons-material/Circle";
+import { MenuContext } from "../../context/MenuContext";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
 
@@ -112,7 +106,8 @@ const useStyles = makeStyles({
     },
   },
 });
-const IOSGuideDetailSide = ({ setActive, clickedOn }) => {
+
+const IOSGuideDetailSide = () => {
   const sampleTestCodeData = `class ViewController: UIViewController, FastPayDelegate {
     
     override func viewDidLoad() {
@@ -149,49 +144,57 @@ const IOSGuideDetailSide = ({ setActive, clickedOn }) => {
         print("Failed Order ID: \(orderId)")
     }
 }`;
-
   const classes = useStyles();
+  const { fastPayMenuList, addList } = useContext(MenuContext);
+  let history = useHistory();
+  const search = useLocation().search;
+  const topic = new URLSearchParams(search).get("topic");
+
   const [activeUseEffect, setActiveUseEffect] = useState(false);
 
   useEffect(() => {
     if (activeUseEffect === true) {
-      const yOffset = -10;
-      const element = document.getElementById(clickedOn);
+      if (fastPayMenuList.goTo !== null) {
+        const yOffset = -10;
 
-      element.scrollTo({ top: 0, behavior: "smooth" });
-      const y =
-        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        const element = document.getElementById(fastPayMenuList.goTo);
 
-      window.scrollTo({ top: y, behavior: "smooth" });
-      if (clickedOn === "Contact") {
-        setTimeout(() => {
-          setActive(clickedOn);
-        }, 1500);
+        element.scrollTo({ top: 0, behavior: "smooth" });
+        const y =
+          element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+        window.scrollTo({ top: y, behavior: "smooth" });
       }
     }
     setActiveUseEffect(true);
-  }, [clickedOn]);
+  }, [fastPayMenuList.goTo]);
   useEffect(() => {
     const sections = document.querySelectorAll("section");
+
     document.addEventListener("scroll", () => {
       const scrollCheck = window.scrollY;
-      // console.log("scrollCheck", scrollCheck);
       let sectionId;
       sections.forEach((section) => {
         const sectionTop = section.offsetTop - 70;
-        // console.log("sectionTop", sectionTop, sectionTop-50);
-        // const sectionHeight = section.clientHeight;
-        // console.log("sectionHeight", sectionHeight);
 
-        if (scrollCheck >= sectionTop) {
+        const sectionHeight = section.clientHeight;
+        const sectionBottom = sectionTop + sectionHeight;
+
+        if (scrollCheck >= sectionTop && scrollCheck <= sectionBottom) {
           sectionId = section.getAttribute("id");
-          setActive(sectionId);
-          // console.log("sectionId", sectionId);
+
+          history.push({
+            search: `?topic=${sectionId}`,
+          });
         }
       });
     });
 
-    // console.log("body", window.screen.availHeight);
+    if (topic !== "scaffolding-provided") {
+      if (topic !== null) {
+        addList({ goTo: topic });
+      }
+    }
   }, []);
 
   return (

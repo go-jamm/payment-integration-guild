@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -6,14 +6,19 @@ import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { makeStyles } from "@mui/styles";
+import { useLocation } from "react-router-dom";
+import { MenuContext } from "../../context/MenuContext";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   menuItem: {
     color: "#212F3D",
     padding: "2px 16px !important",
 
     "& span": {
       fontSize: "16px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "14px",
+      },
     },
   },
   menuItemActive: {
@@ -26,6 +31,9 @@ const useStyles = makeStyles({
     padding: "2px 32px !important",
     "& span": {
       fontSize: "14px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "12px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -41,6 +49,9 @@ const useStyles = makeStyles({
     padding: "2px 32px 2px 50px !important",
     "& span": {
       fontSize: "14px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "12px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -57,14 +68,16 @@ const useStyles = makeStyles({
       color: "rgba(15, 188, 249,1.0) !important",
     },
   },
-});
+}));
 
-export default function QRGuideSideBar({ active, setClickedOn }) {
+export default function QRGuideSideBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-
+  const { addList } = useContext(MenuContext);
+  const search = useLocation().search;
+  const topic = new URLSearchParams(search).get("topic");
   const fnActive = (id) => {
-    setClickedOn(id);
+    addList({ goTo: id });
   };
   const handleClick = () => {
     setOpen(!open);
@@ -75,7 +88,7 @@ export default function QRGuideSideBar({ active, setClickedOn }) {
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "synopsis" ? classes.menuItemActive : null
+          topic === "synopsis" || topic === null ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("synopsis")}
       >
@@ -84,7 +97,7 @@ export default function QRGuideSideBar({ active, setClickedOn }) {
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "apis" ? classes.menuItemActive : null
+          topic === "apis" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("apis")}
       >
@@ -96,7 +109,7 @@ export default function QRGuideSideBar({ active, setClickedOn }) {
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "qr-generation-api" ? classes.menuSubItemActive : null
+              topic === "qr-generation-api" ? classes.menuSubItemActive : null
             }`}
             onClick={() => fnActive("qr-generation-api")}
           >
@@ -109,9 +122,7 @@ export default function QRGuideSideBar({ active, setClickedOn }) {
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "payment-payment-api"
-                ? classes.menuSubItemActive
-                : null
+              topic === "payment-payment-api" ? classes.menuSubItemActive : null
             }`}
             onClick={() => fnActive("payment-payment-api")}
           >
@@ -126,7 +137,7 @@ export default function QRGuideSideBar({ active, setClickedOn }) {
                 disableRipple={true}
                 sx={{ pl: 4 }}
                 className={`${classes.menuSubItem2} ${
-                  active === "grab-the-notification"
+                  topic === "grab-the-notification"
                     ? classes.menuSubItemActive
                     : null
                 }`}
@@ -137,13 +148,28 @@ export default function QRGuideSideBar({ active, setClickedOn }) {
                 </ListItemIcon>
                 <ListItemText primary="Grab The Notification" />
               </ListItemButton>
+              <ListItemButton
+                disableRipple={true}
+                sx={{ pl: 4 }}
+                className={`${classes.menuSubItem2} ${
+                  topic === "validating-a-payment"
+                    ? classes.menuSubItemActive
+                    : null
+                }`}
+                onClick={() => fnActive("validating-a-payment")}
+              >
+                <ListItemIcon>
+                  <ArrowForwardIosIcon />
+                </ListItemIcon>
+                <ListItemText primary="Validating A Payment" />
+              </ListItemButton>
             </List>
           </Collapse>
           <ListItemButton
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "refund-a-payment" ? classes.menuSubItemActive : null
+              topic === "refund-a-payment" ? classes.menuSubItemActive : null
             }`}
             onClick={() => fnActive("refund-a-payment")}
           >
@@ -157,7 +183,7 @@ export default function QRGuideSideBar({ active, setClickedOn }) {
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "test-credentials" ? classes.menuItemActive : null
+          topic === "test-credentials" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("test-credentials")}
       >
@@ -166,7 +192,7 @@ export default function QRGuideSideBar({ active, setClickedOn }) {
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "live-credentials" ? classes.menuItemActive : null
+          topic === "live-credentials" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("live-credentials")}
       >
@@ -175,7 +201,7 @@ export default function QRGuideSideBar({ active, setClickedOn }) {
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "swagger-documentation" ? classes.menuItemActive : null
+          topic === "swagger-documentation" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("swagger-documentation")}
       >

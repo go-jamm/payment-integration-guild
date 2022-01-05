@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@mui/styles";
-import steps from "../../assets/images/steps.jpg";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -15,7 +14,8 @@ import ListItemText from "@mui/material/ListItemText";
 import CircleIcon from "@mui/icons-material/Circle";
 import parameter from "../../assets/images/parameter.png";
 import parameter2 from "../../assets/images/parameter2.png";
-
+import { MenuContext } from "../../context/MenuContext";
+import { useHistory, useLocation } from "react-router-dom";
 import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
 
 const useStyles = makeStyles({
@@ -116,10 +116,10 @@ const useStyles = makeStyles({
 });
 const QRGuideDetailSide = ({ setActive, clickedOn }) => {
   const sample = `{
-"code": 200,
-"messages": "QR generation request was successful",
-"errors": []
-"data": "https://*************.***********.com/AAA/BBB.png"
+ "code": 200,
+ "messages": "QR generation request was successful",
+ "errors": []
+ "data": "https://*************.***********.com/AAA/BBB.png"
 }`;
 
   const sample2 = `{
@@ -156,50 +156,64 @@ const QRGuideDetailSide = ({ setActive, clickedOn }) => {
 
   const classes = useStyles();
   const [activeUseEffect, setActiveUseEffect] = useState(false);
-
+  const { fastPayMenuList, addList } = useContext(MenuContext);
+  let history = useHistory();
+  const search = useLocation().search;
+  const topic = new URLSearchParams(search).get("topic");
   useEffect(() => {
     if (activeUseEffect === true) {
-      const yOffset = -10;
-      const element = document.getElementById(clickedOn);
+      if (fastPayMenuList.goTo !== null) {
+        const yOffset = -10;
 
-      element.scrollTo({ top: 0, behavior: "smooth" });
-      const y =
-        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        const element = document.getElementById(fastPayMenuList.goTo);
 
-      window.scrollTo({ top: y, behavior: "smooth" });
+        element.scrollTo({ top: 0, behavior: "smooth" });
+        const y =
+          element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
-      if (
-        clickedOn === "live-credentials" ||
-        clickedOn === "swagger-documentation"
-      ) {
-        setTimeout(() => {
-          setActive(clickedOn);
-        }, 1500);
+        window.scrollTo({ top: y, behavior: "smooth" });
       }
+      setTimeout(() => {
+        if (
+          fastPayMenuList.goTo === "live-credentials" ||
+          fastPayMenuList.goTo === "swagger-documentation"
+        ) {
+          history.push({
+            search: `?topic=${fastPayMenuList.goTo}`,
+          });
+        }
+      }, 1000);
     }
+
     setActiveUseEffect(true);
-  }, [clickedOn]);
+  }, [fastPayMenuList.goTo]);
   useEffect(() => {
     const sections = document.querySelectorAll("section");
+
     document.addEventListener("scroll", () => {
       const scrollCheck = window.scrollY;
-      // console.log("scrollCheck", scrollCheck);
       let sectionId;
       sections.forEach((section) => {
         const sectionTop = section.offsetTop - 70;
-        // console.log("sectionTop", sectionTop, sectionTop-50);
-        // const sectionHeight = section.clientHeight;
-        // console.log("sectionHeight", sectionHeight);
 
-        if (scrollCheck >= sectionTop) {
+        const sectionHeight = section.clientHeight;
+        const sectionBottom = sectionTop + sectionHeight;
+
+        if (scrollCheck >= sectionTop && scrollCheck <= sectionBottom) {
           sectionId = section.getAttribute("id");
-          setActive(sectionId);
-          // console.log("sectionId", sectionId);
+
+          history.push({
+            search: `?topic=${sectionId}`,
+          });
         }
       });
     });
 
-    // console.log("body", window.screen.availHeight);
+    if (topic !== "synopsis") {
+      if (topic !== null) {
+        addList({ goTo: topic });
+      }
+    }
   }, []);
 
   return (
@@ -379,7 +393,7 @@ const QRGuideDetailSide = ({ setActive, clickedOn }) => {
           </Table>
         </TableContainer>
 
-        <p className={classes.tableTitle}>Request Body :</p>
+        <p className={classes.tableTitle}>Request Body:</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -397,6 +411,24 @@ const QRGuideDetailSide = ({ setActive, clickedOn }) => {
                 <TableCell>storeId</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
                 <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
+                <TableCell>Yes</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>storePassword</TableCell>
+                <TableCell> alphanumeric (8-32)</TableCell>
+                <TableCell>Merchant Password. e.g. A$Rong001</TableCell>
+                <TableCell>Yes</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>orderID</TableCell>
+                <TableCell> alphanumeric (8-32)</TableCell>
+                <TableCell>
+                  Merchant Generated Unique Order Id. e.g. ARONGORD1001
+                </TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
               <TableRow
@@ -531,6 +563,12 @@ const QRGuideDetailSide = ({ setActive, clickedOn }) => {
             </Table>
           </TableContainer>
         </div>
+      </section>
+      <section
+        className={classes.sectionMarginBottom}
+        id="validating-a-payment"
+      >
+        <p className={classes.subTitle}>Step 2: Validating A Payment</p>
         <p className={classes.detailFontStyle}>
           It is mandatory to validate a payment using Validation API to get rid
           of fraudulent activities.
@@ -582,7 +620,7 @@ const QRGuideDetailSide = ({ setActive, clickedOn }) => {
           </Table>
         </TableContainer>
 
-        <p className={classes.tableTitle}>Request Body :</p>
+        <p className={classes.tableTitle}>Request Body:</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -633,7 +671,7 @@ const QRGuideDetailSide = ({ setActive, clickedOn }) => {
           <CopyBlock
             language={"jsx"}
             text={sample2}
-            showLineNumbers={false}
+            showLineNumbers={true}
             theme={dracula}
             wrapLines={true}
             codeBlock
@@ -655,7 +693,7 @@ const QRGuideDetailSide = ({ setActive, clickedOn }) => {
           notification.
         </p>
 
-        <p className={`${classes.tableTitle}`}>Initiate Payment API :</p>
+        <p className={`${classes.tableTitle}`}>Refund Payment API :</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -703,7 +741,7 @@ const QRGuideDetailSide = ({ setActive, clickedOn }) => {
           </Table>
         </TableContainer>
 
-        <p className={classes.tableTitle}>Request Body :</p>
+        <p className={classes.tableTitle}>Request Body:</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -769,7 +807,7 @@ const QRGuideDetailSide = ({ setActive, clickedOn }) => {
           <CopyBlock
             language={"jsx"}
             text={sample3}
-            showLineNumbers={false}
+            showLineNumbers={true}
             theme={dracula}
             wrapLines={false}
             codeBlock

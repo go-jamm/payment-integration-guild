@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#262D54",
     fontSize: "20px",
     // fontWeight: 700,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "16px",
+    },
   },
   detailFontStyle: {
     lineHeight: "22px",
@@ -31,12 +34,20 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xl")]: {
       minHeight: "86px",
     },
+    [theme.breakpoints.down("sm")]: {
+      padding: "15px 20px",
+      minHeight: "138px",
+    },
   },
   cardDetailFontStyle: {
     fontSize: "13px",
     color: "#4D5656",
     lineHeight: "22px",
     margin: "18px 0 0 0",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "10px",
+      margin: "10px 0 0 0",
+    },
   },
   linkStyle: {
     textDecoration: "none",
@@ -45,6 +56,26 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 24px !important",
     [theme.breakpoints.down("xl")]: {
       padding: "0 80px !important",
+    },
+  },
+  br: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  iconStyle: {
+    fontSize: "80px !important",
+    color: "#E5E7E9 ",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "50px !important",
+    },
+  },
+  iconDiv: {
+    textAlign: "right",
+    [theme.breakpoints.down("sm")]: {
+      textAlign: "left",
+      order: -1,
+      marginBottom: "10px !important",
     },
   },
 }));
@@ -69,36 +100,47 @@ const Home = () => {
             style={{ textAlign: "center" }}
           >
             Accept payments with our FastPay’s APIs. We process payments.
-            <br /> Simple API, Easy Integration, Less Effort.
+            <br className={classes.br} /> Simple API, Easy Integration, Less
+            Effort.
           </p>
           <br />
           <br />
           <Grid container rowSpacing={4} columnSpacing={4}>
-            <Grid item xs={6}>
-              <Link to="/website-integration" className={classes.linkStyle}>
+            <Grid item xs={12} sm={12} md={6}>
+              <Link
+                to={{
+                  pathname: "/website-integration",
+                  search: "?topic=synopsis",
+                }}
+                className={classes.linkStyle}
+              >
                 <div className={classes.card}>
                   <Grid container alignItems="center">
-                    <Grid item xs={9}>
+                    <Grid item xs={12} sm={9}>
                       <p className={classes.title}>Integrate With Website</p>
                       <p className={classes.cardDetailFontStyle}>
                         No Delays or closing times. Receive Payments around the
                         clock from the comfort of your mobile
                       </p>
                     </Grid>
-                    <Grid item xs={3} style={{ textAlign: "right" }}>
-                      <LaptopMacIcon
-                        style={{ fontSize: "80px", color: "#E5E7E9 " }}
-                      />
+                    <Grid item xs={12} sm={3} className={classes.iconDiv}>
+                      <LaptopMacIcon className={classes.iconStyle} />
                     </Grid>
                   </Grid>
                 </div>
               </Link>
             </Grid>
-            <Grid item xs={6}>
-              <Link to="/ios-integration" className={classes.linkStyle}>
+            <Grid item xs={12} sm={12} md={6}>
+              <Link
+                to={{
+                  pathname: "/ios-integration",
+                  search: "?topic=scaffolding-provided",
+                }}
+                className={classes.linkStyle}
+              >
                 <div className={classes.card}>
                   <Grid container alignItems="center">
-                    <Grid item xs={9}>
+                    <Grid item xs={12} sm={9}>
                       <p className={classes.title}>
                         Integrate With Mobile App (IOS)
                       </p>
@@ -106,20 +148,24 @@ const Home = () => {
                         Easiest payment gateway to integrate with 24x7 support
                       </p>
                     </Grid>
-                    <Grid item xs={3} style={{ textAlign: "right" }}>
-                      <AppleIcon
-                        style={{ fontSize: "80px", color: "#E5E7E9 " }}
-                      />
+                    <Grid item xs={12} sm={3} className={classes.iconDiv}>
+                      <AppleIcon className={classes.iconStyle} />
                     </Grid>
                   </Grid>
                 </div>
               </Link>
             </Grid>
-            <Grid item xs={6}>
-              <Link to="/android-integration" className={classes.linkStyle}>
+            <Grid item xs={12} sm={12} md={6}>
+              <Link
+                to={{
+                  pathname: "/android-integration",
+                  search: "?topic=scaffolding-provided",
+                }}
+                className={classes.linkStyle}
+              >
                 <div className={classes.card}>
                   <Grid container alignItems="center">
-                    <Grid item xs={9}>
+                    <Grid item xs={12} sm={9}>
                       <p className={classes.title}>
                         Integrate With Mobile App (Android)
                       </p>
@@ -127,29 +173,31 @@ const Home = () => {
                         Easiest payment gateway to integrate with 24x7 support
                       </p>
                     </Grid>
-                    <Grid item xs={3} style={{ textAlign: "right" }}>
-                      <AndroidIcon
-                        style={{ fontSize: "80px", color: "#E5E7E9 " }}
-                      />
+                    <Grid item xs={12} sm={3} className={classes.iconDiv}>
+                      <AndroidIcon className={classes.iconStyle} />
                     </Grid>
                   </Grid>
                 </div>
               </Link>
             </Grid>
-            <Grid item xs={6}>
-              <Link to="/qr-integration" className={classes.linkStyle}>
+            <Grid item xs={12} sm={12} md={6}>
+              <Link
+                to={{
+                  pathname: "/qr-integration",
+                  search: "?topic=synopsis",
+                }}
+                className={classes.linkStyle}
+              >
                 <div className={classes.card}>
                   <Grid container alignItems="center">
-                    <Grid item xs={9}>
+                    <Grid item xs={12} sm={9}>
                       <p className={classes.title}>QR Gereration API</p>
                       <p className={classes.cardDetailFontStyle}>
                         Easiest payment gateway to integrate with 24x7 support
                       </p>
                     </Grid>
-                    <Grid item xs={3} style={{ textAlign: "right" }}>
-                      <QrCode2Icon
-                        style={{ fontSize: "80px", color: "#E5E7E9 " }}
-                      />
+                    <Grid item xs={12} sm={3} className={classes.iconDiv}>
+                      <QrCode2Icon className={classes.iconStyle} />
                     </Grid>
                   </Grid>
                 </div>

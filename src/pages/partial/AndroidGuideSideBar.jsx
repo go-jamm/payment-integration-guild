@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -6,14 +6,19 @@ import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { makeStyles } from "@mui/styles";
+import { useLocation } from "react-router-dom";
+import { MenuContext } from "../../context/MenuContext";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   menuItem: {
     color: "#212F3D",
     padding: "2px 16px !important",
 
     "& span": {
       fontSize: "16px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "14px",
+      },
     },
   },
   menuItemActive: {
@@ -26,6 +31,9 @@ const useStyles = makeStyles({
     padding: "2px 32px !important",
     "& span": {
       fontSize: "14px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "12px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -41,6 +49,9 @@ const useStyles = makeStyles({
     padding: "2px 32px 2px 50px !important",
     "& span": {
       fontSize: "14px",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "12px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -57,18 +68,17 @@ const useStyles = makeStyles({
       color: "rgba(15, 188, 249,1.0) !important",
     },
   },
-});
+}));
 
-export default function AndroidGuideSideBar({
-  active,
-
-  setClickedOn,
-}) {
+export default function AndroidGuideSideBar({ setClickedOn }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
+  const { addList } = useContext(MenuContext);
+  const search = useLocation().search;
+  const topic = new URLSearchParams(search).get("topic");
   const fnActive = (id) => {
-    setClickedOn(id);
+    addList({ goTo: id });
   };
   const handleClick = () => {
     setOpen(!open);
@@ -79,7 +89,9 @@ export default function AndroidGuideSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "scaffolding-provided" ? classes.menuItemActive : null
+          topic === "scaffolding-provided" || topic === null
+            ? classes.menuItemActive
+            : null
         }`}
         onClick={() => fnActive("scaffolding-provided")}
       >
@@ -88,7 +100,7 @@ export default function AndroidGuideSideBar({
       <ListItemButton
         disableRipple={true}
         className={`${classes.menuItem} ${
-          active === "steps" ? classes.menuItemActive : null
+          topic === "steps" ? classes.menuItemActive : null
         }`}
         onClick={() => fnActive("steps")}
       >
@@ -100,7 +112,7 @@ export default function AndroidGuideSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "step-1" ? classes.menuSubItemActive : null
+              topic === "step-1" ? classes.menuSubItemActive : null
             }`}
             onClick={() => fnActive("step-1")}
           >
@@ -113,7 +125,7 @@ export default function AndroidGuideSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "step-2" ? classes.menuSubItemActive : null
+              topic === "step-2" ? classes.menuSubItemActive : null
             }`}
             onClick={() => fnActive("step-2")}
           >
@@ -126,7 +138,7 @@ export default function AndroidGuideSideBar({
             disableRipple={true}
             sx={{ pl: 4 }}
             className={`${classes.menuSubItem} ${
-              active === "step-3" ? classes.menuSubItemActive : null
+              topic === "step-3" ? classes.menuSubItemActive : null
             }`}
             onClick={() => fnActive("step-3")}
           >

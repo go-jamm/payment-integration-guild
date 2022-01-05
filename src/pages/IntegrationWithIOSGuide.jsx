@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import IOSGuideSideBar from "./partial/IOSGuideSideBar";
 import IOSGuideDetailSide from "./partial/IOSGuideDetailSide";
@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   buttonStyle: {
     border: "none !important",
     color: "#A6ACAF !important",
@@ -17,11 +17,14 @@ const useStyles = makeStyles({
       background: "none",
     },
   },
-});
+  hide: {
+    [theme.breakpoints.down("md")]: {
+      display: "none",
+    },
+  },
+}));
 const IntegrationWithIOSGuide = () => {
   const classes = useStyles();
-  const [active, setActive] = useState("scaffolding-provided");
-  const [clickedOn, setClickedOn] = useState("");
 
   return (
     <div>
@@ -35,24 +38,16 @@ const IntegrationWithIOSGuide = () => {
       >
         Back To Home
       </Button>
+
       <Grid container>
-        <Grid item xs={2.5}>
+        <Grid className={classes.hide} item sm={3} md={2.5} lg={2.5}>
           <div style={{ position: "sticky", top: 0 }}>
-            <IOSGuideSideBar
-              active={active}
-              setActive={setActive}
-              clickedOn={clickedOn}
-              setClickedOn={setClickedOn}
-            />
+            <IOSGuideSideBar />
           </div>
         </Grid>
-        <Grid item xs={9.5}>
-          <IOSGuideDetailSide
-            active={active}
-            setActive={setActive}
-            clickedOn={clickedOn}
-            setClickedOn={setClickedOn}
-          />
+
+        <Grid item xs={12} sm={12} md={9.5} lg={9.5}>
+          <IOSGuideDetailSide />
         </Grid>
       </Grid>
     </div>

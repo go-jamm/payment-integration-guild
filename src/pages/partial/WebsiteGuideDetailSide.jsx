@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@mui/styles";
 import steps from "../../assets/images/steps.jpg";
 import Table from "@mui/material/Table";
@@ -13,21 +13,30 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CircleIcon from "@mui/icons-material/Circle";
-
+import paymentForm from "../../assets/images/paymentForm.png";
+import paymentSuccessful from "../../assets/images/paymentSuccessful.png";
 import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
+import { MenuContext } from "../../context/MenuContext";
+import { useHistory, useLocation } from "react-router-dom";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   title: {
     color: "#262D54",
     fontSize: "24px",
     fontWeight: 700,
     margin: 0,
+    [theme.breakpoints.down("md")]: {
+      fontSize: "20px",
+    },
   },
   subTitle: {
     color: "#262D54",
     fontSize: "20px",
     fontWeight: 700,
     margin: 0,
+    [theme.breakpoints.down("md")]: {
+      fontSize: "15px",
+    },
   },
   subTitle2: {
     color: "#262D54",
@@ -39,6 +48,9 @@ const useStyles = makeStyles({
     lineHeight: "26px",
     color: "#181c34",
     marginBottom: "35px !important",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "12px",
+    },
   },
   tableTitle: {
     fontSize: "20px",
@@ -51,6 +63,9 @@ const useStyles = makeStyles({
     "& th": {
       color: "#262D54",
       fontSize: "18px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "14px",
+      },
     },
   },
 
@@ -67,6 +82,9 @@ const useStyles = makeStyles({
       fontSize: "18px",
       fontWeight: 700,
       cursor: "default",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "14px",
+      },
     },
   },
   ItemStyle: {
@@ -77,6 +95,9 @@ const useStyles = makeStyles({
     "& span": {
       fontSize: "16px",
       cursor: "default",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "12px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -84,6 +105,9 @@ const useStyles = makeStyles({
     ["& .MuiSvgIcon-root"]: {
       color: "#262D54",
       fontSize: "10px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "6px",
+      },
     },
   },
   alertItem: {
@@ -94,6 +118,9 @@ const useStyles = makeStyles({
     "& span": {
       fontSize: "16px",
       cursor: "default",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "12px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -101,6 +128,9 @@ const useStyles = makeStyles({
     ["& .MuiSvgIcon-root"]: {
       color: "#E74C3C",
       fontSize: "10px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "8px",
+      },
     },
   },
   sectionMarginBottom: {
@@ -111,7 +141,7 @@ const useStyles = makeStyles({
       display: "none",
     },
   },
-});
+}));
 const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
   const baseUrlData = [
     {
@@ -137,17 +167,21 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
       "sub_total":20000
     },
   ]`;
-  const sample = `"code": 200,
+  const sample = `{
+  "code": 200,
   "messages": [
     "Payment Initiation request processed successfully."
   ],
   "data": {
       "redirect_url": "http://staging-pgw.fast-pay.iq/pay?token=7b192dc5-1b48-491a-a1d7xxx"
-  }`;
+}`;
 
   const validateSampleData = `{
-    {
       "code":200,
+      "message": [],
+      "data": {
+      "gw_merchant_id": "CUL1NUB713",
+      "merchant_order_id": "LAREVEORD1005"
       "received_amount": "5000.00",
       "currency": "IQD",
       "status": "Success",
@@ -157,7 +191,8 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
     }
   }`;
 
-  const initiatePaymentSampleData = `"code": 200,
+  const initiatePaymentSampleData = `{
+  "code": 200,
   "messages": [],
   "data": {
     "summary": {
@@ -168,8 +203,7 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
       }
       "refund_invoice_id": "AUJHMA1634"
     }
-  }
-  `;
+  }`;
   const refundValidationSampleData = `{
   "code": 200,
   "messages": [],
@@ -178,56 +212,64 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
     'refund_status': true,
     'status_checked_at': '2021-03-01 00:00:05'
   ]
-}
-`;
+}`;
 
   const classes = useStyles();
+  const { fastPayMenuList, addList } = useContext(MenuContext);
+  let history = useHistory();
+  const search = useLocation().search;
+  const topic = new URLSearchParams(search).get("topic");
   const [activeUseEffect, setActiveUseEffect] = useState(false);
 
   useEffect(() => {
     if (activeUseEffect === true) {
-      const yOffset = -10;
-      const element = document.getElementById(clickedOn);
+      if (fastPayMenuList.goTo !== null) {
+        const yOffset = -10;
 
-      element.scrollTo({ top: 0, behavior: "smooth" });
-      const y =
-        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        const element = document.getElementById(fastPayMenuList.goTo);
 
-      window.scrollTo({ top: y, behavior: "smooth" });
-      if (clickedOn === "Contact") {
-        setTimeout(() => {
-          setActive(clickedOn);
-        }, 1500);
+        element.scrollTo({ top: 0, behavior: "smooth" });
+        const y =
+          element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+        window.scrollTo({ top: y, behavior: "smooth" });
       }
     }
     setActiveUseEffect(true);
-  }, [clickedOn]);
+  }, [fastPayMenuList.goTo]);
   useEffect(() => {
     const sections = document.querySelectorAll("section");
+
     document.addEventListener("scroll", () => {
       const scrollCheck = window.scrollY;
-      // console.log("scrollCheck", scrollCheck);
       let sectionId;
       sections.forEach((section) => {
         const sectionTop = section.offsetTop - 70;
-        // console.log("sectionTop", sectionTop, sectionTop-50);
-        // const sectionHeight = section.clientHeight;
-        // console.log("sectionHeight", sectionHeight);
 
-        if (scrollCheck >= sectionTop) {
+        const sectionHeight = section.clientHeight;
+        const sectionBottom = sectionTop + sectionHeight;
+
+        if (scrollCheck >= sectionTop && scrollCheck <= sectionBottom) {
           sectionId = section.getAttribute("id");
-          setActive(sectionId);
-          // console.log("sectionId", sectionId);
+
+          history.push({
+            search: `?topic=${sectionId}`,
+          });
         }
       });
     });
 
-    // console.log("body", window.screen.availHeight);
+    if (topic !== "scaffolding-provided") {
+      if (topic !== null) {
+        addList({ goTo: topic });
+      }
+    }
   }, []);
 
   return (
     <div>
       <br />
+
       <section className={classes.sectionMarginBottom} id="synopsis">
         <p className={classes.title}>Synopsis</p>
         <hr />
@@ -299,10 +341,11 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
         </List>
         <p className={classes.detailFontStyle}>
           Clicking on <strong>Store Configuration</strong> will redirect the
-          user to the <strong>Store Configuration</strong> page where they can set up their store
-          related information like <code>store_password</code> ,{" "}
-          <code>success_url</code> , <code>cancel_url</code> ,{" "}
-          <code>fail_url</code> ,<code>ipn_url</code> .
+          user to the <strong>Store Configuration</strong> page where they can
+          set up their store related information like{" "}
+          <code>store_password</code> , <code>success_url</code> ,{" "}
+          <code>cancel_url</code> , <code>fail_url</code> ,<code>ipn_url</code>{" "}
+          .
         </p>
         <p className={classes.detailFontStyle}>
           <code>store_id</code> and <code>store_url</code> fields will be
@@ -357,7 +400,8 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
           the Merchant using <strong>Merchant Web Panel</strong>{" "}
           <code>i.e. merchant.fast-pay.iq.</code> After receiving the message,
           merchant developer must validate the message using{" "}
-          <strong>Transaction Validation</strong>
+          <strong>Transaction Validation</strong> API of{" "}
+          <strong>FastPay PGW</strong>
         </p>
       </section>
       <section
@@ -547,7 +591,7 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
           </Table>
         </TableContainer>
 
-        <p className={classes.tableTitle}>Request Body :</p>
+        <p className={classes.tableTitle}>Request Body:</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -599,7 +643,7 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
                     <CopyBlock
                       language={"jsx"}
                       text={cartSampleJSON}
-                      showLineNumbers={false}
+                      showLineNumbers={true}
                       theme={a11yLight}
                       wrapLines={false}
                       codeBlock
@@ -647,6 +691,42 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
           to the initiation request. Upon successful redirection customer will
           be landed to a gateway page more or like below where customer can
           authorize the transaction and pay accordingly.
+        </p>
+        <img
+          src={paymentForm}
+          alt=""
+          style={{ maxWidth: "70%", display: "block", margin: "auto" }}
+        />
+        <br />
+        <p style={{ fontSize: "13px", textAlign: "center", margin: 0 }}>
+          Copyright &copy;FastPay.All rights reserved.
+        </p>
+        <p className={classes.detailFontStyle}>
+          Customers will have two options e.i <i>Login to Pay</i> and{" "}
+          <i>Scan QR Code</i> Using <strong>FastPay Mobile App</strong> to pay
+          against their order. Either way, upon successful completion of payment
+          the customer will be redirected to the merchent provided success URL,
+          for example -
+        </p>
+        <p
+          className={classes.detailFontStyle}
+          style={{ color: "blue", textDecoration: "underline" }}
+        >
+          https://abcmerchant.com/success?order_id=ABC212121
+        </p>
+        <p className={classes.detailFontStyle}>
+          where ABC212121 is the merchant provided <code>order_id</code> during
+          payment initiation request. Validate the transaction using Validation
+          API before marking the order as paid
+        </p>
+        <img
+          src={paymentSuccessful}
+          alt=""
+          style={{ maxWidth: "70%", display: "block", margin: "auto" }}
+        />
+        <br />
+        <p style={{ fontSize: "13px", textAlign: "center", margin: 0 }}>
+          Copyright &copy;FastPay.All rights reserved.
         </p>
       </section>
       <section
@@ -792,7 +872,7 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <p className={classes.tableTitle}>Request Body :</p>
+        <p className={classes.tableTitle}>Request Body:</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -840,7 +920,7 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
           <CopyBlock
             language={"jsx"}
             text={validateSampleData}
-            showLineNumbers={false}
+            showLineNumbers={true}
             theme={dracula}
             wrapLines={false}
             codeBlock
@@ -888,7 +968,7 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
           </Table>
         </TableContainer>
 
-        <p className={classes.tableTitle}>Request Body :</p>
+        <p className={classes.tableTitle}>Request Body:</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
@@ -952,7 +1032,7 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
           <CopyBlock
             language={"jsx"}
             text={initiatePaymentSampleData}
-            showLineNumbers={false}
+            showLineNumbers={true}
             theme={dracula}
             wrapLines={false}
             codeBlock
@@ -996,7 +1076,7 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
           </Table>
         </TableContainer>
 
-        <p className={classes.tableTitle}>Request Body :</p>
+        <p className={classes.tableTitle}>Request Body:</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
             <TableHead className={classes.tableStyle}>
