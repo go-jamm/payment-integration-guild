@@ -205,7 +205,7 @@ const QRGuideDetailSide = () => {
   useEffect(() => {
     if (activeUseEffect === true) {
       if (fastPayMenuList.goTo !== null && fastPayMenuList.goTo !== "") {
-        const yOffset = -10;
+        const yOffset = -70;
 
         const element = document.getElementById(fastPayMenuList.goTo);
 

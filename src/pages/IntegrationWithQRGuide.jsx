@@ -40,7 +40,7 @@ const IntegrationWithQRGuide = () => {
       </Button>
       <Grid container>
         <Grid className={classes.hide} item sm={3} md={2.5} lg={2.5}>
-          <div style={{ position: "sticky", top: 0 }}>
+          <div style={{ position: "sticky", top: 65  }}>
             <QRGuideSideBar />
           </div>
         </Grid>
