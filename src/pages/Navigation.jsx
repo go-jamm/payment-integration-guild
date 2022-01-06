@@ -67,8 +67,8 @@ const Navigation = () => {
           </Switch>
         </Container>
       </div>
-      <br />
-      <br />
+      {/* <br />
+      <br /> */}
       <div
         style={{
           borderTop: "1px solid #E5E7E9 ",

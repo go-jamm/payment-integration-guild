@@ -9,14 +9,20 @@ import AndroidIcon from "@mui/icons-material/Android";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 
 const useStyles = makeStyles((theme) => ({
+  main: {
+    minHeight: "calc(100vh - 145px)",
+    padding: "20px 0px",
+    [theme.breakpoints.down("xl")]: {
+      minHeight: "calc(100vh - 130px)",
+      padding: "20px 0px",
+    },
+  },
   title: {
     margin: 0,
     color: "#262D54",
     fontSize: "20px",
     // fontWeight: 700,
-    [theme.breakpoints.down("lg")]: {
-      fontSize: "17px",
-    },
+
     [theme.breakpoints.down("sm")]: {
       fontSize: "16px",
     },
@@ -36,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down("xl")]: {
       minHeight: "86px",
+      padding: "20px 30px",
     },
     [theme.breakpoints.down("sm")]: {
       padding: "15px 20px",
@@ -92,7 +99,7 @@ const Home = () => {
         direction="column"
         justifyContent="center"
         alignItems="center"
-        style={{ minHeight: "calc(100vh - 125px)", padding: "20px 0px" }}
+        className={classes.main}
       >
         <div>
           <h1 style={{ color: "#262D54", textAlign: "center", marginTop: 0 }}>
@@ -100,7 +107,7 @@ const Home = () => {
           </h1>
           <p
             className={classes.detailFontStyle}
-            style={{ textAlign: "center" }}
+            style={{ textAlign: "center", marginBottom: 0 }}
           >
             Accept payments with our FastPay’s APIs. We process payments.
             <br className={classes.br} /> Simple API, Easy Integration, Less
@@ -207,6 +214,8 @@ const Home = () => {
               </Link>
             </Grid>
           </Grid>
+          <br />
+          <br />
         </div>
       </Grid>
       {/* </Container> */}
