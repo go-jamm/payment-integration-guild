@@ -5,7 +5,7 @@ export const MenuContext = createContext();
 
 export const MenuContextProvider = (props) => {
   const [fastPayMenuList, dispatch] = useReducer(MenuReducer, {}, () => {
-    const localData = localStorage.getItem("fastPayMenuList");
+    const localData = sessionStorage.getItem("fastPayMenuList");
     return localData ? JSON.parse(localData) : {};
   });
 
@@ -24,8 +24,7 @@ export const MenuContextProvider = (props) => {
   };
 
   useEffect(() => {
-    localStorage.setItem("fastPayMenuList", JSON.stringify(fastPayMenuList));
- 
+    sessionStorage.setItem("fastPayMenuList", JSON.stringify(fastPayMenuList));
   }, [addList, removeAll]);
   return (
     <MenuContext.Provider

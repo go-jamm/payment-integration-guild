@@ -19,10 +19,12 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.down("xl")]: {
         fontSize: "14px",
       },
+      [theme.breakpoints.down("md")]: {
+        fontSize: "12px",
+      },
     },
   },
   menuItemActive: {
-    // color: "#FC2861",
     color: "rgba(15, 188, 249,1.0) !important",
   },
   menuSubItem: {
@@ -34,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.down("xl")]: {
         fontSize: "12px",
       },
+      [theme.breakpoints.down("md")]: {
+        fontSize: "10px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -41,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     ["& .MuiSvgIcon-root"]: {
       color: "#4D5656",
       fontSize: "12px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "10px",
+      },
     },
   },
   menuSubItem2: {
@@ -52,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
       [theme.breakpoints.down("xl")]: {
         fontSize: "12px",
       },
+      [theme.breakpoints.down("md")]: {
+        fontSize: "10px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -59,6 +70,9 @@ const useStyles = makeStyles((theme) => ({
     ["& .MuiSvgIcon-root"]: {
       color: "#4D5656",
       fontSize: "12px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "10px",
+      },
     },
   },
   menuSubItemActive: {

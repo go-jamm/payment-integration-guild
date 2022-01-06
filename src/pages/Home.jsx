@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#262D54",
     fontSize: "20px",
     // fontWeight: 700,
+    [theme.breakpoints.down("lg")]: {
+      fontSize: "17px",
+    },
     [theme.breakpoints.down("sm")]: {
       fontSize: "16px",
     },

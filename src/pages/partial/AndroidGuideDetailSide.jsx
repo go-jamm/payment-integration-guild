@@ -1,26 +1,35 @@
-import React, { useState, useEffect,useContext } from "react";
-import { makeStyles } from "@mui/styles"; 
+import React, { useState, useEffect, useContext } from "react";
+import { makeStyles } from "@mui/styles";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import CircleIcon from "@mui/icons-material/Circle"; 
+import CircleIcon from "@mui/icons-material/Circle";
 import { MenuContext } from "../../context/MenuContext";
 import { useHistory, useLocation } from "react-router-dom";
 import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   title: {
     color: "#262D54",
     fontSize: "24px",
     fontWeight: 700,
     margin: 0,
+    [theme.breakpoints.down("xl")]: {
+      fontSize: "22px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "20px",
+    },
   },
   subTitle: {
     color: "#262D54",
     fontSize: "20px",
     fontWeight: 700,
     margin: 0,
+    [theme.breakpoints.down("md")]: {
+      fontSize: "15px",
+    },
   },
   subTitle2: {
     color: "#262D54",
@@ -32,18 +41,30 @@ const useStyles = makeStyles({
     lineHeight: "26px",
     color: "#181c34",
     marginBottom: "35px !important",
+    [theme.breakpoints.down("xl")]: {
+      fontSize: "14px",
+    },
+    [theme.breakpoints.down("md")]: {
+      fontSize: "12px",
+    },
   },
   tableTitle: {
     fontSize: "20px",
     color: "#181c34",
     marginBottom: "35px !important",
     marginTop: "35px !important",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "15px",
+    },
   },
   tableStyle: {
     background: "rgba(15, 188, 249,0.1)",
     "& th": {
       color: "#262D54",
       fontSize: "18px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "14px",
+      },
     },
   },
 
@@ -60,6 +81,9 @@ const useStyles = makeStyles({
       fontSize: "18px",
       fontWeight: 700,
       cursor: "default",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "14px",
+      },
     },
   },
   ItemStyle: {
@@ -70,6 +94,12 @@ const useStyles = makeStyles({
     "& span": {
       fontSize: "16px",
       cursor: "default",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "14px",
+      },
+      [theme.breakpoints.down("md")]: {
+        fontSize: "12px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -77,6 +107,9 @@ const useStyles = makeStyles({
     ["& .MuiSvgIcon-root"]: {
       color: "#262D54",
       fontSize: "10px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "6px",
+      },
     },
   },
   alertItem: {
@@ -87,6 +120,12 @@ const useStyles = makeStyles({
     "& span": {
       fontSize: "16px",
       cursor: "default",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "14px",
+      },
+      [theme.breakpoints.down("md")]: {
+        fontSize: "12px",
+      },
     },
     ["& .MuiListItemIcon-root"]: {
       minWidth: "24px",
@@ -94,6 +133,9 @@ const useStyles = makeStyles({
     ["& .MuiSvgIcon-root"]: {
       color: "#E74C3C",
       fontSize: "10px",
+      [theme.breakpoints.down("md")]: {
+        fontSize: "8px",
+      },
     },
   },
   sectionMarginBottom: {
@@ -104,8 +146,8 @@ const useStyles = makeStyles({
       display: "none",
     },
   },
-});
-const AndroidGuideDetailSide = ({ setActive, clickedOn }) => {
+}));
+const AndroidGuideDetailSide = () => {
   const android = `android{
     ...
     compileOptions {
@@ -155,33 +197,35 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
   const classes = useStyles();
   const { fastPayMenuList, addList } = useContext(MenuContext);
-  let history = useHistory(); 
+  let history = useHistory();
   const search = useLocation().search;
   const topic = new URLSearchParams(search).get("topic");
   const [activeUseEffect, setActiveUseEffect] = useState(false);
 
   useEffect(() => {
     if (activeUseEffect === true) {
-      if (fastPayMenuList.goTo !== null) {
+      if (fastPayMenuList.goTo !== null && fastPayMenuList.goTo !== "") {
         const yOffset = -10;
 
         const element = document.getElementById(fastPayMenuList.goTo);
 
-        element.scrollTo({ top: 0, behavior: "smooth" });
+        // element.scrollTo({ top: 0, behavior: "smooth" });
         const y =
           element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
         window.scrollTo({ top: y, behavior: "smooth" });
+        addList({ goTo: "" });
       }
     }
     setActiveUseEffect(true);
   }, [fastPayMenuList.goTo]);
   useEffect(() => {
     const sections = document.querySelectorAll("section");
-
+    let lastId = topic;
     document.addEventListener("scroll", () => {
       const scrollCheck = window.scrollY;
       let sectionId;
+
       sections.forEach((section) => {
         const sectionTop = section.offsetTop - 70;
 
@@ -190,10 +234,12 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (scrollCheck >= sectionTop && scrollCheck <= sectionBottom) {
           sectionId = section.getAttribute("id");
-
-          history.push({
-            search: `?topic=${sectionId}`,
-          });
+          if (lastId !== sectionId) {
+            lastId = sectionId;
+            history.push({
+              search: `?topic=${sectionId}`,
+            });
+          }
         }
       });
     });

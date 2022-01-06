@@ -19,19 +19,22 @@ const useStyles = makeStyles((theme) => ({
   //     padding: "0 80px !important",
   //   },
   // },
+  appBarDivStyle: {
+    background: "#262D54",
+    marginBottom: "20px",
+    // [theme.breakpoints.down("md")]: {
+    position: "sticky",
+    top: 0,
+    zIndex: 1000,
+    // },
+  },
 }));
 
 const Navigation = () => {
   const classes = useStyles();
   return (
     <Router>
-      <div
-        style={{
-          // minHeight: "64px",
-          background: "#262D54",
-          marginBottom: "20px",
-        }}
-      >
+      <div className={classes.appBarDivStyle}>
         <Container maxWidth="xl" style={{ padding: 0 }}>
           <AppBar />
         </Container>
@@ -59,8 +62,8 @@ const Navigation = () => {
               <Home />
             </Route>
             <Route>
-          <NotFound />
-        </Route>
+              <NotFound />
+            </Route>
           </Switch>
         </Container>
       </div>

@@ -3,13 +3,13 @@ import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton"; 
+import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu"; 
-import AccountCircle from "@mui/icons-material/AccountCircle"; 
-import NotificationsIcon from "@mui/icons-material/Notifications"; 
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"; 
+import Menu from "@mui/material/Menu";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 import { useHistory, useLocation } from "react-router-dom";
 import MyDrawer from "./partial/MyDrawer";
@@ -233,7 +233,13 @@ export default function PrimarySearchAppBar() {
             </p>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <MyDrawer />
+            <div
+              style={{
+                display: pathName === "" || pathName === "/" ? "none" : "block",
+              }}
+            >
+              <MyDrawer />
+            </div>
           </Box>
         </Toolbar>
       </AppBar>

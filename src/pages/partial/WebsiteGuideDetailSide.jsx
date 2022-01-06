@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "24px",
     fontWeight: 700,
     margin: 0,
+    [theme.breakpoints.down("xl")]: {
+      fontSize: "22px",
+    },
     [theme.breakpoints.down("md")]: {
       fontSize: "20px",
     },
@@ -48,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "26px",
     color: "#181c34",
     marginBottom: "35px !important",
+    [theme.breakpoints.down("xl")]: {
+      fontSize: "14px",
+    },
     [theme.breakpoints.down("md")]: {
       fontSize: "12px",
     },
@@ -57,6 +63,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#181c34",
     marginBottom: "35px !important",
     marginTop: "35px !important",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "15px",
+    },
   },
   tableStyle: {
     background: "rgba(15, 188, 249,0.1)",
@@ -95,6 +104,9 @@ const useStyles = makeStyles((theme) => ({
     "& span": {
       fontSize: "16px",
       cursor: "default",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "14px",
+      },
       [theme.breakpoints.down("md")]: {
         fontSize: "12px",
       },
@@ -118,6 +130,9 @@ const useStyles = makeStyles((theme) => ({
     "& span": {
       fontSize: "16px",
       cursor: "default",
+      [theme.breakpoints.down("xl")]: {
+        fontSize: "14px",
+      },
       [theme.breakpoints.down("md")]: {
         fontSize: "12px",
       },
@@ -142,7 +157,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
+const WebsiteGuideDetailSide = () => {
   const baseUrlData = [
     {
       Environment: "Staging",
@@ -223,26 +238,28 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
 
   useEffect(() => {
     if (activeUseEffect === true) {
-      if (fastPayMenuList.goTo !== null) {
-        const yOffset = -10;
+      if (fastPayMenuList.goTo !== null && fastPayMenuList.goTo !== "") {
+        const yOffset = -70;
 
         const element = document.getElementById(fastPayMenuList.goTo);
 
-        element.scrollTo({ top: 0, behavior: "smooth" });
+        // element.scrollTo({ top: 0, behavior: "smooth" });
         const y =
           element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
         window.scrollTo({ top: y, behavior: "smooth" });
+        addList({ goTo: "" });
       }
     }
     setActiveUseEffect(true);
   }, [fastPayMenuList.goTo]);
   useEffect(() => {
     const sections = document.querySelectorAll("section");
-
+    let lastId = topic;
     document.addEventListener("scroll", () => {
       const scrollCheck = window.scrollY;
       let sectionId;
+
       sections.forEach((section) => {
         const sectionTop = section.offsetTop - 70;
 
@@ -251,15 +268,17 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
 
         if (scrollCheck >= sectionTop && scrollCheck <= sectionBottom) {
           sectionId = section.getAttribute("id");
-
-          history.push({
-            search: `?topic=${sectionId}`,
-          });
+          if (lastId !== sectionId) {
+            lastId = sectionId;
+            history.push({
+              search: `?topic=${sectionId}`,
+            });
+          }
         }
       });
     });
 
-    if (topic !== "scaffolding-provided") {
+    if (topic !== "synopsis") {
       if (topic !== null) {
         addList({ goTo: topic });
       }
@@ -289,7 +308,7 @@ const WebsiteGuideDetailSide = ({ setActive, clickedOn }) => {
           through email along with API integration documentation.
         </p>
         <p className={classes.detailFontStyle}>
-          Upon first time successful login to merchant web panel i.e.
+          Upon first time successful login to merchant web panel i.e.{" "}
           <strong>merchant.fast-pay.iq</strong> using valid login credentials{" "}
           <strong>La Reve</strong> will be prompted to update their password.
           Once the password update operation is done the system will redirect

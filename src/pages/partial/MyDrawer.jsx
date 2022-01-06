@@ -90,8 +90,7 @@ export default function MyDrawer({ comp }) {
   return (
     <div>
       {["left"].map((anchor) => (
-        <React.Fragment key={anchor}>
-          {/* <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button> */}
+        <React.Fragment key={anchor}> 
           <IconButton
             size="large"
             aria-label="show more"
