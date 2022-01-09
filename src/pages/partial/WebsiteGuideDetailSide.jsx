@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   tableTitle: {
-    fontSize: "20px",
+    fontSize: "18px",
     color: "#181c34",
     marginBottom: "35px !important",
     marginTop: "35px !important",
