@@ -17,7 +17,8 @@ import paymentForm from "../../assets/images/paymentForm.png";
 import paymentSuccessful from "../../assets/images/paymentSuccessful.png";
 import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
 import { MenuContext } from "../../context/MenuContext";
-import { useHistory, useLocation } from "react-router-dom";
+import { ActiveMenuContext } from "../../context/ActiveMenuContext";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -231,10 +232,10 @@ const WebsiteGuideDetailSide = () => {
 
   const classes = useStyles();
   const { fastPayMenuList, addList } = useContext(MenuContext);
+  const { addActiveId, fastPayActiveId } = useContext(ActiveMenuContext);
   let history = useHistory();
-  const search = useLocation().search;
-  const topic = new URLSearchParams(search).get("topic");
   const [activeUseEffect, setActiveUseEffect] = useState(false);
+  const topic = fastPayActiveId.id;
 
   useEffect(() => {
     if (activeUseEffect === true) {
@@ -270,18 +271,15 @@ const WebsiteGuideDetailSide = () => {
           sectionId = section.getAttribute("id");
           if (lastId !== sectionId) {
             lastId = sectionId;
-            history.push({
-              search: `?topic=${sectionId}`,
-            });
+
+            addActiveId({ id: sectionId });
           }
         }
       });
     });
 
-    if (topic !== "synopsis") {
-      if (topic !== null) {
-        addList({ goTo: topic });
-      }
+    if (fastPayActiveId.id === "") {
+      addActiveId({ id: "synopsis" });
     }
   }, []);
 

@@ -90,7 +90,7 @@ export default function MyDrawer({ comp }) {
   return (
     <div>
       {["left"].map((anchor) => (
-        <React.Fragment key={anchor}> 
+        <React.Fragment key={anchor}>
           <IconButton
             size="large"
             aria-label="show more"
@@ -108,6 +108,9 @@ export default function MyDrawer({ comp }) {
               sx: {
                 backgroundColor: "#262D54",
                 color: "#fff",
+                ["& .MuiSvgIcon-root"]: {
+                  color: "#fff",
+                },
               },
             }}
           >

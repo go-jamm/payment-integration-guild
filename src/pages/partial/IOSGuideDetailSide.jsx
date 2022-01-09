@@ -6,7 +6,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CircleIcon from "@mui/icons-material/Circle";
 import { MenuContext } from "../../context/MenuContext";
-import { useHistory, useLocation } from "react-router-dom";
+
+import { ActiveMenuContext } from "../../context/ActiveMenuContext";
+import { useHistory } from "react-router-dom";
 
 import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
 
@@ -188,9 +190,9 @@ const IOSGuideDetailSide = () => {
 }`;
   const classes = useStyles();
   const { fastPayMenuList, addList } = useContext(MenuContext);
+  const { addActiveId, fastPayActiveId } = useContext(ActiveMenuContext);
   let history = useHistory();
-  const search = useLocation().search;
-  const topic = new URLSearchParams(search).get("topic");
+  const topic = fastPayActiveId.id;
 
   const [activeUseEffect, setActiveUseEffect] = useState(false);
 
@@ -228,18 +230,13 @@ const IOSGuideDetailSide = () => {
           sectionId = section.getAttribute("id");
           if (lastId !== sectionId) {
             lastId = sectionId;
-            history.push({
-              search: `?topic=${sectionId}`,
-            });
+            addActiveId({ id: sectionId });
           }
         }
       });
     });
-
-    if (topic !== "scaffolding-provided") {
-      if (topic !== null) {
-        addList({ goTo: topic });
-      }
+    if (fastPayActiveId.id === "") {
+      addActiveId({ id: "scaffolding-provided" });
     }
   }, []);
 

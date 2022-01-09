@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import Grid from "@mui/material/Grid";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
@@ -7,6 +7,8 @@ import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import AppleIcon from "@mui/icons-material/Apple";
 import AndroidIcon from "@mui/icons-material/Android";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
+
+import { ActiveMenuContext } from "../context/ActiveMenuContext";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -91,6 +93,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Home = () => {
   const classes = useStyles();
+  const { addActiveId, fastPayActiveId } = useContext(ActiveMenuContext);
+  useEffect(() => {
+    addActiveId({ id: "" });
+  }, []);
   return (
     <div>
       {/* <Container maxWidth="xl" className={classes.containerStyle}> */}
@@ -120,7 +126,6 @@ const Home = () => {
               <Link
                 to={{
                   pathname: "/website-integration",
-                  search: "?topic=synopsis",
                 }}
                 className={classes.linkStyle}
               >
@@ -144,7 +149,6 @@ const Home = () => {
               <Link
                 to={{
                   pathname: "/ios-integration",
-                  search: "?topic=scaffolding-provided",
                 }}
                 className={classes.linkStyle}
               >
@@ -169,7 +173,6 @@ const Home = () => {
               <Link
                 to={{
                   pathname: "/android-integration",
-                  search: "?topic=scaffolding-provided",
                 }}
                 className={classes.linkStyle}
               >
@@ -194,7 +197,6 @@ const Home = () => {
               <Link
                 to={{
                   pathname: "/qr-integration",
-                  search: "?topic=synopsis",
                 }}
                 className={classes.linkStyle}
               >

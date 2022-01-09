@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -8,6 +8,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { makeStyles } from "@mui/styles";
 import { useLocation } from "react-router-dom";
 import { MenuContext } from "../../context/MenuContext";
+import { ActiveMenuContext } from "../../context/ActiveMenuContext";
 
 const useStyles = makeStyles((theme) => ({
   menuItem: {
@@ -84,13 +85,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AndroidGuideSideBar({ setClickedOn }) {
+export default function AndroidGuideSideBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
   const { addList } = useContext(MenuContext);
-  const search = useLocation().search;
-  const topic = new URLSearchParams(search).get("topic");
+  const { fastPayActiveId } = useContext(ActiveMenuContext);
+  // const search = useLocation().search;
+  // const topic = new URLSearchParams(search).get("topic");
+  const topic = fastPayActiveId.id;
+  console.log("topic", topic);
+
   const fnActive = (id) => {
     addList({ goTo: id });
   };

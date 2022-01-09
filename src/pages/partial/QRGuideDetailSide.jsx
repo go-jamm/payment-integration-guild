@@ -15,7 +15,8 @@ import CircleIcon from "@mui/icons-material/Circle";
 import parameter from "../../assets/images/parameter.png";
 import parameter2 from "../../assets/images/parameter2.png";
 import { MenuContext } from "../../context/MenuContext";
-import { useHistory, useLocation } from "react-router-dom";
+import { ActiveMenuContext } from "../../context/ActiveMenuContext";
+import { useHistory } from "react-router-dom";
 import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
 
 const useStyles = makeStyles((theme) => ({
@@ -199,9 +200,9 @@ const QRGuideDetailSide = () => {
   const classes = useStyles();
   const [activeUseEffect, setActiveUseEffect] = useState(false);
   const { fastPayMenuList, addList } = useContext(MenuContext);
+  const { addActiveId, fastPayActiveId } = useContext(ActiveMenuContext);
   let history = useHistory();
-  const search = useLocation().search;
-  const topic = new URLSearchParams(search).get("topic");
+  const topic = fastPayActiveId.id;
   useEffect(() => {
     if (activeUseEffect === true) {
       if (fastPayMenuList.goTo !== null && fastPayMenuList.goTo !== "") {
@@ -221,9 +222,7 @@ const QRGuideDetailSide = () => {
           fastPayMenuList.goTo === "live-credentials" ||
           fastPayMenuList.goTo === "swagger-documentation"
         ) {
-          history.push({
-            search: `?topic=${fastPayMenuList.goTo}`,
-          });
+          addActiveId({ id: fastPayMenuList.goTo });
         }
       }, 1000);
     }
@@ -247,18 +246,13 @@ const QRGuideDetailSide = () => {
           sectionId = section.getAttribute("id");
           if (lastId !== sectionId) {
             lastId = sectionId;
-            history.push({
-              search: `?topic=${sectionId}`,
-            });
+            addActiveId({ id: sectionId });
           }
         }
       });
     });
-
-    if (topic !== "synopsis") {
-      if (topic !== null) {
-        addList({ goTo: topic });
-      }
+    if (fastPayActiveId.id === "") {
+      addActiveId({ id: "synopsis" });
     }
   }, []);
 
