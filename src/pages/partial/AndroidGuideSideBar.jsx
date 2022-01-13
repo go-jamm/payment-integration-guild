@@ -93,8 +93,7 @@ export default function AndroidGuideSideBar() {
   const { fastPayActiveId } = useContext(ActiveMenuContext);
   // const search = useLocation().search;
   // const topic = new URLSearchParams(search).get("topic");
-  const topic = fastPayActiveId.id;
-  console.log("topic", topic);
+  const topic = fastPayActiveId.id; 
 
   const fnActive = (id) => {
     addList({ goTo: id });

@@ -13,8 +13,7 @@ export const ActiveMenuContextProvider = (props) => {
     }
   );
 
-  const addActiveId = (data) => {
-    console.log("addActiveId", data);
+  const addActiveId = (data) => { 
     dispatch({
       type: "Add_Active_ID",
       payload: data,

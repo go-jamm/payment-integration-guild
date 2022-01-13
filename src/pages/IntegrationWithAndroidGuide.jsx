@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       background: "none",
     },
+    [theme.breakpoints.down("md")]: {
+      paddingLeft: "0px !important",
+    },
   },
   hide: {
     [theme.breakpoints.down("md")]: {
@@ -24,9 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const IntegrationWithAndroidGuide = () => {
-  const classes = useStyles();
-  const [active, setActive] = useState("scaffolding-provided");
-  const [clickedOn, setClickedOn] = useState("");
+  const classes = useStyles(); 
 
   return (
     <div>

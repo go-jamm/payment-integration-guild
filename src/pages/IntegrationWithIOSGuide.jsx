@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       background: "none",
     },
+    [theme.breakpoints.down("md")]: {
+      paddingLeft: "0px !important",
+    },
   },
   hide: {
     [theme.breakpoints.down("md")]: {
