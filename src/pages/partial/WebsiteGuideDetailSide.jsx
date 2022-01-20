@@ -639,7 +639,7 @@ const WebsiteGuideDetailSide = () => {
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>order_password</TableCell>
+                <TableCell>order_id</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
                 <TableCell>
                   {" "}
@@ -920,7 +920,7 @@ const WebsiteGuideDetailSide = () => {
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>order_password</TableCell>
+                <TableCell>order_id</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
                 <TableCell>
                   {" "}
@@ -1016,7 +1016,7 @@ const WebsiteGuideDetailSide = () => {
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>order_password</TableCell>
+                <TableCell>order_id</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
                 <TableCell>
                   {" "}
@@ -1124,7 +1124,7 @@ const WebsiteGuideDetailSide = () => {
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>order_password</TableCell>
+                <TableCell>order_id</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
                 <TableCell>
                   {" "}

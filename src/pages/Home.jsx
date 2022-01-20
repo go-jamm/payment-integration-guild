@@ -94,6 +94,14 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const { addActiveId, fastPayActiveId } = useContext(ActiveMenuContext);
+  const changeIconColor = (id, iconColor) => {
+    document.getElementById(id).style.color = iconColor;
+    document.getElementById(id).style.transition = " all 1s";
+  };
+  const resetIconColor = (id) => {
+    document.getElementById(id).style.color = "#E5E7E9";
+    // document.getElementById(id).style.transition = " all 0s";
+  };
   useEffect(() => {
     addActiveId({ id: "" });
   }, []);
@@ -129,7 +137,13 @@ const Home = () => {
                 }}
                 className={classes.linkStyle}
               >
-                <div className={classes.card}>
+                <div
+                  className={classes.card}
+                  onMouseOver={() =>
+                    changeIconColor("LaptopMacIcon", "#7FB3D5")
+                  }
+                  onMouseLeave={() => resetIconColor("LaptopMacIcon")}
+                >
                   <Grid container alignItems="center">
                     <Grid item xs={12} sm={9}>
                       <p className={classes.title}>Integrate With Website</p>
@@ -139,7 +153,10 @@ const Home = () => {
                       </p>
                     </Grid>
                     <Grid item xs={12} sm={3} className={classes.iconDiv}>
-                      <LaptopMacIcon className={classes.iconStyle} />
+                      <LaptopMacIcon
+                        className={classes.iconStyle}
+                        id="LaptopMacIcon"
+                      />
                     </Grid>
                   </Grid>
                 </div>
@@ -152,7 +169,11 @@ const Home = () => {
                 }}
                 className={classes.linkStyle}
               >
-                <div className={classes.card}>
+                <div
+                  className={classes.card}
+                  onMouseOver={() => changeIconColor("AppleIcon", "#5D6D7E")}
+                  onMouseLeave={() => resetIconColor("AppleIcon")}
+                >
                   <Grid container alignItems="center">
                     <Grid item xs={12} sm={9}>
                       <p className={classes.title}>
@@ -163,7 +184,7 @@ const Home = () => {
                       </p>
                     </Grid>
                     <Grid item xs={12} sm={3} className={classes.iconDiv}>
-                      <AppleIcon className={classes.iconStyle} />
+                      <AppleIcon className={classes.iconStyle} id="AppleIcon" />
                     </Grid>
                   </Grid>
                 </div>
@@ -176,7 +197,11 @@ const Home = () => {
                 }}
                 className={classes.linkStyle}
               >
-                <div className={classes.card}>
+                <div
+                  className={classes.card}
+                  onMouseOver={() => changeIconColor("AndroidIcon", "#3DDC84")}
+                  onMouseLeave={() => resetIconColor("AndroidIcon")}
+                >
                   <Grid container alignItems="center">
                     <Grid item xs={12} sm={9}>
                       <p className={classes.title}>
@@ -187,7 +212,10 @@ const Home = () => {
                       </p>
                     </Grid>
                     <Grid item xs={12} sm={3} className={classes.iconDiv}>
-                      <AndroidIcon className={classes.iconStyle} />
+                      <AndroidIcon
+                        className={classes.iconStyle}
+                        id="AndroidIcon"
+                      />
                     </Grid>
                   </Grid>
                 </div>
@@ -200,7 +228,11 @@ const Home = () => {
                 }}
                 className={classes.linkStyle}
               >
-                <div className={classes.card}>
+                <div
+                  className={classes.card}
+                  onMouseOver={() => changeIconColor("QrCode2Icon", "#273746")}
+                  onMouseLeave={() => resetIconColor("QrCode2Icon")}
+                >
                   <Grid container alignItems="center">
                     <Grid item xs={12} sm={9}>
                       <p className={classes.title}>QR Gereration API</p>
@@ -209,7 +241,10 @@ const Home = () => {
                       </p>
                     </Grid>
                     <Grid item xs={12} sm={3} className={classes.iconDiv}>
-                      <QrCode2Icon className={classes.iconStyle} />
+                      <QrCode2Icon
+                        className={classes.iconStyle}
+                        id="QrCode2Icon"
+                      />
                     </Grid>
                   </Grid>
                 </div>
