@@ -20,6 +20,12 @@ import { MenuContext } from "../../context/MenuContext";
 import { ActiveMenuContext } from "../../context/ActiveMenuContext";
 import { useHistory } from "react-router-dom";
 
+import Box from "@mui/material/Box";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+
 const useStyles = makeStyles((theme) => ({
   title: {
     color: "#262D54",
@@ -77,6 +83,14 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "14px",
       },
     },
+  },
+
+  tabStyle: {
+    background: "rgba(15, 188, 249,0.1)",
+  },
+
+  tabTitle: {
+    fontWeight: "700 !important",
   },
 
   alertStyle: {
@@ -192,6 +206,142 @@ const WebsiteGuideDetailSide = () => {
       "redirect_url": "http://staging-pgw.fast-pay.iq/pay?token=7b192dc5-1b48-491a-a1d7xxx"
 }`;
 
+  const sampleJava = `  OkHttpClient client = new OkHttpClient().newBuilder()
+    .build();
+  MediaType mediaType = MediaType.parse("application/json");
+  RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+    .addFormDataPart("store_id","YOUR_STORE_ID")
+    .addFormDataPart("store_password","YOUR_STORE_PASSWORD")
+    .addFormDataPart("order_id","YOUR_ORDER_ID")
+    .addFormDataPart("bill_amount","25000")
+    .addFormDataPart("currency","IQD")
+    .addFormDataPart("cart","[{\"name\":\"Scarf\",\"qty\":1,\"unit_price\":5000,\"sub_total\":5000}]")
+    .build();
+  Request request = new Request.Builder()
+    .url("https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/initiation")
+    .method("POST", body)
+    .addHeader("Accept", "application/json")
+    .addHeader("Content-Type", "application/json")
+    .build();
+  Response response = client.newCall(request).execute();
+`;
+
+  const samplePhp = `<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/initiation',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => array('store_id' => 'YOUR_STORE_ID','store_password' => 'YOUR_STORE_PASSWORD','order_id' => 'YOUR_ORDER_ID','bill_amount' => '25000','currency' => 'IQD','cart' => '[{"name":"Scarf","qty":1,"unit_price":5000,"sub_total":5000}]'),
+  CURLOPT_HTTPHEADER => array(
+    'Accept: application/json',
+    'Content-Type: application/json'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+`;
+
+  const sampleCurl = `curl --location --request POST 'https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/initiation' \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --form 'store_id="YOUR_STORE_ID"' \
+  --form 'store_password="YOUR_STORE_PASSWORD"' \
+  --form 'order_id="YOUR_ORDER_ID"' \
+  --form 'bill_amount="25000"' \
+  --form 'currency="IQD"' \
+  --form 'cart="[{\"name\":\"Scarf\",\"qty\":1,\"unit_price\":5000,\"sub_total\":5000}]"'`;
+
+  const samplePython = `  import requests
+  import json
+  
+  url = "https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/initiation"
+  
+  payload={'store_id': 'YOUR_STORE_ID',
+  'store_password': 'YOUR_STORE_PASSWORD',
+  'order_id': 'YOUR_ORDER_ID',
+  'bill_amount': '25000',
+  'currency': 'IQD',
+  'cart': '[{"name":"Scarf","qty":1,"unit_price":5000,"sub_total":5000}]'}
+  files=[
+  
+  ]
+  headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  }
+  
+  response = requests.request("POST", url, headers=headers, data=payload, files=files)
+  
+  print(response.text)
+  `;
+
+  const sampleNode = `  var axios = require('axios');
+  var FormData = require('form-data');
+  var data = new FormData();
+  data.append('store_id', 'YOUR_STORE_ID');
+  data.append('store_password', 'YOUR_STORE_PASSWORD');
+  data.append('order_id', 'YOUR_ORDER_ID');
+  data.append('bill_amount', '25000');
+  data.append('currency', 'IQD');
+  data.append('cart', '[{"name":"Scarf","qty":1,"unit_price":5000,"sub_total":5000}]');
+  
+  var config = {
+    method: 'post',
+    url: 'https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/initiation',
+    headers: { 
+      'Accept': 'application/json', 
+      'Content-Type': 'application/json', 
+      ...data.getHeaders()
+    },
+    data : data
+  };
+  
+  axios(config)
+  .then(function (response) {
+    console.log(JSON.stringify(response.data));
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+  `;
+
+  const sampleGo = `  var headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  };
+  var request = http.MultipartRequest('POST', Uri.parse('https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/initiation'));
+  request.fields.addAll({
+    'store_id': 'YOUR_STORE_ID',
+    'store_password': 'YOUR_STORE_PASSWORD',
+    'order_id': 'YOUR_ORDER_ID',
+    'bill_amount': '25000',
+    'currency': 'IQD',
+    'cart': '[{"name":"Scarf","qty":1,"unit_price":5000,"sub_total":5000}]'
+  });
+  
+  request.headers.addAll(headers);
+  
+  http.StreamedResponse response = await request.send();
+  
+  if (response.statusCode == 200) {
+    print(await response.stream.bytesToString());
+  }
+  else {
+    print(response.reasonPhrase);
+  }
+  `;
+
   const validateSampleData = `{
       "code":200,
       "message": [],
@@ -230,12 +380,306 @@ const WebsiteGuideDetailSide = () => {
   ]
 }`;
 
+  const sampleJava_v = `OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+  .addFormDataPart("store_id","YOUR_STORE_ID")
+  .addFormDataPart("store_password","YOUR_STORE_PASSWORD")
+  .addFormDataPart("order_id","YOUR_ORDER_ID")
+  .build();
+Request request = new Request.Builder()
+  .url("https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/validate")
+  .method("POST", body)
+  .addHeader("Accept", "application/json")
+  .addHeader("Content-Type", "application/json")
+  .build();
+Response response = client.newCall(request).execute();`;
+
+  const samplePhp_v = `<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/validate',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => array('store_id' => 'YOUR_STORE_ID','store_password' => 'YOUR_STORE_PASSWORD','order_id' => 'YOUR_ORDER_ID'),
+  CURLOPT_HTTPHEADER => array(
+    'Accept: application/json',
+    'Content-Type: application/json'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+`;
+
+  const sampleCurl_v = `curl --location --request POST 'https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/validate' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--form 'store_id="YOUR_STORE_ID"' \
+--form 'store_password="YOUR_STORE_PASSWORD"' \
+--form 'order_id="YOUR_ORDER_ID"'`;
+
+  const samplePython_v = `import requests
+import json
+
+url = "https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/validate"
+
+payload={'store_id': 'YOUR_STORE_ID',
+'store_password': 'YOUR_STORE_PASSWORD',
+'order_id': 'YOUR_ORDER_ID'}
+files=[
+
+]
+headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+print(response.text)
+`;
+
+  const sampleNode_v = `var axios = require('axios');
+var FormData = require('form-data');
+var data = new FormData();
+data.append('store_id', 'YOUR_STORE_ID');
+data.append('store_password', 'YOUR_STORE_PASSWORD');
+data.append('order_id', 'YOUR_ORDER_ID');
+
+var config = {
+  method: 'post',
+  url: 'https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/validate',
+  headers: { 
+    'Accept': 'application/json', 
+    'Content-Type': 'application/json', 
+    ...data.getHeaders()
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+`;
+
+  const sampleGo_v = `var headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+};
+var request = http.MultipartRequest('POST', Uri.parse('https://dev-apigw-merchant.deshipay.com/api/v1/public/pgw/payment/validate'));
+request.fields.addAll({
+  'store_id': 'YOUR_STORE_ID',
+  'store_password': 'YOUR_STORE_PASSWORD',
+  'order_id': 'YOUR_ORDER_ID'
+});
+
+request.headers.addAll(headers);
+
+http.StreamedResponse response = await request.send();
+
+if (response.statusCode == 200) {
+  print(await response.stream.bytesToString());
+}
+else {
+  print(response.reasonPhrase);
+}
+`;
+
+  const sampleJava_r = `OkHttpClient client = new OkHttpClient().newBuilder()
+.build();
+MediaType mediaType = MediaType.parse("application/json");
+RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+.addFormDataPart("store_id","YOUR_STORE_ID")
+.addFormDataPart("store_password","YOUR_STORE_PASSWORD")
+.addFormDataPart("msisdn","+964xxxxxxxxxx")
+.addFormDataPart("amount
+","250")
+.build();
+Request request = new Request.Builder()
+.url("https://apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/refund")
+.method("POST", body)
+.addHeader("Accept", "application/json")
+.addHeader("Content-Type", "application/json")
+.build();
+Response response = client.newCall(request).execute();`;
+
+  const samplePhp_r = `<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/refund',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => array('store_id' => 'YOUR_STORE_ID','store_password' => 'YOUR_STORE_PASSWORD','msisdn' => '+964xxxxxxxxxx','amount
+' => '250'),
+  CURLOPT_HTTPHEADER => array(
+    'Accept: application/json',
+    'Content-Type: application/json'
+  ),
+));
+
+$response = curl_exec($curl);
+
+curl_close($curl);
+echo $response;
+`;
+
+  const sampleCurl_r = `curl --location --request POST 'https://apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/refund' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--form 'store_id="YOUR_STORE_ID"' \
+--form 'store_password="YOUR_STORE_PASSWORD"' \
+--form 'msisdn="+964xxxxxxxxxx"' \
+--form 'amount
+="250"'`;
+
+  const samplePython_r = `import requests
+import json
+
+url = "https://apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/refund"
+
+payload={'store_id': 'YOUR_STORE_ID',
+'store_password': 'YOUR_STORE_PASSWORD',
+'msisdn': '+964xxxxxxxxxx',
+'amount
+': '250'}
+files=[
+
+]
+headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+print(response.text)
+`;
+
+  const sampleNode_r = `var axios = require('axios');
+var FormData = require('form-data');
+var data = new FormData();
+data.append('store_id', 'YOUR_STORE_ID');
+data.append('store_password', 'YOUR_STORE_PASSWORD');
+data.append('msisdn', '+964xxxxxxxxxx');
+data.append('amount\n', '250');
+
+var config = {
+  method: 'post',
+  url: 'https://apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/refund',
+  headers: { 
+    'Accept': 'application/json', 
+    'Content-Type': 'application/json', 
+    ...data.getHeaders()
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+`;
+
+  const sampleGo_r = `package main
+
+import (
+  "fmt"
+  "bytes"
+  "mime/multipart"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "https://apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/refund"
+  method := "POST"
+
+  payload := &bytes.Buffer{}
+  writer := multipart.NewWriter(payload)
+  _ = writer.WriteField("store_id", "YOUR_STORE_ID")
+  _ = writer.WriteField("store_password", "YOUR_STORE_PASSWORD")
+  _ = writer.WriteField("msisdn", "+964xxxxxxxxxx")
+  _ = writer.WriteField("amount\n", "250")
+  err := writer.Close()
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Accept", "application/json")
+  req.Header.Add("Content-Type", "application/json")
+
+  req.Header.Set("Content-Type", writer.FormDataContentType())
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}`;
+
   const classes = useStyles();
   const { fastPayMenuList, addList } = useContext(MenuContext);
   const { addActiveId, fastPayActiveId } = useContext(ActiveMenuContext);
   let history = useHistory();
   const [activeUseEffect, setActiveUseEffect] = useState(false);
   const topic = fastPayActiveId.id;
+
+  const [tabValue, setTabValue] = useState("1");
+  const [tabValue_v, setTabValue_v] = useState("11");
+  const [tabValue_r, setTabValue_r] = useState("111");
+
+  const handleChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+  const handleChange_v = (event, newValue) => {
+    setTabValue_v(newValue);
+  };
+  const handleChange_r = (event, newValue) => {
+    setTabValue_r(newValue);
+  };
 
   useEffect(() => {
     if (activeUseEffect === true) {
@@ -690,7 +1134,98 @@ const WebsiteGuideDetailSide = () => {
             </TableBody>
           </Table>
         </TableContainer>
-
+        {/* working  */}
+        <p className={classes.tableTitle}>Sample code snippet:</p>
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={tabValue}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+                className={classes.tabStyle}
+              >
+                <Tab label="Java" value="1" className={classes.tabTitle} />
+                <Tab label="PHP" value="2" className={classes.tabTitle} />
+                <Tab label="cURL" value="3" className={classes.tabTitle} />
+                <Tab label="Python" value="4" className={classes.tabTitle} />
+                <Tab label="Node" value="5" className={classes.tabTitle} />
+                <Tab label="Go" value="6" className={classes.tabTitle} />
+              </TabList>
+            </Box>
+            <TabPanel value="1">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleJava}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="2">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={samplePhp}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="3">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleCurl}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="4">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={samplePython}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="5">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleNode}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="6">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleGo}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+          </TabContext>
+        </Box>
         <p className={classes.tableTitle}>Sample Response:</p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
@@ -761,7 +1296,7 @@ const WebsiteGuideDetailSide = () => {
         className={classes.sectionMarginBottom}
         id="grab-the-notification"
       >
-        <p className={classes.subTitle}>Step 1: Grap The Notification</p>
+        <p className={classes.subTitle}>Step 1: Grab The Notification</p>
         <p className={classes.detailFontStyle}>
           As IPN URL is already set in the panel, almost all of the payment
           notifications will reach towards IPN URL prior to user redirection to
@@ -932,6 +1467,98 @@ const WebsiteGuideDetailSide = () => {
           </Table>
         </TableContainer>
 
+        <p className={classes.tableTitle}>Sample code snippet:</p>
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={tabValue_v}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange_v}
+                aria-label="lab API tabs example"
+                className={classes.tabStyle}
+              >
+                <Tab label="Java" value="11" className={classes.tabTitle} />
+                <Tab label="PHP" value="22" className={classes.tabTitle} />
+                <Tab label="cURL" value="33" className={classes.tabTitle} />
+                <Tab label="Python" value="44" className={classes.tabTitle} />
+                <Tab label="Node" value="55" className={classes.tabTitle} />
+                <Tab label="Go" value="66" className={classes.tabTitle} />
+              </TabList>
+            </Box>
+            <TabPanel value="11">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleJava_v}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="22">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={samplePhp_v}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="33">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleCurl_v}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="44">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={samplePython_v}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="55">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleNode_v}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="66">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleGo_v}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+          </TabContext>
+        </Box>
+
         <p className={classes.tableTitle}>Sample Response:</p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
@@ -1044,7 +1671,99 @@ const WebsiteGuideDetailSide = () => {
           </Table>
         </TableContainer>
 
-        <p className={classes.tableTitle}>Sample Response:</p>
+        <p className={classes.tableTitle}>Sample code snippet:</p>
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={tabValue_r}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange_r}
+                aria-label="lab API tabs example"
+                className={classes.tabStyle}
+              >
+                <Tab label="Java" value="111" className={classes.tabTitle} />
+                <Tab label="PHP" value="222" className={classes.tabTitle} />
+                <Tab label="cURL" value="333" className={classes.tabTitle} />
+                <Tab label="Python" value="444" className={classes.tabTitle} />
+                <Tab label="Node" value="555" className={classes.tabTitle} />
+                <Tab label="Go" value="666" className={classes.tabTitle} />
+              </TabList>
+            </Box>
+            <TabPanel value="111">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleJava_r}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="222">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={samplePhp_r}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="333">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleCurl_r}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="444">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={samplePython_r}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="555">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleNode_r}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+            <TabPanel value="666">
+              <div className={classes.copyBlockStyle}>
+                <CopyBlock
+                  language={"jsx"}
+                  text={sampleGo_r}
+                  showLineNumbers={true}
+                  theme={dracula}
+                  wrapLines={true}
+                  codeBlock
+                />
+              </div>
+            </TabPanel>
+          </TabContext>
+        </Box>
+
+        <p className={classes.tableTitle}>Sample Response: </p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
             language={"jsx"}

@@ -292,9 +292,9 @@ const QRGuideDetailSide = () => {
                   className={classes.detailFontStyle}
                   style={{ textDecoration: "none", cursor: "pointer" }}
                   target="_blank"
-                  href="https://dev-merchant.fast-pay.cash"
+                  href="https://staging-merchant.fast-pay.iq"
                 >
-                  <strong> Sandbox -</strong> https://dev-merchant.fast-pay.cash
+                  <strong> Sandbox -</strong> https://staging-merchant.fast-pay.iq
                 </a>
               </ListItemText>
             </ListItem>
@@ -308,9 +308,9 @@ const QRGuideDetailSide = () => {
                   className={classes.detailFontStyle}
                   style={{ textDecoration: "none", cursor: "pointer" }}
                   target="_blank"
-                  href="https://merchant.fast-pay.cash"
+                  href="https://merchant.fast-pay.iq"
                 >
-                  <strong> Production -</strong> https://merchant.fast-pay.cash
+                  <strong> Production -</strong> https://merchant.fast-pay.iq
                 </a>
               </ListItemText>
             </ListItem>
@@ -406,20 +406,20 @@ const QRGuideDetailSide = () => {
                     className={classes.detailFontStyle}
                     style={{ textDecoration: "none", cursor: "pointer" }}
                     target="_blank"
-                    href="https://dev-qr.fast-pay.cash"
+                    href="https://staging-qr.fast-pay.iq"
                   >
                     <strong>Sandbox Base URL:</strong>{" "}
-                    https://dev-qr.fast-pay.cash
+                    https://staging-qr.fast-pay.iq
                   </a>
                   <br /> <br />
                   <a
                     className={classes.detailFontStyle}
                     style={{ textDecoration: "none", cursor: "pointer" }}
                     target="_blank"
-                    href="https://qr.fast-pay.cash"
+                    href="https://qr.fast-pay.iq"
                   >
                     <strong> Production Base URL:</strong>{" "}
-                    https://qr.fast-pay.cash
+                    https://qr.fast-pay.iq
                   </a>
                 </TableCell>
                 <TableCell>POST</TableCell>
@@ -633,20 +633,20 @@ const QRGuideDetailSide = () => {
                     className={classes.detailFontStyle}
                     style={{ textDecoration: "none", cursor: "pointer" }}
                     target="_blank"
-                    href="https://dev-qr.fast-pay.cash"
+                    href="https://staging-qr.fast-pay.iq"
                   >
                     <strong>Sandbox Base URL:</strong>{" "}
-                    https://dev-qr.fast-pay.cash
+                    https://staging-qr.fast-pay.iq
                   </a>
                   <br /> <br />
                   <a
                     className={classes.detailFontStyle}
                     style={{ textDecoration: "none", cursor: "pointer" }}
                     target="_blank"
-                    href="https://qr.fast-pay.cash"
+                    href="https://qr.fast-pay.iq"
                   >
                     <strong> Production Base URL:</strong>{" "}
-                    https://qr.fast-pay.cash
+                    https://qr.fast-pay.iq
                   </a>
                 </TableCell>
                 <TableCell>POST</TableCell>
@@ -754,20 +754,20 @@ const QRGuideDetailSide = () => {
                     className={classes.detailFontStyle}
                     style={{ textDecoration: "none", cursor: "pointer" }}
                     target="_blank"
-                    href="https://dev-qr.fast-pay.cash"
+                    href="https://staging-qr.fast-pay.iq"
                   >
                     <strong>Sandbox Base URL:</strong>{" "}
-                    https://dev-qr.fast-pay.cash
+                    https://staging-qr.fast-pay.iq
                   </a>
                   <br /> <br />
                   <a
                     className={classes.detailFontStyle}
                     style={{ textDecoration: "none", cursor: "pointer" }}
                     target="_blank"
-                    href="https://qr.fast-pay.cash"
+                    href="https://qr.fast-pay.iq"
                   >
                     <strong> Production Base URL:</strong>{" "}
-                    https://qr.fast-pay.cash
+                    https://qr.fast-pay.iq
                   </a>
                 </TableCell>
                 <TableCell>POST</TableCell>
@@ -990,9 +990,9 @@ const QRGuideDetailSide = () => {
           className={classes.detailFontStyle}
           style={{ textDecoration: "none", cursor: "pointer" }}
           target="_blank"
-          href="https://dev-qr.fast-pay.cash/swagger-ui.html"
+          href="https://staging-qr.fast-pay.iq/swagger-ui.html"
         >
-          <i>https://dev-qr.fast-pay.cash/swagger-ui.html</i>
+          <i>https://staging-qr.fast-pay.iq/swagger-ui.html</i>
         </a>
       </section>
     </div>
