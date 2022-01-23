@@ -99,8 +99,7 @@ const Home = () => {
     document.getElementById(id).style.transition = " all 1s";
   };
   const resetIconColor = (id) => {
-    document.getElementById(id).style.color = "#E5E7E9";
-    // document.getElementById(id).style.transition = " all 0s";
+    document.getElementById(id).style.color = "#E5E7E9"; 
   };
   useEffect(() => {
     addActiveId({ id: "" });
