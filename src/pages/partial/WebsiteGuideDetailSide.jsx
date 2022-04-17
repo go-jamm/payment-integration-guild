@@ -218,7 +218,7 @@ const WebsiteGuideDetailSide = () => {
     .addFormDataPart("cart","[{\"name\":\"Scarf\",\"qty\":1,\"unit_price\":5000,\"sub_total\":5000}]")
     .build();
   Request request = new Request.Builder()
-    .url("https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation")
+    .url("https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation")
     .method("POST", body)
     .addHeader("Accept", "application/json")
     .addHeader("Content-Type", "application/json")
@@ -231,7 +231,7 @@ const WebsiteGuideDetailSide = () => {
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation',
+  CURLOPT_URL => 'https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -252,7 +252,7 @@ curl_close($curl);
 echo $response;
 `;
 
-  const sampleCurl = `curl --location --request POST 'https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation' \
+  const sampleCurl = `curl --location --request POST 'https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation' \
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
   --form 'store_id="YOUR_STORE_ID"' \
@@ -265,7 +265,7 @@ echo $response;
   const samplePython = `  import requests
   import json
   
-  url = "https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation"
+  url = "https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation"
   
   payload={'store_id': 'YOUR_STORE_ID',
   'store_password': 'YOUR_STORE_PASSWORD',
@@ -298,7 +298,7 @@ echo $response;
   
   var config = {
     method: 'post',
-    url: 'https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation',
+    url: 'https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation',
     headers: { 
       'Accept': 'application/json', 
       'Content-Type': 'application/json', 
@@ -320,7 +320,7 @@ echo $response;
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   };
-  var request = http.MultipartRequest('POST', Uri.parse('https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation'));
+  var request = http.MultipartRequest('POST', Uri.parse('https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation'));
   request.fields.addAll({
     'store_id': 'YOUR_STORE_ID',
     'store_password': 'YOUR_STORE_PASSWORD',
@@ -389,7 +389,7 @@ RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
   .addFormDataPart("order_id","YOUR_ORDER_ID")
   .build();
 Request request = new Request.Builder()
-  .url("https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate")
+  .url("https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate")
   .method("POST", body)
   .addHeader("Accept", "application/json")
   .addHeader("Content-Type", "application/json")
@@ -401,7 +401,7 @@ Response response = client.newCall(request).execute();`;
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => 'https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate',
+  CURLOPT_URL => 'https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate',
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -422,7 +422,7 @@ curl_close($curl);
 echo $response;
 `;
 
-  const sampleCurl_v = `curl --location --request POST 'https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate' \
+  const sampleCurl_v = `curl --location --request POST 'https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate' \
 --header 'Accept: application/json' \
 --header 'Content-Type: application/json' \
 --form 'store_id="YOUR_STORE_ID"' \
@@ -432,7 +432,7 @@ echo $response;
   const samplePython_v = `import requests
 import json
 
-url = "https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate"
+url = "https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate"
 
 payload={'store_id': 'YOUR_STORE_ID',
 'store_password': 'YOUR_STORE_PASSWORD',
@@ -459,7 +459,7 @@ data.append('order_id', 'YOUR_ORDER_ID');
 
 var config = {
   method: 'post',
-  url: 'https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate',
+  url: 'https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate',
   headers: { 
     'Accept': 'application/json', 
     'Content-Type': 'application/json', 
@@ -481,7 +481,7 @@ axios(config)
   'Accept': 'application/json',
   'Content-Type': 'application/json'
 };
-var request = http.MultipartRequest('POST', Uri.parse('https://dev-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate'));
+var request = http.MultipartRequest('POST', Uri.parse('https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate'));
 request.fields.addAll({
   'store_id': 'YOUR_STORE_ID',
   'store_password': 'YOUR_STORE_PASSWORD',
