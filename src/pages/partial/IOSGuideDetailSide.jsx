@@ -274,6 +274,22 @@ const IOSGuideDetailSide = () => {
             </ListItemIcon>
             <ListItemText primary="FastPaySDKDocumentation.pdf" />
           </ListItem>
+          <ListItem
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.ItemStyle}`}
+          >
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+
+            <a
+              href="https://github.com/Fast-Solution-Inc/FastPay-IOS-SDK"
+              target="_blank"
+            >
+              Download SDK
+            </a>
+          </ListItem>
         </List>
       </section>
       <section className={classes.sectionMarginBottom} id="get-started">

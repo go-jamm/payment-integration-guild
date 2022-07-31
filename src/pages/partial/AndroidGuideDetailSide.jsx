@@ -280,6 +280,22 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             </ListItemIcon>
             <ListItemText primary="Usermanual.pdf (Documentation)" />
           </ListItem>
+          <ListItem
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.ItemStyle}`}
+          >
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+
+            <a
+              href="https://github.com/Fast-Solution-Inc/FastPay-Android-SDK"
+              target="_blank"
+            >
+              Download SDK
+            </a>
+          </ListItem>
         </List>
       </section>
       <section className={classes.sectionMarginBottom} id="steps">
