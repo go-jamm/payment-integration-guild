@@ -975,6 +975,18 @@ func main() {
       <section className={classes.sectionMarginBottom} id="apis">
         <p className={classes.title}>APIs</p>
         <hr />
+
+        <a
+          href="https://documenter.getpostman.com/view/19338260/2s9YkkeNKN"
+          target="_blank"
+          style={{
+            color: "rgba(15, 188, 249,1.0)",
+            marginTop: "24px",
+            display: "block",
+          }}
+        >
+          FastPay Payment APIs - Postman Collection
+        </a>
       </section>
     </div>
   );

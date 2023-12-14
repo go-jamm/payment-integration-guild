@@ -7,6 +7,7 @@ import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import AppleIcon from "@mui/icons-material/Apple";
 import AndroidIcon from "@mui/icons-material/Android";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
+import flutter from "../assets/images/flutter.svg";
 
 import { ActiveMenuContext } from "../context/ActiveMenuContext";
 
@@ -89,6 +90,18 @@ const useStyles = makeStyles((theme) => ({
       order: -1,
       marginBottom: "10px !important",
     },
+    "&:hover > flutter": {
+      "-webkit-filter": "grayscale(0%)",
+      filter: "grayscale(0%)",
+    },
+  },
+  flutter: {
+    "-webkit-filter": "grayscale(100%)",
+    filter: "grayscale(100%)",
+    "&:hover": {
+      "-webkit-filter": "grayscale(0%)",
+      filter: "grayscale(0%)",
+    },
   },
 }));
 const Home = () => {
@@ -99,7 +112,7 @@ const Home = () => {
     document.getElementById(id).style.transition = " all 1s";
   };
   const resetIconColor = (id) => {
-    document.getElementById(id).style.color = "#E5E7E9"; 
+    document.getElementById(id).style.color = "#E5E7E9";
   };
   useEffect(() => {
     addActiveId({ id: "" });
@@ -248,6 +261,39 @@ const Home = () => {
                   </Grid>
                 </div>
               </Link>
+            </Grid>
+            {/* <Grid item xs={12} sm={12} md={3}>
+
+            </Grid> */}
+            <Grid item xs={12} sm={12} md={6}>
+              <a
+                href="https://pub.dev/packages/fastpay_merchant"
+                target="_blank"
+                className={classes.linkStyle}
+              >
+                <div
+                  className={classes.card}
+                  onMouseOver={() => changeIconColor("QrCode2Icon", "#273746")}
+                  onMouseLeave={() => resetIconColor("QrCode2Icon")}
+                >
+                  <Grid container alignItems="center">
+                    <Grid item xs={12} sm={9}>
+                      <p className={classes.title}>Flutter Plugin</p>
+                      <p className={classes.cardDetailFontStyle}>
+                        Easiest payment gateway to integrate with 24x7 support
+                      </p>
+                    </Grid>
+                    <Grid item xs={12} sm={3} className={classes.iconDiv}>
+                      <img
+                        src={flutter}
+                        alt=""
+                        height="80"
+                        className={classes.flutter}
+                      />
+                    </Grid>
+                  </Grid>
+                </div>
+              </a>
             </Grid>
           </Grid>
           <br />
