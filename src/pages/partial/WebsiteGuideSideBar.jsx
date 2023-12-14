@@ -261,7 +261,7 @@ export default function WebsiteGuildSideBar() {
       >
         <ListItemText primary="APIs" />
       </ListItemButton>
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      {/* <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton
             disableRipple={true}
@@ -358,7 +358,7 @@ export default function WebsiteGuildSideBar() {
             </List>
           </Collapse>
         </List>
-      </Collapse>
+      </Collapse> */}
     </List>
   );
 }

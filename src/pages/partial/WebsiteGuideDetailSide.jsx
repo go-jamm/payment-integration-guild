@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@mui/styles";
-import steps from "../../assets/images/steps.jpg";
+import steps from "../../assets/images/steps.png";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
 
   alertStyle: {
     background: "#FADBD8",
-    padding: "20px 0px 30px",
+    padding: "20px 20px 10px 30px",
     borderRadius: "10px",
   },
   alertTitle: {
@@ -264,9 +264,9 @@ echo $response;
 
   const samplePython = `  import requests
   import json
-  
+
   url = "https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation"
-  
+
   payload={'store_id': 'YOUR_STORE_ID',
   'store_password': 'YOUR_STORE_PASSWORD',
   'order_id': 'YOUR_ORDER_ID',
@@ -274,15 +274,15 @@ echo $response;
   'currency': 'IQD',
   'cart': '[{"name":"Scarf","qty":1,"unit_price":5000,"sub_total":5000}]'}
   files=[
-  
+
   ]
   headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json'
   }
-  
+
   response = requests.request("POST", url, headers=headers, data=payload, files=files)
-  
+
   print(response.text)
   `;
 
@@ -295,18 +295,18 @@ echo $response;
   data.append('bill_amount', '25000');
   data.append('currency', 'IQD');
   data.append('cart', '[{"name":"Scarf","qty":1,"unit_price":5000,"sub_total":5000}]');
-  
+
   var config = {
     method: 'post',
     url: 'https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/initiation',
-    headers: { 
-      'Accept': 'application/json', 
-      'Content-Type': 'application/json', 
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
       ...data.getHeaders()
     },
     data : data
   };
-  
+
   axios(config)
   .then(function (response) {
     console.log(JSON.stringify(response.data));
@@ -329,11 +329,11 @@ echo $response;
     'currency': 'IQD',
     'cart': '[{"name":"Scarf","qty":1,"unit_price":5000,"sub_total":5000}]'
   });
-  
+
   request.headers.addAll(headers);
-  
+
   http.StreamedResponse response = await request.send();
-  
+
   if (response.statusCode == 200) {
     print(await response.stream.bytesToString());
   }
@@ -460,9 +460,9 @@ data.append('order_id', 'YOUR_ORDER_ID');
 var config = {
   method: 'post',
   url: 'https://staging-apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/validate',
-  headers: { 
-    'Accept': 'application/json', 
-    'Content-Type': 'application/json', 
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
     ...data.getHeaders()
   },
   data : data
@@ -588,9 +588,9 @@ data.append('amount\n', '250');
 var config = {
   method: 'post',
   url: 'https://apigw-merchant.fast-pay.iq/api/v1/public/pgw/payment/refund',
-  headers: { 
-    'Accept': 'application/json', 
-    'Content-Type': 'application/json', 
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
     ...data.getHeaders()
   },
   data : data
@@ -732,30 +732,31 @@ func main() {
       <br />
 
       <section className={classes.sectionMarginBottom} id="synopsis">
-        <p className={classes.title}>Synopsis</p>
+        <p className={classes.title}>Overview</p>
         <hr />
         <p className={classes.detailFontStyle}>
-          Let’s say, <strong>La Reve</strong> is a merchant that sell clothes
-          online and want to use <strong>FastPay</strong> as a payment method
-          along with other payment options e.g. PayPal, VISA etc. To be eligible
-          for accepting payment through <strong>FastPay</strong> gateway, it is
-          a prerequisite for <strong>La Reve</strong> to become a merchant of{" "}
-          <strong>FastPay</strong> upon contacting the{" "}
-          <strong>
-            FastPay Merchant Acquisition Team. Merchant Acquisition Team
-          </strong>{" "}
-          will create a merchant account for <strong>La Reve</strong> along with
-          other necessary information. Once the account creation is done,{" "}
-          <strong>La Reve</strong> will receive system-generated credentials
-          through email along with API integration documentation.
+          Imagine you're running an online clothing store called La Reve and
+          you're considering FastPay as an additional payment option, alongside
+          popular methods like PayPal and VISA. To integrate FastPay into your
+          payment system, you first need to become a registered merchant with
+          FastPay. This process begins by reaching out to the FastPay Merchant
+          Acquisition Team.
         </p>
+        <p className={classes.title}>Becoming a FastPay Merchant</p>
         <p className={classes.detailFontStyle}>
-          Upon first time successful login to merchant web panel i.e.{" "}
-          <strong>merchant.fast-pay.iq</strong> using valid login credentials{" "}
-          <strong>La Reve</strong> will be prompted to update their password.
-          Once the password update operation is done the system will redirect
-          logged in-store user to their dedicated dashboard where they can do
-          necessary operations dedicated to online merchants like -
+          The Merchant Acquisition Team at FastPay will guide you through
+          setting up your merchant account. They'll provide you with all the
+          necessary details, and once your account is established, La Reve will
+          receive an email containing system-generated credentials and
+          comprehensive API integration guidelines.
+        </p>
+        <p className={classes.title}>Initial Access and Security</p>
+        <p className={classes.detailFontStyle}>
+          For your first login at the merchant web panel (merchant.fast-pay.iq),
+          use the provided credentials. You'll then be prompted to update your
+          password for enhanced security. After updating, you'll gain access to
+          your personalized dashboard. This dashboard is the hub for various
+          online merchant activities, including:
         </p>
 
         <List component="div" disablePadding className={classes.listStyle}>
@@ -767,7 +768,7 @@ func main() {
             <ListItemIcon>
               <CircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Refund Payment." />
+            <ListItemText primary="Refund Payments: Process customer refunds efficiently." />
           </ListItem>
           <ListItem
             disableRipple={true}
@@ -777,7 +778,7 @@ func main() {
             <ListItemIcon>
               <CircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Transaction History." />
+            <ListItemText primary="Transaction History: View and manage your store's transaction records.." />
           </ListItem>
           <ListItem
             disableRipple={true}
@@ -787,7 +788,7 @@ func main() {
             <ListItemIcon>
               <CircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Store Configuration." />
+            <ListItemText primary="Store Configuration: Customize settings for your online store." />
           </ListItem>
           <ListItem
             disableRipple={true}
@@ -797,22 +798,22 @@ func main() {
             <ListItemIcon>
               <CircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Account Information etc." />
+            <ListItemText primary="Account Information: Access and update your merchant account details." />
           </ListItem>
         </List>
-        <p className={classes.detailFontStyle}>
-          Clicking on <strong>Store Configuration</strong> will redirect the
-          user to the <strong>Store Configuration</strong> page where they can
-          set up their store related information like{" "}
-          <code>store_password</code> , <code>success_url</code> ,{" "}
-          <code>cancel_url</code> , <code>fail_url</code> ,<code>ipn_url</code>{" "}
-          .
+
+        <p className={classes.title} style={{ marginTop: 32 }}>
+          Configuring Your Store
         </p>
         <p className={classes.detailFontStyle}>
-          <code>store_id</code> and <code>store_url</code> fields will be
-          pre-filled and available in read-only mode.
+          In the Store Configuration section, you can set up crucial
+          store-specific details, including store passwords, success and
+          cancellation URLs, failure notification URLs, and Instant Payment
+          Notification (IPN) URLs. The fields for your store ID and store URL
+          are pre-filled and are set to read-only mode for security purposes.
         </p>
       </section>
+      {/* end section  */}
       <section className={classes.sectionMarginBottom} id="how-it-works">
         <p className={classes.title}>
           How It Work -{" "}
@@ -828,7 +829,7 @@ func main() {
         />
         <br />
         <p className={classes.detailFontStyle}>
-          The above steps can be categorised in three sections based on the
+          The above steps can be categorized in three sections based on the
           development process described below.
         </p>
       </section>
@@ -836,47 +837,45 @@ func main() {
         className={classes.sectionMarginBottom}
         id="initiation-of-transaction"
       >
-        <p className={classes.subTitle}>Initiation of Transaction:</p>
+        <p className={classes.subTitle}>Transaction Initiation</p>
         <p className={classes.detailFontStyle}>
-          The Steps 1, 2 and 3 are used to make request for a new transaction.
-          After getting confirmation of checkout from customer, merchant server
-          sends a request to FastPay server to get an unique URL to redirect
-          customer to. If required credentials and data are valid, then FastPay
-          provides a <strong>Redirect URL</strong> to Merchant System. After
-          receiving the Redirect URL, Merchant System redirects the customer to
-          unique payment gateway URL that is received as a response to the
-          initiation request.
+          <strong>Steps 1 to 3</strong> delineate the commencement of a
+          transaction. Upon customer checkout confirmation, the merchant server
+          requests a unique transaction URL from the FastPay server. This
+          entails submitting the necessary credentials and data for validation.
+          Once verified, FastPay issues a Redirect URL to the merchant. The
+          merchant system then reroutes the customer to this specific payment
+          gateway URL, signaling the start of the payment process.
         </p>
       </section>
       <section
         className={classes.sectionMarginBottom}
         id="handling-payment-notification"
       >
-        <p className={classes.subTitle}>Handling Payment Notification:</p>
+        <p className={classes.subTitle}>Payment Notification Protocol</p>
         <p className={classes.detailFontStyle}>
-          Steps 4 & 5 describes how payment notification should be handled in
-          merchant side. For any notification, <strong>FastPay</strong> will
-          send <code>HTTP</code> message in <code>POST</code> method called{" "}
-          <code>IPN</code> message to the IPN URL which is to be configured by
-          the Merchant using <strong>Merchant Web Panel</strong>{" "}
-          <code>i.e. merchant.fast-pay.iq.</code> After receiving the message,
-          merchant developer must validate the message using{" "}
-          <strong>Transaction Validation</strong> API of{" "}
-          <strong>FastPay PGW</strong>
+          <strong>Steps 4 to 7</strong> outline the merchant's protocol for
+          managing payment notifications. FastPay dispatches an HTTP POST
+          message in the event of a Successful Payment only , known as the
+          Instant Payment Notification (IPN) message, to the merchant-designated
+          IPN URL. This URL is configurable via the Merchant Web Panel
+          (merchant.fast-pay.iq). Upon receipt, the merchant's development team
+          is tasked with validating the IPN using FastPay's Transaction
+          Validation API to ensure its authenticity and accuracy.
         </p>
       </section>
       <section
         className={classes.sectionMarginBottom}
         id="service-confirmation"
       >
-        <p className={classes.subTitle}>Service Confirmation:</p>
+        <p className={classes.subTitle}>Service Confirmation Process</p>
         <p className={classes.detailFontStyle}>
-          At Step 5, <strong>FastPay</strong> will redirect the customer to
-          merchant’s website URL i.e. <code>success_url</code> or{" "}
-          <code>cancel_url</code> or <code>fail_url</code> based on transaction
-          status. At this stage, Merchant will display the notification of
-          service confirmation in case of Success, otherwise, service denial in
-          case of failure or cancellation of payment.
+          In <strong>Step 8</strong>, the customer is directed back to the
+          merchant's website at one of the predefined URLs: success_url,
+          cancel_ur ç on the transaction outcome. Here, the merchant presents
+          the appropriate confirmation notification if the transaction is
+          successful, or a denial notice in the event of a transaction failure
+          or cancellation.
         </p>
       </section>
       <section className={classes.sectionMarginBottom} id="integration-steps">
@@ -887,104 +886,64 @@ func main() {
         className={classes.sectionMarginBottom}
         id="initiate-payment-sub"
       >
-        <p className={classes.subTitle}>Initiate Payment</p>
+        <p className={classes.subTitle}>Step 1: Payment Initiation</p>
         <p className={classes.detailFontStyle}>
-          Provide Information about your customer and order to{" "}
-          <strong>FastPay</strong> along with your store id to initiate the
-          payment. Rest of the payment process will be done by{" "}
-          <strong>FastPay</strong>
+          Begin by transmitting your store credentials and order information to
+          FastPay to kick off the payment process Grab the returned redirect URL
+          and redirect customers to the URL. From there, FastPay handles the
+          remainder of the payment journey, ensuring a seamless experience for
+          your customers.
         </p>
       </section>
       <section
         className={classes.sectionMarginBottom}
         id="validate-payment-sub"
       >
-        <p className={classes.subTitle}>Validate Payment</p>
+        <p className={classes.subTitle}>Step 2: Payment Verification</p>
         <p className={classes.detailFontStyle}>
-          After successfully receiving the payment, <strong>FastPay PGW</strong>{" "}
-          will redirect back the customer to the merchant website as per
-          Success, Failed or Cancel status.{" "}
-          <span style={{ color: "#E74C3C" }}>
-            You must validate the order with our validation API using
-          </span>{" "}
-          <code>store_id</code> , <code>store_password</code> and{" "}
-          <code>order_id</code>.
+          Once the payment has been processed, FastPay's Payment Gateway (PGW)
+          will guide the customer back to your website, landing on a page that
+          reflects the payment outcome: successful, failed, or cancelled. It's
+          crucial at this stage to verify the payment details using FastPay's
+          Validation API. You'll need your store_id, store_password, and the
+          order_id to authenticate the transaction.
         </p>
       </section>
       <section
         className={classes.sectionMarginBottom}
         id="update-your-transaction"
       >
-        <p className={classes.subTitle}>Update your transaction</p>
+        <p className={classes.subTitle}>Step 3: Transaction Update</p>
         <p className={classes.detailFontStyle}>
-          After validation of the transaction that you have received, depending
-          on the status you have to update your transaction in your Database.
-          The status will be{" "}
-          <span style={{ color: "#196F3D" }}>
-            <strong>Success</strong>
-          </span>
-          ,{" "}
-          <span style={{ color: "#E74C3C" }}>
-            {" "}
-            <strong>Failed</strong>
-          </span>{" "}
-          or <strong>Cancelled</strong> depending on payment status.
+          Post-verification, you should update the transaction records in your
+          database. Typically, the status will reflect 'Success' for completed
+          payments. It's rare to encounter statuses other than 'Success', but
+          you should be prepared to handle any such instances accordingly.
         </p>
       </section>
       <section
         className={classes.sectionMarginBottom}
         id="enable-most-advanced-IPN"
       >
-        <p className={classes.subTitle}>Enable most advanced IPN</p>
+        <p className={classes.subTitle}>Step 4: Advanced IPN Setup</p>
         <p className={classes.detailFontStyle}>
-          If somehow your consumer pays your payable amount to PGW side and
-          FastPay accept it as Success , but your Website/Connectivity/Customer
-          Network got downtime and is unable to update the payment at your side
-          you can use <strong>IPN</strong>{" "}
-          <span style={{ fontWeight: 300, fontStyle: "italic" }}>
-            ( Instant Payment Notification )
-          </span>{" "}
-          . It will send a notification to your provided{" "}
-          <strong>IPN URL</strong> in{" "}
-          <strong>FastPay Merchant Dashboard</strong> to notify you and your
-          database even if your user is unable to return back to your website
+          For cases where a payment is acknowledged as successful by FastPay,
+          yet an issue occurs with your website, connectivity, or the customer's
+          network, preventing immediate redirect to your website—set up the
+          Instant Payment Notification (IPN) service. This tool will
+          automatically send a notification to the IPN URL specified in your
+          FastPay Merchant Panel, ensuring your database is informed of the
+          payment, even if the customer can't return to your website.
         </p>
         <div className={classes.alertStyle}>
-          <List component="div" disablePadding>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.alertTitle}`}
-            >
-              <ListItemText primary="Security Check:" />
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.alertItem} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText>
-                You must validate your transaction and amount by calling our
-                validation API.
-              </ListItemText>
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.alertItem}`}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText>
-                You must set <strong>IPN URL</strong> to receive notification
-                for both returned and missed payments.
-              </ListItemText>
-            </ListItem>
-          </List>
+          <p className={classes.subTitle}>Security Measures</p>
+          <p className={classes.detailFontStyle}>
+            It's imperative to conduct a thorough security check by validating
+            each transaction and amount through the validation API.
+            Additionally, configure your IPN URL to capture notifications for
+            all payments, including those that customers might not return to
+            acknowledge on your site.
+          </p>
         </div>
       </section>
       <section className={classes.sectionMarginBottom} id="base-url">
@@ -1016,900 +975,6 @@ func main() {
       <section className={classes.sectionMarginBottom} id="apis">
         <p className={classes.title}>APIs</p>
         <hr />
-      </section>
-      <section
-        className={classes.sectionMarginBottom}
-        id="initiate-payment-api"
-      >
-        <p
-          className={classes.subTitle}
-          style={{ marginTop: "16px", marginBottom: "35px" }}
-        >
-          Initiate Payment API
-        </p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>URL</TableCell>
-                <TableCell>Method</TableCell>
-                <TableCell>Headers</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>/api/v1/public/pgw/payment/initiation</TableCell>
-                <TableCell>POST</TableCell>
-                <TableCell>
-                  Accept: application/json
-                  <br />
-                  Content-Type: application/json
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <p className={classes.tableTitle}>Request Body:</p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type & Length</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Required</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password. e.g. A$Rong001</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>order_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>
-                  {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
-                </TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>cart</TableCell>
-                <TableCell> JSON</TableCell>
-                <TableCell>
-                  {" "}
-                  Invoice in example JSON format as below.
-                  <br />
-                  <div className={classes.copyBlockStyle}>
-                    <CopyBlock
-                      language={"jsx"}
-                      text={cartSampleJSON}
-                      showLineNumbers={true}
-                      theme={a11yLight}
-                      wrapLines={false}
-                      codeBlock
-                    />
-                  </div>
-                </TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>bill_amount</TableCell>
-                <TableCell> integer</TableCell>
-                <TableCell> Total Payable. Minimum amount: 1000</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>currency</TableCell>
-                <TableCell> string (3)</TableCell>
-                <TableCell>
-                  Currency in which customer will be charged. e.g. IQD
-                </TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-        {/* working  */}
-        <p className={classes.tableTitle}>Sample code snippet:</p>
-        <Box sx={{ width: "100%", typography: "body1" }}>
-          <TabContext value={tabValue}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <TabList
-                onChange={handleChange}
-                aria-label="lab API tabs example"
-                className={classes.tabStyle}
-              >
-                <Tab label="Java" value="1" className={classes.tabTitle} />
-                <Tab label="PHP" value="2" className={classes.tabTitle} />
-                <Tab label="cURL" value="3" className={classes.tabTitle} />
-                <Tab label="Python" value="4" className={classes.tabTitle} />
-                <Tab label="Node" value="5" className={classes.tabTitle} />
-                <Tab label="Go" value="6" className={classes.tabTitle} />
-              </TabList>
-            </Box>
-            <TabPanel value="1">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleJava}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="2">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={samplePhp}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="3">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleCurl}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="4">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={samplePython}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="5">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleNode}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="6">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleGo}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-          </TabContext>
-        </Box>
-        <p className={classes.tableTitle}>Sample Response:</p>
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={sample}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-        <p className={classes.detailFontStyle}>
-          If everything works as expected customer needs to be redirected from
-          merchant website to Payment Gateway Redirect URL received in response
-          to the initiation request. Upon successful redirection customer will
-          be landed to a gateway page more or like below where customer can
-          authorize the transaction and pay accordingly.
-        </p>
-        <img
-          src={paymentForm}
-          alt=""
-          style={{ maxWidth: "70%", display: "block", margin: "auto" }}
-        />
-        <br />
-        <p style={{ fontSize: "13px", textAlign: "center", margin: 0 }}>
-          Copyright &copy;FastPay.All rights reserved.
-        </p>
-        <p className={classes.detailFontStyle}>
-          Customers will have two options e.i <i>Login to Pay</i> and{" "}
-          <i>Scan QR Code</i> Using <strong>FastPay Mobile App</strong> to pay
-          against their order. Either way, upon successful completion of payment
-          the customer will be redirected to the merchent provided success URL,
-          for example -
-        </p>
-        <p
-          className={classes.detailFontStyle}
-          style={{ color: "blue", textDecoration: "underline" }}
-        >
-          https://abcmerchant.com/success?order_id=ABC212121
-        </p>
-        <p className={classes.detailFontStyle}>
-          where ABC212121 is the merchant provided <code>order_id</code> during
-          payment initiation request. Validate the transaction using Validation
-          API before marking the order as paid
-        </p>
-        <img
-          src={paymentSuccessful}
-          alt=""
-          style={{ maxWidth: "70%", display: "block", margin: "auto" }}
-        />
-        <br />
-        <p style={{ fontSize: "13px", textAlign: "center", margin: 0 }}>
-          Copyright &copy;FastPay.All rights reserved.
-        </p>
-      </section>
-      <section
-        className={classes.sectionMarginBottom}
-        id="validate-payment-api"
-      >
-        <p className={classes.subTitle}>Payment Validation API</p>
-
-        <p className={classes.detailFontStyle}>
-          It is important to validate the transaction notification for security
-          purposes.
-        </p>
-      </section>
-      <section
-        className={classes.sectionMarginBottom}
-        id="grab-the-notification"
-      >
-        <p className={classes.subTitle}>Step 1: Grab The Notification</p>
-        <p className={classes.detailFontStyle}>
-          As IPN URL is already set in the panel, almost all of the payment
-          notifications will reach towards IPN URL prior to user redirection to
-          the merchant website. So, it requires validation for amount and
-          transaction properly to get rid of a fraudulent transaction.
-        </p>
-        <p className={classes.detailFontStyle}>
-          The IPN will send a POST request to your IPN URL with the below data -
-        </p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>Parameters</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Sample Value</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>gw_transaction_id</TableCell>
-                <TableCell>alphanumeric</TableCell>
-
-                <TableCell>CUL1NUB731</TableCell>
-              </TableRow>
-
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>merchant_order_id</TableCell>
-                <TableCell>alphanumeric</TableCell>
-
-                <TableCell>LAREVEORD1005</TableCell>
-              </TableRow>
-
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>received_amount</TableCell>
-                <TableCell>decimal</TableCell>
-
-                <TableCell>5000.00</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>currency</TableCell>
-                <TableCell>string</TableCell>
-
-                <TableCell>IQD</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>status</TableCell>
-                <TableCell>string</TableCell>
-
-                <TableCell>Success</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>customer_name</TableCell>
-                <TableCell>string</TableCell>
-
-                <TableCell>John Doe</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>customer_mobile_number</TableCell>
-                <TableCell>string</TableCell>
-
-                <TableCell>+964xxxxxxxxxx</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>at</TableCell>
-                <TableCell>
-                  datetime <i>(Y-m-d H:i:s)</i>
-                </TableCell>
-
-                <TableCell>2020-11-26 13:54:01</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </section>
-      <section
-        className={classes.sectionMarginBottom}
-        id="validating-a-payment"
-      >
-        <p className={classes.subTitle}>Step 2: Validating A Payment</p>
-        <p className={classes.detailFontStyle}>
-          No matter it’s an IPN notification at your IPN URL or Successful
-          Redirection to your Success URL with <code>order_id</code> as URL
-          Parameter, it is mandatory to validate a payment using Validation API
-          to get rid of fraudulent activities.
-        </p>
-
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>URL</TableCell>
-                <TableCell>Method</TableCell>
-                <TableCell>Headers</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>/api/v1/public/pgw/payment/validate</TableCell>
-                <TableCell> POST</TableCell>
-                <TableCell>
-                  Accept: application/json
-                  <br />
-                  Content-Type: application/json
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <p className={classes.tableTitle}>Request Body:</p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type & Length</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Required</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password ID. e.g. Aarong001</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>order_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>
-                  {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
-                </TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <p className={classes.tableTitle}>Sample code snippet:</p>
-        <Box sx={{ width: "100%", typography: "body1" }}>
-          <TabContext value={tabValue_v}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <TabList
-                onChange={handleChange_v}
-                aria-label="lab API tabs example"
-                className={classes.tabStyle}
-              >
-                <Tab label="Java" value="11" className={classes.tabTitle} />
-                <Tab label="PHP" value="22" className={classes.tabTitle} />
-                <Tab label="cURL" value="33" className={classes.tabTitle} />
-                <Tab label="Python" value="44" className={classes.tabTitle} />
-                <Tab label="Node" value="55" className={classes.tabTitle} />
-                <Tab label="Go" value="66" className={classes.tabTitle} />
-              </TabList>
-            </Box>
-            <TabPanel value="11">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleJava_v}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="22">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={samplePhp_v}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="33">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleCurl_v}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="44">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={samplePython_v}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="55">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleNode_v}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="66">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleGo_v}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-          </TabContext>
-        </Box>
-
-        <p className={classes.tableTitle}>Sample Response:</p>
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={validateSampleData}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={false}
-            codeBlock
-          />
-        </div>
-      </section>
-
-      <section className={classes.sectionMarginBottom} id="refund-a-payment">
-        <p className={classes.subTitle}>Refund A Payment</p>
-
-        <p className={classes.detailFontStyle}>
-          FastPay Merchants can refund the transactions to their customers that
-          are generated by the payment receive process. This API will help
-          merchants to refund without using a mobile app or web interface, so
-          this API does not require a regular AUTH token instead it uses
-          STORE_ID and STORE_PASSWORD for authentication. This API also requires
-          ORDER_ID to identify the transactions which will be refunded. There
-          are other fields required such as recipient mobile number or MSISDN
-          and AMOUNT. For each successful full refund both sender or receiver
-          will not get any notification.
-        </p>
-        <p className={`${classes.tableTitle}`}>Initiate Payment API :</p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>URL</TableCell>
-                <TableCell>Method</TableCell>
-                <TableCell>Headers</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>/api/v1/public/pgw/payment/refund</TableCell>
-                <TableCell> POST</TableCell>
-                <TableCell>
-                  Accept: application/json
-                  <br />
-                  Content-Type: application/json
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <p className={classes.tableTitle}>Request Body:</p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type & Length</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Required</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password. e.g. A$Rong001</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>order_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>
-                  {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
-                </TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>msisdn</TableCell>
-                <TableCell>string</TableCell>
-                <TableCell> Receiver(Customer) Phone Number</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>amount</TableCell>
-                <TableCell>decimal</TableCell>
-                <TableCell> Amount to be refunded</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <p className={classes.tableTitle}>Sample code snippet:</p>
-        <Box sx={{ width: "100%", typography: "body1" }}>
-          <TabContext value={tabValue_r}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <TabList
-                onChange={handleChange_r}
-                aria-label="lab API tabs example"
-                className={classes.tabStyle}
-              >
-                <Tab label="Java" value="111" className={classes.tabTitle} />
-                <Tab label="PHP" value="222" className={classes.tabTitle} />
-                <Tab label="cURL" value="333" className={classes.tabTitle} />
-                <Tab label="Python" value="444" className={classes.tabTitle} />
-                <Tab label="Node" value="555" className={classes.tabTitle} />
-                <Tab label="Go" value="666" className={classes.tabTitle} />
-              </TabList>
-            </Box>
-            <TabPanel value="111">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleJava_r}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="222">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={samplePhp_r}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="333">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleCurl_r}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="444">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={samplePython_r}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="555">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleNode_r}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-            <TabPanel value="666">
-              <div className={classes.copyBlockStyle}>
-                <CopyBlock
-                  language={"jsx"}
-                  text={sampleGo_r}
-                  showLineNumbers={true}
-                  theme={dracula}
-                  wrapLines={true}
-                  codeBlock
-                />
-              </div>
-            </TabPanel>
-          </TabContext>
-        </Box>
-
-        <p className={classes.tableTitle}>Sample Response: </p>
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={initiatePaymentSampleData}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={false}
-            codeBlock
-          />
-        </div>
-      </section>
-
-      <section className={classes.sectionMarginBottom} id="refund-validation">
-        <p className={classes.subTitle}>Refund Validation</p>
-        <p className={classes.detailFontStyle}>
-          Merchant can refund their transaction and check the status of your
-          refund using ORDER_ID. API returns a boolean response based on
-          validation status TRUE or FALSE, true means refund done, false means
-          not refunded yet.
-        </p>
-        <p className={classes.tableTitle}>Request Endpoint:</p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>URL</TableCell>
-                <TableCell>Method</TableCell>
-                <TableCell>Headers</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>
-                  /api/v1/public/pgw/payment/refund/validation
-                </TableCell>
-                <TableCell>POST</TableCell>
-                <TableCell>
-                  Accept: application/json
-                  <br />
-                  Content-Type: application/json
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <p className={classes.tableTitle}>Request Body:</p>
-        <TableContainer component={Paper}>
-          <Table sx={{ Width: 650 }} aria-label="simple table">
-            <TableHead className={classes.tableStyle}>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Type & Length</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell>Required</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Store ID. e.g. Aarong101</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>store_password</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>Merchant Password ID. e.g. Aarong001</TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>order_id</TableCell>
-                <TableCell> alphanumeric (8-32)</TableCell>
-                <TableCell>
-                  {" "}
-                  Merchant Generated Unique Order ID. e.g. ARONGORD1001
-                </TableCell>
-                <TableCell>Yes</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-          <br />{" "}
-        </TableContainer>
-
-        <p className={classes.tableTitle}>Sample Response:</p>
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={refundValidationSampleData}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-        <br />
-        <br />
-        <div className={classes.alertStyle}>
-          <List component="div" disablePadding>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.alertTitle}`}
-            >
-              <ListItemText primary="Security Check:" />
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.alertItem} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Track your order by transaction ID and check it in your database for existence." />
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.alertItem}`}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Must validate amount and incoming amount from your Database." />
-            </ListItem>
-            <ListItem
-              disableRipple={true}
-              sx={{ pl: 4 }}
-              className={`${classes.alertItem} `}
-            >
-              <ListItemIcon>
-                <CircleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Check for the status - Success, Failed, Cancel to update your order status." />
-            </ListItem>
-          </List>
-        </div>
       </section>
     </div>
   );
