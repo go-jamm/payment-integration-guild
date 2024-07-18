@@ -8,6 +8,7 @@ import AppleIcon from "@mui/icons-material/Apple";
 import AndroidIcon from "@mui/icons-material/Android";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import flutter from "../assets/images/flutter.svg";
+import react from "../assets/images/react.svg";
 
 import { ActiveMenuContext } from "../context/ActiveMenuContext";
 
@@ -286,6 +287,36 @@ const Home = () => {
                     <Grid item xs={12} sm={3} className={classes.iconDiv}>
                       <img
                         src={flutter}
+                        alt=""
+                        height="80"
+                        className={classes.flutter}
+                      />
+                    </Grid>
+                  </Grid>
+                </div>
+              </a>
+            </Grid>
+            <Grid item xs={12} sm={12} md={6}>
+              <a
+                href="https://www.npmjs.com/package/fastpay-react-package?activeTab=readme"
+                target="_blank"
+                className={classes.linkStyle}
+              >
+                <div
+                  className={classes.card}
+                  onMouseOver={() => changeIconColor("QrCode2Icon", "#273746")}
+                  onMouseLeave={() => resetIconColor("QrCode2Icon")}
+                >
+                  <Grid container alignItems="center">
+                    <Grid item xs={12} sm={9}>
+                      <p className={classes.title}>React Native Package</p>
+                      <p className={classes.cardDetailFontStyle}>
+                        Easiest payment gateway to integrate with 24x7 support
+                      </p>
+                    </Grid>
+                    <Grid item xs={12} sm={3} className={classes.iconDiv}>
+                      <img
+                        src={react}
                         alt=""
                         height="80"
                         className={classes.flutter}
