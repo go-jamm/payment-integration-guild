@@ -24,7 +24,7 @@ const Footer = () => {
   return (
     <div className={classes.footerStyle}>
       <p className={classes.title}>
-        Copyright &copy; 2021 FastPay Company. All rights reserved.
+        Copyright &copy; 2024 FastPay Company. All rights reserved.
       </p>
     </div>
   );
