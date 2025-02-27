@@ -165,6 +165,19 @@ export default function AndroidGuideSideBar() {
             </ListItemIcon>
             <ListItemText primary="Step-3 (Implementation)" />
           </ListItemButton>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              topic === "step-3" ? classes.menuSubItemActive : null
+            }`}
+            onClick={() => fnActive("step-4")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Step-4" />
+          </ListItemButton>
         </List>
       </Collapse>
     </List>

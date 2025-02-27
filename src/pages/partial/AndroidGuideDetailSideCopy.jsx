@@ -5,12 +5,10 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CircleIcon from "@mui/icons-material/Circle";
-import img from "../../assets/images/flow.png";
 import { MenuContext } from "../../context/MenuContext";
 import { ActiveMenuContext } from "../../context/ActiveMenuContext";
 import { useHistory } from "react-router-dom";
 import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
-import { Alert } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -55,16 +53,6 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "18px",
     color: "#181c34",
     marginBottom: "35px !important",
-    marginTop: "35px !important",
-    [theme.breakpoints.down("md")]: {
-      fontSize: "15px",
-    },
-  },
-  tableTitle2: {
-    fontSize: "20px",
-    // fontWeight: 700,
-    color: "#181c34",
-    marginBottom: "10px !important",
     marginTop: "35px !important",
     [theme.breakpoints.down("md")]: {
       fontSize: "15px",
@@ -125,32 +113,6 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  ItemStyleTwo: {
-    color: "#000",
-    cursor: "default",
-    padding: "0px 32px !important",
-
-    "& span": {
-      fontSize: "16px",
-      cursor: "default",
-      [theme.breakpoints.down("xl")]: {
-        fontSize: "14px",
-      },
-      [theme.breakpoints.down("md")]: {
-        fontSize: "12px",
-      },
-    },
-    ["& .MuiListItemIcon-root"]: {
-      minWidth: "24px",
-    },
-    ["& .MuiSvgIcon-root"]: {
-      color: "#262D54",
-      fontSize: "10px",
-      [theme.breakpoints.down("md")]: {
-        fontSize: "6px",
-      },
-    },
-  },
   alertItem: {
     color: "#E74C3C",
     cursor: "default",
@@ -186,115 +148,53 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const AndroidGuideDetailSide = () => {
-  const android = `dependencies {
-   ...
-   implementation("com.fastpay:merchant-sdk:LATEST_VERSION")
- }`;
-
-  const allprojects = `allprojects {
-    repositories {
-        ...
-        maven {
-            url = uri("https://maven.pkg.github.com/FastPaySDK/FastpayAndroidSDK")
-            credentials {
-                username = "YOUR_GITHUB_USERNAME" // Replace with your GitHub username
-                password = "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN" // Replace with your GitHub PAT
-            }
-        }
+const AndroidGuideDetailSideCopy = () => {
+  const android = `android{
+    ...
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }`;
 
-  const License = `Copyright (C) 2025 Fastpay Technologies
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-   http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.`;
-
-  const FastPaySDK = ` public enum SDKStatus{
-       INIT,
-       PAYMENT_WITH_FASTPAY_APP,
-       PAYMENT_WITH_FASTPAY_SDK,
-       CANCEL
-   }`;
-
-  const URL = `callback URI pattern (SUCCESS): sdk://your.website.com/further/paths?status=success&transaction_id=XXXX&order_id=XXXX&amount=XXX&currency=XXX&mobile_number=XXXXXX&time=XXXX&name=XXXX
-callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=failed&order_id=XXXXX
-`;
-
-  const CallbackUrl = `String amount = getIntent().getData().getQueryParameter("amount");
-String orderId = getIntent().getData().getQueryParameter("order_id");
-String status = getIntent().getData().getQueryParameter("status");
-String transaction_id = getIntent().getData().getQueryParameter("transaction_id");
-`;
-
-  const PaymentProcess = `FastpayRequest request = new FastpayRequest(this, "*******", "*******",
-                        amount, orderId, FastpaySDK.SANDBOX, "sdk://your.website.com/further/paths", (sdkStatus, message) -> Toast.makeText(SDKTestActivity.this,message,Toast.LENGTH_LONG).show());
-request.startPaymentIntent(SDKTestActivity.this,sdkResultLauncher);
-`;
-
-  const dependencyResolutionManagement = `dependencyResolutionManagement {
-   repositories {
-        ...
-        maven {
-            url = uri("https://maven.pkg.github.com/FastPaySDK/FastpayAndroidSDK")
-            credentials {
-                username = "YOUR_GITHUB_USERNAME" // Replace with your GitHub username
-                password = "YOUR_GITHUB_PERSONAL_ACCESS_TOKEN" // Replace with your GitHub PAT
-            }
-        }
-   }
+  const dependencies = `dependencies {
+  implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+  implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
 }`;
 
-  const activity = `<activity android:name=".YourPaymentResultActivity">
-    <intent-filter>
-        <data android:scheme="sdk" android:host="your.website.com" android:pathPrefix="/further/paths" />
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-    </intent-filter>
-</activity>`;
+  const FastPaySDK = `FastpayRequest request = new FastpayRequest(this, "1111_1111", "password1234",amount, orderId, FastpaySDK.SANDBOX);
+startActivityForResult(request.getIntent(), FASTPAY_REQUEST_CODE);`;
 
-  const payments = `<data android:scheme="myapp" android:host="payments" 
-android:pathPrefix="/callback" />`;
+  const allprojects = `allprojects {
+  repositories {
+      google()
+      mavenCentral()
+  }
+}`;
 
   const importData = `import com.fastpay.payment.model.merchant.FastpayRequest;
 import com.fastpay.payment.model.merchant.FastpayResult;`;
 
-  const overrideData = `private ActivityResultLauncher<Intent> sdkResultLauncher;
+  const overrideData = `@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+   super.onActivityResult(requestCode, resultCode, data);
 
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-   super.onCreate(savedInstanceState);
-
-   sdkResultLauncher = registerForActivityResult(
-           new ActivityResultContracts.StartActivityForResult(),
-           result -> {
-              Intent data = result.getData();
-              if (result.getResultCode() == Activity.RESULT_OK) {
-                 if (data != null) {
-                    FastpayResult fastpayResult = data.getParcelableExtra(FastpayResult.EXTRA_PAYMENT_RESULT);
-                    if (fastpayResult != null) {
-                       // Handle successful payment
-                       Toast.makeText(this, "Payment Success! Transaction ID: " + fastpayResult.getTransactionId(), Toast.LENGTH_LONG).show();
-                    }
-                 }
-              } else if (result.getResultCode() == Activity.RESULT_CANCELED) {
-                 // Handle canceled or failed payment
-                 String message = data != null ? data.getStringExtra(FastpayRequest.EXTRA_PAYMENT_MESSAGE) : "No message";
-                 Toast.makeText(this, "Payment Canceled/Failed: " + message, Toast.LENGTH_LONG).show();
-              }
-           }
-   );
-}`;
+   if (requestCode == FASTPAY_REQUEST_CODE) {
+       switch (resultCode) {
+           case Activity.RESULT_OK:
+               if (data != null && data.hasExtra(FastpayResult.EXTRA_PAYMENT_RESULT)) {
+                   FastpayResult result = data.getParcelableExtra(FastpayResult.EXTRA_PAYMENT_RESULT);
+                   Log.d("payment_result", result.getTransactionId());
+               }
+               break;
+           case Activity.RESULT_CANCELED:
+               if (data != null && data.hasExtra(FastpayRequest.EXTRA_PAYMENT_MESSAGE)) {
+                   String message = data.getStringExtra(FastpayRequest.EXTRA_PAYMENT_MESSAGE);
+                   Log.d("payment_result", "Canceled : " + message);
+               }
+               break;
+       }
+   }`;
 
   const classes = useStyles();
   const { fastPayMenuList, addList } = useContext(MenuContext);
@@ -393,84 +293,24 @@ protected void onCreate(Bundle savedInstanceState) {
               href="https://github.com/Fast-Solution-Inc/FastPay-Android-SDK"
               target="_blank"
             >
-              SDK Installation Guide
+              Download SDK
             </a>
           </ListItem>
         </List>
       </section>
-
-
-      <section
-        className={classes.sectionMarginBottom}
-        id="scaffolding-provided"
-      >
-        <p className={classes.title}>Features</p>
-        <hr />
-        <List>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 2 }}
-            className={classes.ItemStyleTwo}
-          >
-            <ListItemText>
-              1. Make payment transaction using Fastpay App.
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 2 }}
-            className={classes.ItemStyleTwo}
-          >
-            <ListItemText>
-              2. Check the status of the payments which you make.
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 2 }}
-            className={classes.ItemStyleTwo}
-          >
-            <ListItemText>3. Verify payment with OTP.</ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 2 }}
-            className={classes.ItemStyleTwo}
-          >
-            <ListItemText>
-              4. SDK status provided by SDK callbacks.
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 2 }}
-            className={classes.ItemStyleTwo}
-          >
-            <ListItemText>
-              5. Application redirect with required data while using fastpay
-              personal applciation.
-            </ListItemText>
-          </ListItem>
-        </List>
-        <p className={classes.title} style={{ marginTop: "20px" }}>
-          SDK flow
-        </p>
-        <img src={img} alt="flow" style={{ width: "100%" }} />
-      </section>
-
-      <section className={classes.sectionMarginBottom} id="step-1">
-        <p className={classes.title} style={{ marginTop: "20px" }}>
-          Initialization
-        </p>
+      <section className={classes.sectionMarginBottom} id="steps">
+        <p className={classes.title}>Steps</p>
         <hr />
         <p className={classes.detailFontStyle}>
           Please follow the below steps to integrate the payment SDK to an
           applications.
         </p>
+      </section>
+      <section className={classes.sectionMarginBottom} id="step-1">
         <p className={classes.subTitle}>Step-1</p>
         <p className={classes.detailFontStyle}>
-          Users need to add below dependency to their app level build.gradle
-          file :
+          Users need to add below dependency to their application module
+          build.gradle file :
         </p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
@@ -482,39 +322,23 @@ protected void onCreate(Bundle savedInstanceState) {
             codeBlock
           />
         </div>
-      </section>
-
-      <section className={classes.sectionMarginBottom} id="step-2">
-        <p className={classes.subTitle}>Step-2 Gradle Configuration</p>
-        <p className={classes.subTitle2} style={{ marginTop: "20px" }}>
-          For Gradle 7.0 and Higher:
-        </p>
-        <p className={classes.detailFontStyle}>
-          If you're using Gradle version 7.0 or higher, you can utilize the
-          dependencyResolutionManagement block in your settings.gradle file to
-          centralize dependency management configurations. Open your
-          settings.gradle file. If you don't already have a
-          dependencyResolutionManagement block, add it to the file:
-        </p>
+        <br />
         <div className={classes.copyBlockStyle}>
           <CopyBlock
             language={"jsx"}
-            text={dependencyResolutionManagement}
+            text={dependencies}
             showLineNumbers={true}
             theme={dracula}
             wrapLines={true}
             codeBlock
           />
         </div>
-        <p className={classes.subTitle2} style={{ marginTop: "20px" }}>
-          For Gradle Versions Prior to 7.0:
-        </p>
+      </section>
+      <section className={classes.sectionMarginBottom} id="step-2">
+        <p className={classes.subTitle}>Step-2</p>
         <p className={classes.detailFontStyle}>
-          If you're using a Gradle version earlier than 7.0, you'll need to add
-          the repository to the buildscript block in your build.gradle file at
-          the project level. Open the build.gradle file located in the root
-          directory of your project. Inside the buildscript block, add the maven
-          repository:
+          Users need to add below dependency to their project module
+          build.gradle file :
         </p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
@@ -527,7 +351,6 @@ protected void onCreate(Bundle savedInstanceState) {
           />
         </div>
       </section>
-
       <section className={classes.sectionMarginBottom} id="step-3">
         <p className={classes.subTitle}>Step-3 (Implementation)</p>
         <p className={classes.tableTitle}>Import FastPaySDK in your class</p>
@@ -619,37 +442,7 @@ protected void onCreate(Bundle savedInstanceState) {
             <ListItemText>
               <strong>Environment:</strong> Payment Environment to initiate
               transaction (SANDBOX for test & PRODUCTION for real life
-              transaction).
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.ItemStyle} `}
-          >
-            <ListItemIcon>
-              <CircleIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <strong>Call back Uri:</strong> When the SDK redirect to the
-              fastpay application for payment and after payment cancel or failed
-              it throws a callback with this uri. It is used for deeplinking
-              with the client app for catching callbacks from fastpay
-              application.
-            </ListItemText>
-          </ListItem>
-          <ListItem
-            disableRipple={true}
-            sx={{ pl: 4 }}
-            className={`${classes.ItemStyle} `}
-          >
-            <ListItemIcon>
-              <CircleIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <strong>Callback( Sdk status, message):</strong> There are four
-              sdk status (e.g. FastpayRequest.SDKStatus.INIT) and status
-              message.
+              transaction)
             </ListItemText>
           </ListItem>
         </List>
@@ -664,47 +457,14 @@ protected void onCreate(Bundle savedInstanceState) {
             codeBlock
           />
         </div>
-        <p className={classes.tableTitle}>Call back Uri</p>
         <div className={classes.sectionMarginBottom}>
-          <CopyBlock
-            language={"jsx"}
-            text={URL}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-        <p className={classes.tableTitle}>Initiate Payment Process</p>
-        <div className={classes.sectionMarginBottom}>
-          <CopyBlock
-            language={"jsx"}
-            text={PaymentProcess}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-        {/* <ListItem
-          disableRipple={true}
-          sx={{ pl: 1 }}
-          className={`${classes.ItemStyle} `}
-        >
-          <ListItemIcon>
-            <CircleIcon />
-          </ListItemIcon>
-          <ListItemText>Receive Payment result</ListItemText>
-        </ListItem> */}
-
-        <div className={classes.sectionMarginBottom}>
-          <p className={classes.tableTitle2}>Receive Payment result</p>
           <p className={classes.detailFontStyle}>
-            Create sdkResultLauncher to get transaction success & failure result
-            using result code. Transaction success result can be receive from
-            FastpayResult parcelable model using
-            FastpayResult.EXTRA_PAYMENT_RESULT key and failure message can be
-            receive as string using FastpayRequest.EXTRA_PAYMENT_MESSAGE key.
+            Receive Payment result Implement onActivityResult() overridden
+            method to get transaction success & failure result using result
+            code. Transaction success result can be receive from FastpayResult
+            parcelable model using FastpayResult.EXTRA_PAYMENT_RESULT key and
+            failure message can be receive as string using
+            FastpayRequest.EXTRA_PAYMENT_MESSAGE key.
           </p>
           <p className={classes.tableTitle}>Payment Success Data definition</p>
           <List component="div" disablePadding className={classes.listStyle}>
@@ -757,7 +517,7 @@ protected void onCreate(Bundle savedInstanceState) {
               </ListItemIcon>
               <ListItemText>
                 <strong>Payment Amount:</strong> Payment amount for the
-                transaction.
+                transaction. “1000”
               </ListItemText>
             </ListItem>
             <ListItem
@@ -770,7 +530,7 @@ protected void onCreate(Bundle savedInstanceState) {
               </ListItemIcon>
               <ListItemText>
                 <strong>Payment Currency:</strong> Payment currency for the
-                transaction.
+                transaction. (Default: IQD)
               </ListItemText>
             </ListItem>
             <ListItem
@@ -827,124 +587,8 @@ protected void onCreate(Bundle savedInstanceState) {
           />
         </div>
       </section>
-
-      <section className={classes.sectionMarginBottom} id="step-4">
-        <p className={classes.subTitle}>
-          Step-4 Register Callback URL in AndroidManifest.xml
-        </p>
-        <p className={classes.detailFontStyle}>
-          To handle the payment result via deep linking, register the callback
-          URL in your AndroidManifest.xml. Replace your-deeplink-url with your
-          own scheme and host.
-        </p>
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={activity}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-        {/* <ListItem
-          disableRipple={true}
-          sx={{ pl: 1, mt: 3, mb: 2 }}
-          className={`${classes.ItemStyle} `}
-        >
-          <ListItemIcon>
-            <CircleIcon style={{ color: "blue" }} />
-          </ListItemIcon>
-          <ListItemText>
-            Example: If your callback URL is myapp://payments/callback, use:
-          </ListItemText>
-        </ListItem> */}
-        <p className={classes.tableTitle}>
-          Example: If your callback URL is myapp://payments/callback, use:
-        </p>
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={payments}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-        {/* <ListItem
-          disableRipple={true}
-          sx={{ pl: 1, mt: 3, mb: 2 }}
-          className={`${classes.ItemStyle} `}
-        >
-          <ListItemIcon>
-            <CircleIcon style={{ color: "blue" }} />
-          </ListItemIcon>
-          <ListItemText>
-            Replace .YourPaymentResultActivity with the actual activity that
-            will process the payment response.
-          </ListItemText>
-        </ListItem> */}
-        <p className={classes.tableTitle}>
-          Replace .YourPaymentResultActivity with the actual activity that will
-          process the payment response.
-        </p>
-        {/* <ListItem
-          disableRipple={true}
-          sx={{ pl: 1, mt: 3, mb: 2 }}
-          className={`${classes.ItemStyle} `}
-        >
-          <ListItemIcon>
-            <CircleIcon />
-          </ListItemIcon>
-          <ListItemText>
-            Result from Call backUrl (Please use it onCreate or onResume)
-          </ListItemText>
-        </ListItem> */}
-        <p className={classes.tableTitle}>
-          Result from Call backUrl (Please use it onCreate or onResume)
-        </p>
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={CallbackUrl}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-        <Alert
-          sx={{
-            pl: 1,
-            mt: 3,
-            mb: 3,
-            borderLeft: "4px solid gray",
-            background: "none",
-            fontWeight: 700,
-            color: "gray",
-          }}
-          severity="warning"
-        >
-          Be sure to use try catch
-        </Alert>
-        <p className={classes.subTitle}>License</p>
-
-        <hr style={{ marginBottom: "20px" }} />
-
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"jsx"}
-            text={License}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div>
-      </section>
     </div>
   );
 };
 
-export default AndroidGuideDetailSide;
+export default AndroidGuideDetailSideCopy;
