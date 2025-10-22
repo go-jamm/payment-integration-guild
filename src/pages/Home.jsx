@@ -267,15 +267,14 @@ const Home = () => {
 
             </Grid> */}
             <Grid item xs={12} sm={12} md={6}>
-              <a
-                href="https://pub.dev/packages/fastpay_merchant"
-                target="_blank"
+              <Link
+                to={{
+                  pathname: "/flutter-integration",
+                }}
                 className={classes.linkStyle}
               >
                 <div
                   className={classes.card}
-                  onMouseOver={() => changeIconColor("QrCode2Icon", "#273746")}
-                  onMouseLeave={() => resetIconColor("QrCode2Icon")}
                 >
                   <Grid container alignItems="center">
                     <Grid item xs={12} sm={9}>
@@ -294,18 +293,17 @@ const Home = () => {
                     </Grid>
                   </Grid>
                 </div>
-              </a>
+              </Link>
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
-              <a
-                href="https://www.npmjs.com/package/fastpay-react-package?activeTab=readme"
-                target="_blank"
+              <Link
+                to={{
+                  pathname: "/react-native-integration",
+                }}
                 className={classes.linkStyle}
               >
                 <div
                   className={classes.card}
-                  onMouseOver={() => changeIconColor("QrCode2Icon", "#273746")}
-                  onMouseLeave={() => resetIconColor("QrCode2Icon")}
                 >
                   <Grid container alignItems="center">
                     <Grid item xs={12} sm={9}>
@@ -324,7 +322,7 @@ const Home = () => {
                     </Grid>
                   </Grid>
                 </div>
-              </a>
+              </Link>
             </Grid>
           </Grid>
           <br />

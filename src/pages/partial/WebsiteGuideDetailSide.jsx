@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#262D54",
     fontSize: "20px",
     fontWeight: 700,
-    margin: 0,
+    margin: "20px 0 10px 0",
     [theme.breakpoints.down("md")]: {
       fontSize: "15px",
     },

@@ -11,6 +11,8 @@ import Footer from "./Footer";
 import IntegrationWithIOSGuide from "./IntegrationWithIOSGuide";
 import IntegrationWithAndroidGuide from "./IntegrationWithAndroidGuide";
 import IntegrationWithQRGuide from "./IntegrationWithQRGuide";
+import IntegrationReactNativeGuide from "./IntegrationReactNativeGuide";
+import IntegrationWithFlutterGuide from "./IntegrationWithFlutterGuide";
 
 const useStyles = makeStyles((theme) => ({
   // containerStyle: {
@@ -57,6 +59,12 @@ const Navigation = () => {
             </Route>
             <Route exact path="/qr-integration">
               <IntegrationWithQRGuide />
+            </Route>
+            <Route exact path="/react-native-integration">
+              <IntegrationReactNativeGuide />
+            </Route>
+            <Route exact path="/flutter-integration">
+              <IntegrationWithFlutterGuide />
             </Route>
             <Route exact path="/">
               <Home />

@@ -8,6 +8,8 @@ import WebsiteGuideSideBar from "./WebsiteGuideSideBar";
 import IOSGuideSideBar from "./IOSGuideSideBar";
 import AndroidGuideSideBar from "./AndroidGuideSideBar";
 import QRGuideSideBar from "./QRGuideSideBar";
+import ReactNativeGuideSideBar from "./ReactNativeGuideSideBar";
+import FlutterGuideSideBar from "./FlutterGuideSideBar";
 
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -27,6 +29,12 @@ export default function MyDrawer({ comp }) {
 
       case "/qr-integration":
         return <QRGuideSideBar />;
+
+      case "/react-native-integration":
+        return <ReactNativeGuideSideBar />;
+
+      case "/flutter-integration":
+        return <FlutterGuideSideBar />;
 
       default:
         break;

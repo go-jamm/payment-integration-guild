@@ -1,188 +1,188 @@
-import React, { useState, useEffect, useContext } from "react";
-import { makeStyles } from "@mui/styles";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import CircleIcon from "@mui/icons-material/Circle";
-import img from "../../assets/images/flow.png";
-import { MenuContext } from "../../context/MenuContext";
-import { ActiveMenuContext } from "../../context/ActiveMenuContext";
-import { useHistory } from "react-router-dom";
-import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
-import { Alert } from "@mui/material";
+import React, { useState, useEffect, useContext } from 'react';
+import { makeStyles } from '@mui/styles';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import CircleIcon from '@mui/icons-material/Circle';
+import img from '../../assets/images/flow.png';
+import { MenuContext } from '../../context/MenuContext';
+import { ActiveMenuContext } from '../../context/ActiveMenuContext';
+import { useHistory } from 'react-router-dom';
+import { a11yLight, CopyBlock, dracula } from 'react-code-blocks';
+import { Alert } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
   title: {
-    color: "#262D54",
-    fontSize: "24px",
+    color: '#262D54',
+    fontSize: '24px',
     fontWeight: 700,
     margin: 0,
-    [theme.breakpoints.down("xl")]: {
-      fontSize: "22px",
+    [theme.breakpoints.down('xl')]: {
+      fontSize: '22px',
     },
-    [theme.breakpoints.down("md")]: {
-      fontSize: "20px",
+    [theme.breakpoints.down('md')]: {
+      fontSize: '20px',
     },
   },
   subTitle: {
-    color: "#262D54",
-    fontSize: "20px",
+    color: '#262D54',
+    fontSize: '20px',
     fontWeight: 700,
     margin: 0,
-    [theme.breakpoints.down("md")]: {
-      fontSize: "15px",
+    [theme.breakpoints.down('md')]: {
+      fontSize: '15px',
     },
   },
   subTitle2: {
-    color: "#262D54",
-    fontSize: "18px",
+    color: '#262D54',
+    fontSize: '18px',
     fontWeight: 700,
     margin: 0,
   },
   detailFontStyle: {
-    lineHeight: "26px",
-    color: "#181c34",
-    marginBottom: "35px !important",
-    [theme.breakpoints.down("xl")]: {
-      fontSize: "14px",
+    lineHeight: '26px',
+    color: '#181c34',
+    marginBottom: '35px !important',
+    [theme.breakpoints.down('xl')]: {
+      fontSize: '14px',
     },
-    [theme.breakpoints.down("md")]: {
-      fontSize: "12px",
+    [theme.breakpoints.down('md')]: {
+      fontSize: '12px',
     },
   },
   tableTitle: {
-    fontSize: "18px",
-    color: "#181c34",
-    marginBottom: "35px !important",
-    marginTop: "35px !important",
-    [theme.breakpoints.down("md")]: {
-      fontSize: "15px",
+    fontSize: '18px',
+    color: '#181c34',
+    marginBottom: '35px !important',
+    marginTop: '35px !important',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '15px',
     },
   },
   tableTitle2: {
-    fontSize: "20px",
+    fontSize: '20px',
     // fontWeight: 700,
-    color: "#181c34",
-    marginBottom: "10px !important",
-    marginTop: "35px !important",
-    [theme.breakpoints.down("md")]: {
-      fontSize: "15px",
+    color: '#181c34',
+    marginBottom: '10px !important',
+    marginTop: '35px !important',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '15px',
     },
   },
   tableStyle: {
-    background: "rgba(15, 188, 249,0.1)",
-    "& th": {
-      color: "#262D54",
-      fontSize: "18px",
-      [theme.breakpoints.down("md")]: {
-        fontSize: "14px",
+    background: 'rgba(15, 188, 249,0.1)',
+    '& th': {
+      color: '#262D54',
+      fontSize: '18px',
+      [theme.breakpoints.down('md')]: {
+        fontSize: '14px',
       },
     },
   },
 
   alertStyle: {
-    background: "#FADBD8",
-    padding: "20px 0px 30px",
-    borderRadius: "10px",
+    background: '#FADBD8',
+    padding: '20px 0px 30px',
+    borderRadius: '10px',
   },
   alertTitle: {
-    color: "#E74C3C",
-    cursor: "default",
-    padding: "0px 32px",
-    "& span ": {
-      fontSize: "18px",
+    color: '#E74C3C',
+    cursor: 'default',
+    padding: '0px 32px',
+    '& span ': {
+      fontSize: '18px',
       fontWeight: 700,
-      cursor: "default",
-      [theme.breakpoints.down("md")]: {
-        fontSize: "14px",
+      cursor: 'default',
+      [theme.breakpoints.down('md')]: {
+        fontSize: '14px',
       },
     },
   },
   ItemStyle: {
-    color: "#262D54",
-    cursor: "default",
-    padding: "0px 32px !important",
+    color: '#262D54',
+    cursor: 'default',
+    padding: '0px 32px !important',
 
-    "& span": {
-      fontSize: "16px",
-      cursor: "default",
-      [theme.breakpoints.down("xl")]: {
-        fontSize: "14px",
+    '& span': {
+      fontSize: '16px',
+      cursor: 'default',
+      [theme.breakpoints.down('xl')]: {
+        fontSize: '14px',
       },
-      [theme.breakpoints.down("md")]: {
-        fontSize: "12px",
+      [theme.breakpoints.down('md')]: {
+        fontSize: '12px',
       },
     },
-    ["& .MuiListItemIcon-root"]: {
-      minWidth: "24px",
+    ['& .MuiListItemIcon-root']: {
+      minWidth: '24px',
     },
-    ["& .MuiSvgIcon-root"]: {
-      color: "#262D54",
-      fontSize: "10px",
-      [theme.breakpoints.down("md")]: {
-        fontSize: "6px",
+    ['& .MuiSvgIcon-root']: {
+      color: '#262D54',
+      fontSize: '10px',
+      [theme.breakpoints.down('md')]: {
+        fontSize: '6px',
       },
     },
   },
   ItemStyleTwo: {
-    color: "#000",
-    cursor: "default",
-    padding: "0px 32px !important",
+    color: '#000',
+    cursor: 'default',
+    padding: '0px 32px !important',
 
-    "& span": {
-      fontSize: "16px",
-      cursor: "default",
-      [theme.breakpoints.down("xl")]: {
-        fontSize: "14px",
+    '& span': {
+      fontSize: '16px',
+      cursor: 'default',
+      [theme.breakpoints.down('xl')]: {
+        fontSize: '14px',
       },
-      [theme.breakpoints.down("md")]: {
-        fontSize: "12px",
+      [theme.breakpoints.down('md')]: {
+        fontSize: '12px',
       },
     },
-    ["& .MuiListItemIcon-root"]: {
-      minWidth: "24px",
+    ['& .MuiListItemIcon-root']: {
+      minWidth: '24px',
     },
-    ["& .MuiSvgIcon-root"]: {
-      color: "#262D54",
-      fontSize: "10px",
-      [theme.breakpoints.down("md")]: {
-        fontSize: "6px",
+    ['& .MuiSvgIcon-root']: {
+      color: '#262D54',
+      fontSize: '10px',
+      [theme.breakpoints.down('md')]: {
+        fontSize: '6px',
       },
     },
   },
   alertItem: {
-    color: "#E74C3C",
-    cursor: "default",
-    padding: "0px 32px !important",
+    color: '#E74C3C',
+    cursor: 'default',
+    padding: '0px 32px !important',
 
-    "& span": {
-      fontSize: "16px",
-      cursor: "default",
-      [theme.breakpoints.down("xl")]: {
-        fontSize: "14px",
+    '& span': {
+      fontSize: '16px',
+      cursor: 'default',
+      [theme.breakpoints.down('xl')]: {
+        fontSize: '14px',
       },
-      [theme.breakpoints.down("md")]: {
-        fontSize: "12px",
+      [theme.breakpoints.down('md')]: {
+        fontSize: '12px',
       },
     },
-    ["& .MuiListItemIcon-root"]: {
-      minWidth: "24px",
+    ['& .MuiListItemIcon-root']: {
+      minWidth: '24px',
     },
-    ["& .MuiSvgIcon-root"]: {
-      color: "#E74C3C",
-      fontSize: "10px",
-      [theme.breakpoints.down("md")]: {
-        fontSize: "8px",
+    ['& .MuiSvgIcon-root']: {
+      color: '#E74C3C',
+      fontSize: '10px',
+      [theme.breakpoints.down('md')]: {
+        fontSize: '8px',
       },
     },
   },
   sectionMarginBottom: {
-    marginBottom: "35px",
+    marginBottom: '35px',
   },
   copyBlockStyle: {
-    "& button": {
-      display: "none",
+    '& button': {
+      display: 'none',
     },
   },
 }));
@@ -305,7 +305,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
   useEffect(() => {
     if (activeUseEffect === true) {
-      if (fastPayMenuList.goTo !== null && fastPayMenuList.goTo !== "") {
+      if (fastPayMenuList.goTo !== null && fastPayMenuList.goTo !== '') {
         const yOffset = -70;
 
         const element = document.getElementById(fastPayMenuList.goTo);
@@ -314,16 +314,16 @@ protected void onCreate(Bundle savedInstanceState) {
         const y =
           element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
-        window.scrollTo({ top: y, behavior: "smooth" });
-        addList({ goTo: "" });
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        addList({ goTo: '' });
       }
     }
     setActiveUseEffect(true);
   }, [fastPayMenuList.goTo]);
   useEffect(() => {
-    const sections = document.querySelectorAll("section");
+    const sections = document.querySelectorAll('section');
     let lastId = topic;
-    document.addEventListener("scroll", () => {
+    document.addEventListener('scroll', () => {
       const scrollCheck = window.scrollY;
       let sectionId;
 
@@ -334,7 +334,7 @@ protected void onCreate(Bundle savedInstanceState) {
         const sectionBottom = sectionTop + sectionHeight;
 
         if (scrollCheck >= sectionTop && scrollCheck <= sectionBottom) {
-          sectionId = section.getAttribute("id");
+          sectionId = section.getAttribute('id');
           if (lastId !== sectionId) {
             lastId = sectionId;
             addActiveId({ id: sectionId });
@@ -342,8 +342,8 @@ protected void onCreate(Bundle savedInstanceState) {
         }
       });
     });
-    if (fastPayActiveId.id === "") {
-      addActiveId({ id: "scaffolding-provided" });
+    if (fastPayActiveId.id === '') {
+      addActiveId({ id: 'scaffolding-provided' });
     }
   }, []);
 
@@ -352,14 +352,14 @@ protected void onCreate(Bundle savedInstanceState) {
       <br />
       <section
         className={classes.sectionMarginBottom}
-        id="scaffolding-provided"
+        id='scaffolding-provided'
       >
         <p className={classes.title}>Scaffolding Provided</p>
         <hr />
         <p className={classes.detailFontStyle}>
           This repository provides the following components:
         </p>
-        <List component="div" disablePadding className={classes.listStyle}>
+        <List component='div' disablePadding className={classes.listStyle}>
           <ListItem
             disableRipple={true}
             sx={{ pl: 4 }}
@@ -368,7 +368,7 @@ protected void onCreate(Bundle savedInstanceState) {
             <ListItemIcon>
               <CircleIcon />
             </ListItemIcon>
-            <ListItemText primary="FastpaySDK.aar" />
+            <ListItemText primary='FastpaySDK.aar' />
           </ListItem>
           <ListItem
             disableRipple={true}
@@ -378,7 +378,7 @@ protected void onCreate(Bundle savedInstanceState) {
             <ListItemIcon>
               <CircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Usermanual.pdf (Documentation)" />
+            <ListItemText primary='Usermanual.pdf (Documentation)' />
           </ListItem>
           <ListItem
             disableRipple={true}
@@ -390,8 +390,8 @@ protected void onCreate(Bundle savedInstanceState) {
             </ListItemIcon>
 
             <a
-              href="https://github.com/Fast-Solution-Inc/FastPay-Android-SDK"
-              target="_blank"
+              href='https://github.com/Fast-Solution-Inc/FastPay-Android-SDK'
+              target='_blank'
             >
               SDK Installation Guide
             </a>
@@ -399,10 +399,9 @@ protected void onCreate(Bundle savedInstanceState) {
         </List>
       </section>
 
-
       <section
         className={classes.sectionMarginBottom}
-        id="scaffolding-provided"
+        id='scaffolding-provided'
       >
         <p className={classes.title}>Features</p>
         <hr />
@@ -452,14 +451,14 @@ protected void onCreate(Bundle savedInstanceState) {
             </ListItemText>
           </ListItem>
         </List>
-        <p className={classes.title} style={{ marginTop: "20px" }}>
+        <p className={classes.title} style={{ marginTop: '20px' }}>
           SDK flow
         </p>
-        <img src={img} alt="flow" style={{ width: "100%" }} />
+        <img src={img} alt='flow' style={{ width: '100%' }} />
       </section>
 
-      <section className={classes.sectionMarginBottom} id="step-1">
-        <p className={classes.title} style={{ marginTop: "20px" }}>
+      <section className={classes.sectionMarginBottom} id='step-1'>
+        <p className={classes.title} style={{ marginTop: '20px' }}>
           Initialization
         </p>
         <hr />
@@ -474,7 +473,7 @@ protected void onCreate(Bundle savedInstanceState) {
         </p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={android}
             showLineNumbers={true}
             theme={dracula}
@@ -484,9 +483,9 @@ protected void onCreate(Bundle savedInstanceState) {
         </div>
       </section>
 
-      <section className={classes.sectionMarginBottom} id="step-2">
+      <section className={classes.sectionMarginBottom} id='step-2'>
         <p className={classes.subTitle}>Step-2 Gradle Configuration</p>
-        <p className={classes.subTitle2} style={{ marginTop: "20px" }}>
+        <p className={classes.subTitle2} style={{ marginTop: '20px' }}>
           For Gradle 7.0 and Higher:
         </p>
         <p className={classes.detailFontStyle}>
@@ -498,7 +497,7 @@ protected void onCreate(Bundle savedInstanceState) {
         </p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={dependencyResolutionManagement}
             showLineNumbers={true}
             theme={dracula}
@@ -506,7 +505,7 @@ protected void onCreate(Bundle savedInstanceState) {
             codeBlock
           />
         </div>
-        <p className={classes.subTitle2} style={{ marginTop: "20px" }}>
+        <p className={classes.subTitle2} style={{ marginTop: '20px' }}>
           For Gradle Versions Prior to 7.0:
         </p>
         <p className={classes.detailFontStyle}>
@@ -518,7 +517,7 @@ protected void onCreate(Bundle savedInstanceState) {
         </p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={allprojects}
             showLineNumbers={true}
             theme={dracula}
@@ -528,12 +527,12 @@ protected void onCreate(Bundle savedInstanceState) {
         </div>
       </section>
 
-      <section className={classes.sectionMarginBottom} id="step-3">
+      <section className={classes.sectionMarginBottom} id='step-3'>
         <p className={classes.subTitle}>Step-3 (Implementation)</p>
         <p className={classes.tableTitle}>Import FastPaySDK in your class</p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={importData}
             showLineNumbers={true}
             theme={dracula}
@@ -542,7 +541,7 @@ protected void onCreate(Bundle savedInstanceState) {
           />
         </div>
         <p className={classes.tableTitle}>Initiate FastPaySDK</p>
-        <List component="div" disablePadding className={classes.listStyle}>
+        <List component='div' disablePadding className={classes.listStyle}>
           <ListItem
             disableRipple={true}
             sx={{ pl: 4 }}
@@ -656,7 +655,7 @@ protected void onCreate(Bundle savedInstanceState) {
         <br />
         <div className={classes.sectionMarginBottom}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={FastPaySDK}
             showLineNumbers={true}
             theme={dracula}
@@ -667,7 +666,7 @@ protected void onCreate(Bundle savedInstanceState) {
         <p className={classes.tableTitle}>Call back Uri</p>
         <div className={classes.sectionMarginBottom}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={URL}
             showLineNumbers={true}
             theme={dracula}
@@ -678,7 +677,7 @@ protected void onCreate(Bundle savedInstanceState) {
         <p className={classes.tableTitle}>Initiate Payment Process</p>
         <div className={classes.sectionMarginBottom}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={PaymentProcess}
             showLineNumbers={true}
             theme={dracula}
@@ -707,7 +706,7 @@ protected void onCreate(Bundle savedInstanceState) {
             receive as string using FastpayRequest.EXTRA_PAYMENT_MESSAGE key.
           </p>
           <p className={classes.tableTitle}>Payment Success Data definition</p>
-          <List component="div" disablePadding className={classes.listStyle}>
+          <List component='div' disablePadding className={classes.listStyle}>
             <ListItem
               disableRipple={true}
               sx={{ pl: 4 }}
@@ -818,7 +817,7 @@ protected void onCreate(Bundle savedInstanceState) {
           className={`${classes.sectionMarginBottom} ${classes.copyBlockStyle}`}
         >
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={overrideData}
             showLineNumbers={true}
             theme={dracula}
@@ -828,7 +827,7 @@ protected void onCreate(Bundle savedInstanceState) {
         </div>
       </section>
 
-      <section className={classes.sectionMarginBottom} id="step-4">
+      <section className={classes.sectionMarginBottom} id='step-4'>
         <p className={classes.subTitle}>
           Step-4 Register Callback URL in AndroidManifest.xml
         </p>
@@ -839,7 +838,7 @@ protected void onCreate(Bundle savedInstanceState) {
         </p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={activity}
             showLineNumbers={true}
             theme={dracula}
@@ -864,7 +863,7 @@ protected void onCreate(Bundle savedInstanceState) {
         </p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={payments}
             showLineNumbers={true}
             theme={dracula}
@@ -906,7 +905,7 @@ protected void onCreate(Bundle savedInstanceState) {
         </p>
         <div className={classes.copyBlockStyle}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={CallbackUrl}
             showLineNumbers={true}
             theme={dracula}
@@ -919,22 +918,22 @@ protected void onCreate(Bundle savedInstanceState) {
             pl: 1,
             mt: 3,
             mb: 3,
-            borderLeft: "4px solid gray",
-            background: "none",
+            borderLeft: '4px solid gray',
+            background: 'none',
             fontWeight: 700,
-            color: "gray",
+            color: 'gray',
           }}
-          severity="warning"
+          severity='warning'
         >
           Be sure to use try catch
         </Alert>
         <p className={classes.subTitle}>License</p>
 
-        <hr style={{ marginBottom: "20px" }} />
+        <hr style={{ marginBottom: '20px' }} />
 
         <div className={classes.copyBlockStyle}>
           <CopyBlock
-            language={"jsx"}
+            language={'jsx'}
             text={License}
             showLineNumbers={true}
             theme={dracula}

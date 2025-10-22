@@ -152,42 +152,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const IOSGuideDetailSide = () => {
-  const sampleTestCodeData = `class ViewController: UIViewController, FastPayDelegate {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-
-    @IBAction func showAction(_ sender: UIButton){
-        callSDK()
-    }
-    
-    func callSDK(){
-        let testObj = Fastpay(storeId: "1953_693", storePassword: "Password100@", orderId: "order240", amount: 500, currency: .IQD)
-        testObj.delegate = self
-        testObj.start(in: self, for: .Sandbox)
-    }
-    
-    func fastpayTransactionSucceeded(with transaction: FPTransaction) {
-
-        if let transactionId = transaction.transactionId, let orderID = transaction.orderId, let billAmount = transaction.amount, let currency = transaction.currency, let customerMobileNo = transaction.customerMobileNo, let name = transaction.customerName, let status = transaction.status, let transactionTime = transaction.transactionTime{
-            print("Transaction ID : \(transactionId)")
-            print("Order ID : \(orderID)")
-            print("Amount : \(orderID)")
-            print("Bill Amount : \(billAmount)")
-            print("Currency : \(currency)")
-            print("Mobile Number : \(customerMobileNo)")
-            print("Name : \(name)")
-            print("Status : \(status)")
-            print("Transaction Time : \(transactionTime)")
-        }
-    }
-    
-    func fastpayTransactionFailed(with orderId: String) {
-        print("Failed Order ID: \(orderId)")
-    }
-}`;
+  const sampleTestCodeData = `class ViewController: UIViewController, FastPayDelegate {\n    \n    override func viewDidLoad() {\n        super.viewDidLoad()\n        \n    }\n\n    @IBAction func showAction(_ sender: UIButton){\n        callSDK()\n    }\n    \n    func callSDK(){ \n        let testObj = Fastpay(storeId: "1953_693", storePassword: "Password100@", orderId: "order240", amount: 500, currency: .IQD) \n        testObj.delegate = self\n        testObj.start(in: self, for: .Sandbox)\n    }\n    \n    func fastpayTransactionSucceeded(with transaction: FPTransaction) {\n\n        if let transactionId = transaction.transactionId, let orderID = transaction.orderId, let billAmount = transaction.amount, let currency = transaction.currency, let customerMobileNo = transaction.customerMobileNo, let name = transaction.customerName, let status = transaction.status, let transactionTime = transaction.transactionTime{\n            print("Transaction ID : \\(transactionId)")\n            print("Order ID : \\(orderID)")\n            print("Amount : \\(orderID)")\n            print("Bill Amount : \\(billAmount)")\n            print("Currency : \\(currency)")\n            print("Mobile Number : \\(customerMobileNo)")\n            print("Name : \\(name)")\n            print("Status : \\(status)")\n            print("Transaction Time : \\(transactionTime)")\n        }\n    }\n    \n    func fastpayTransactionFailed(with orderId: String) {\n        print("Failed Order ID: \\(orderId)")\n    }\n}`;
   const classes = useStyles();
   const { fastPayMenuList, addList } = useContext(MenuContext);
   const { addActiveId, fastPayActiveId } = useContext(ActiveMenuContext);
@@ -370,12 +335,7 @@ const IOSGuideDetailSide = () => {
         <div className={classes.sectionMarginBottom}>
           <CopyBlock
             language={"jsx"}
-            text={`start(in: ….)  → your view controller class that you want the SDK to present on
-            storeId → Merchant’s provided store ID.
-            storePassword → Merchant’s provided store password.
-            orderId → Merchant’s provided order ID.
-            amount → Payable amount in the transaction.
-            currency → In which currency order will  perform.`}
+            text={`start(in: ….)  → your view controller class that you want the SDK to present on\n            storeId → Merchant’s provided store ID.\n            storePassword → Merchant’s provided store password.\n            orderId → Merchant’s provided order ID.\n            amount → Payable amount in the transaction.\n            currency → In which currency order will  perform.`}
             showLineNumbers={true}
             theme={dracula}
             wrapLines={true}
@@ -414,14 +374,7 @@ const IOSGuideDetailSide = () => {
         <div className={classes.sectionMarginBottom}>
           <CopyBlock
             language={"jsx"}
-            text={`transactionId: String? 
-orderId: String? 
-amount: Int? 
-currency: FPCurrency? 
-customerMobileNo: String? 
-customerName: String? 
-status: String? 
-transactionTime: String?`}
+            text={`transactionId: String? \norderId: String? \namount: Int? \ncurrency: FPCurrency? \ncustomerMobileNo: String? \ncustomerName: String? \nstatus: String? \ntransactionTime: String?`}
             showLineNumbers={true}
             theme={dracula}
             wrapLines={true}
