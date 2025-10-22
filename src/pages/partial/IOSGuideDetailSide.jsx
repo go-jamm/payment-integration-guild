@@ -6,6 +6,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import CircleIcon from "@mui/icons-material/Circle";
 import { MenuContext } from "../../context/MenuContext";
+import img  from "../../assets/images/flow-ios.png";
 
 import { ActiveMenuContext } from "../../context/ActiveMenuContext";
 import { useHistory } from "react-router-dom";
@@ -152,7 +153,46 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const IOSGuideDetailSide = () => {
-  const sampleTestCodeData = `class ViewController: UIViewController, FastPayDelegate {\n    \n    override func viewDidLoad() {\n        super.viewDidLoad()\n        \n    }\n\n    @IBAction func showAction(_ sender: UIButton){\n        callSDK()\n    }\n    \n    func callSDK(){ \n        let testObj = Fastpay(storeId: "1953_693", storePassword: "Password100@", orderId: "order240", amount: 500, currency: .IQD) \n        testObj.delegate = self\n        testObj.start(in: self, for: .Sandbox)\n    }\n    \n    func fastpayTransactionSucceeded(with transaction: FPTransaction) {\n\n        if let transactionId = transaction.transactionId, let orderID = transaction.orderId, let billAmount = transaction.amount, let currency = transaction.currency, let customerMobileNo = transaction.customerMobileNo, let name = transaction.customerName, let status = transaction.status, let transactionTime = transaction.transactionTime{\n            print("Transaction ID : \\(transactionId)")\n            print("Order ID : \\(orderID)")\n            print("Amount : \\(orderID)")\n            print("Bill Amount : \\(billAmount)")\n            print("Currency : \\(currency)")\n            print("Mobile Number : \\(customerMobileNo)")\n            print("Name : \\(name)")\n            print("Status : \\(status)")\n            print("Transaction Time : \\(transactionTime)")\n        }\n    }\n    \n    func fastpayTransactionFailed(with orderId: String) {\n        print("Failed Order ID: \\(orderId)")\n    }\n}`;
+  const sampleTestCodeData = `class ViewController: UIViewController, FastPayDelegate {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+
+    @IBAction func showAction(_ sender: UIButton){
+        callSDK()
+    }
+    
+    func callSDK(){
+        let testObj = Fastpay(storeId: "1953_693", storePassword: "Password100@", orderId: "order240", amount: 500, currency: .IQD,uri: "appfpclientfastpaysdktest3")
+        testObj.delegate = self
+        testObj.start(in: self, for: .Sandbox)
+    }
+    
+    func fastpayTransactionSucceeded(with transaction: FPTransaction) {
+
+        if let transactionId = transaction.transactionId, let orderID = transaction.orderId, let billAmount = transaction.amount, let currency = transaction.currency, let customerMobileNo = transaction.customerMobileNo, let name = transaction.customerName, let status = transaction.status, let transactionTime = transaction.transactionTime{
+            print("Transaction ID : \(transactionId)")
+            print("Order ID : \(orderID)")
+            print("Amount : \(orderID)")
+            print("Bill Amount : \(billAmount)")
+            print("Currency : \(currency)")
+            print("Mobile Number : \(customerMobileNo)")
+            print("Name : \(name)")
+            print("Status : \(status)")
+            print("Transaction Time : \(transactionTime)")
+        }
+    }
+    
+    func fastpayTransactionFailed(with orderId: String) {
+        print("Failed Order ID: \(orderId)")
+    }
+    
+    func fastPayProcessStatus(with status: FPFrameworkStatus) {
+        print(status)
+    }
+}`;
   const classes = useStyles();
   const { fastPayMenuList, addList } = useContext(MenuContext);
   const { addActiveId, fastPayActiveId } = useContext(ActiveMenuContext);
@@ -227,7 +267,7 @@ const IOSGuideDetailSide = () => {
             <ListItemIcon>
               <CircleIcon />
             </ListItemIcon>
-            <ListItemText primary="FastpayMerchantSDK.framework.zip" />
+            <ListItemText primary="FastpayMerchantSDK.xcframework.zip" />
           </ListItem>
           <ListItem
             disableRipple={true}
@@ -257,6 +297,29 @@ const IOSGuideDetailSide = () => {
           </ListItem>
         </List>
       </section>
+
+      <section className={classes.sectionMarginBottom} id="get-started">
+        <p className={classes.title}>Features</p>
+        <hr />
+        <p className={classes.detailFontStyle}>
+          1. Make payment transaction using Fastpay App.
+          <br />
+          2. Check the status of the payments which you make.
+          <br />
+          3. Verify payment with OTP.
+          <br />
+          3. Framework status provided by callbacks.
+          <br />
+          4. Application redirect with required data while using fastpay
+          personal applciation.
+        </p>
+      </section>
+
+      <p className={classes.title}>Framework flow</p>
+      <div className="">
+        <img src={img} alt="flow" style={{ width: "100%" }} />
+      </div>
+
       <section className={classes.sectionMarginBottom} id="get-started">
         <p className={classes.title}>Get Started</p>
         <hr />
@@ -309,7 +372,7 @@ const IOSGuideDetailSide = () => {
         <div className={classes.sectionMarginBottom}>
           <CopyBlock
             language={"jsx"}
-            text={`let testObj = Fastpay(storeId: "*****", storePassword: "****", orderId: "*****", amount: 500, currency: .IQD)`}
+            text={`let testObj = Fastpay(storeId: "*****", storePassword: "****", orderId: "*****", amount: 500, currency: .IQD, uri: :"appfpclientfastpaysdktest3")`}
             showLineNumbers={true}
             theme={dracula}
             wrapLines={true}
@@ -323,6 +386,20 @@ const IOSGuideDetailSide = () => {
           <CopyBlock
             language={"jsx"}
             text={`testObj.delegate = self`}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+        <p className={classes.detailFontStyle}>
+          Start your work with that. Use .Production for production release and
+          use .SandBox for development test.
+        </p>
+        <div className={classes.sectionMarginBottom}>
+          <CopyBlock
+            language={"jsx"}
+            text={`testObj.start(in: self, for: .Production)`}
             showLineNumbers={true}
             theme={dracula}
             wrapLines={true}
@@ -382,6 +459,140 @@ const IOSGuideDetailSide = () => {
           />
         </div>
       </section>
+      <p className={classes.detailFontStyle}>Call back Uri</p>
+      <p className={classes.detailFontStyle}>
+        Step
+        <br />
+        1. Create URI Create a URI with a unique name (our suggestion is to
+        provide your app name with prefix text "appfpclient", for example, if
+        your app name is "FaceLook", your URI should be appfpclientFaceLook)
+        <br />
+        2. Add URI to your info.plist Now add this URI to your app info.plist
+        file
+      </p>
+      <div className={classes.sectionMarginBottom}>
+        <CopyBlock
+          language={"jsx"}
+          text={`<key>CFBundleURLTypes</key>
+ <array>
+   <dict>
+     <key>CFBundleURLSchemes</key>
+     <array>
+       <string>appfpclientfastpaysdktest3</string>
+     </array>
+   </dict>
+ </array>`}
+          showLineNumbers={true}
+          theme={dracula}
+          wrapLines={true}
+          codeBlock
+        />
+      </div>
+      <p className={classes.detailFontStyle}>
+        3. Add this String extension to your code base
+      </p>
+      <div className={classes.sectionMarginBottom}>
+        <CopyBlock
+          language={"jsx"}
+          text={`extension String{
+  func splitQueryString() -> [String: String] {
+    var keyValuePairs = [String: String]()
+    let components = self.components(separatedBy: "&")
+    for component in components {
+      let keyValue = component.components(separatedBy: "=")
+      if keyValue.count == 2 {
+        let key = keyValue[0]
+        let value = keyValue[1].removingPercentEncoding ?? ""
+        keyValuePairs[key] = value
+      }
+    }
+    return keyValuePairs
+  }
+}`}
+          showLineNumbers={true}
+          theme={dracula}
+          wrapLines={true}
+          codeBlock
+        />
+      </div>
+
+      <p className={classes.detailFontStyle}>
+        4. Handle incoming URLs When another app opens a URL containing your
+        custom scheme, the system launches your app, if necessary, and brings it
+        to the foreground. The system delivers the URL to your app by calling
+        your app delegate’s application(_:open:options:) method. Add code to the
+        method to parse the contents of the URL and take appropriate actions. To
+        ensure the URL is parsed correctly, use NSURLComponents APIs to extract
+        the components. Obtain additional information about the URL, such as
+        which app opened it, from the system-provided options dictionary.
+      </p>
+      <div className={classes.sectionMarginBottom}>
+        <CopyBlock
+          language={"jsx"}
+          text={`func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        // Handle the URL here
+        print("Received URL: \(url)")
+        return true
+}`}
+          showLineNumbers={true}
+          theme={dracula}
+          wrapLines={true}
+          codeBlock
+        />
+      </div>
+
+      <p className={classes.detailFontStyle}>
+        If your app has opted into Scenes, and your app isn’t running, the
+        system delivers the URL to the scene(:willConnectTo:options:) delegate
+        method after launch, and to scene(:openURLContexts:) when your app opens
+        a URL while running or suspended in memory. Add this Method to Your
+        Scene Delegate. Whenever your transaction completes/fails from FastPay
+        App, you will be navigated here with the result.
+      </p>
+      <div className={classes.sectionMarginBottom}>
+        <CopyBlock
+          language={"jsx"}
+          text={`func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+  guard let url = URLContexts.first?.url else {
+    return
+  }
+}`}
+          showLineNumbers={true}
+          theme={dracula}
+          wrapLines={true}
+          codeBlock
+        />
+      </div>
+
+      <p className={classes.detailFontStyle}>
+        Please replace appfpclientfastpaysdktest3 with your created URI (which
+        is added to your info.plist file too) The below code is for data
+        retrieval:
+      </p>
+      <div className={classes.sectionMarginBottom}>
+        <CopyBlock
+          language={"jsx"}
+          text={`if let scheme = url.scheme, scheme.lowercased() == "appfpclientfastpaysdktest3".lowercased() {
+          let query            = url.query
+          let data             = query?.splitQueryString()
+          let transactionStatus  = data?["transactionStatus"] // failed/success
+          let transactionId      = data?["transactionId"]
+          let amount           = data?["amount"]
+          let orderId           = data?["orderId"]
+          let transactionTime    = data?["transactionTime"]
+          let currency          = data?["currency"]
+          let customerMobileNo = data?["customerMobileNo"]
+          let customerName    = data?["customerName"]
+          let status            = data?["status"]
+      print("Transaction completed with \(transactionStatus ?? "No Status found")")
+}`}
+          showLineNumbers={true}
+          theme={dracula}
+          wrapLines={true}
+          codeBlock
+        />
+      </div>
+
       <section className={classes.sectionMarginBottom} id="sample-test-code">
         <p className={classes.title}>Sample Test Code</p>
         <hr className={classes.sectionMarginBottom} />
@@ -397,6 +608,37 @@ const IOSGuideDetailSide = () => {
           />
         </div>
       </section>
+
+      <p className={classes.title}>FPFrameworkStatus</p>
+      <p className={classes.detailFontStyle}>
+        In this callback, you will get Framework processing statuses, like when
+        you redirect to the FastPay app or continue to Framework, or when
+        Framework is cancelled by the user. Status is given below:
+      </p>
+      <div className={classes.sectionMarginBottom}>
+        <CopyBlock
+          language={"jsx"}
+          text={` public enum FPFrameworkStatus: Int{
+   case INIT
+   case PAYMENT_WITH_FASTPAY_APP
+   case PAYMENT_WITH_FASTPAY_SDK
+   case CANCEL
+ }`}
+          showLineNumbers={true}
+          theme={dracula}
+          wrapLines={true}
+          codeBlock
+        />
+      </div>
+      <p className={classes.detailFontStyle}>
+        N.B: For Xcode 13.0 use "FastpayMerchantSDK.framework.zip" and for XCode
+        <br />
+        13.2 or latter use "FastpayMerchantSDK.framework(xcode13.2).zip"
+      </p>
+
+      <p className={classes.detailFontStyle}>
+        For details or clearification you can get help from document pdf.
+      </p>
     </div>
   );
 };
