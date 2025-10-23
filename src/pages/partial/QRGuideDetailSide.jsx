@@ -162,7 +162,10 @@ const QRGuideDetailSide = () => {
  "code": 200,
  "messages": "QR generation request was successful",
  "errors": []
- "data": "https://*************.***********.com/AAA/BBB.png"
+ "data": {
+    "qrUrl": "https://xxxxxxxxxxxxxxxxxxxxxx.png",
+    "qrText": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  }
 }`;
 
   const sample2 = `{
