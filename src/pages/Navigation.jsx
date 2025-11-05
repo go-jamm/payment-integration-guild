@@ -13,6 +13,7 @@ import IntegrationWithAndroidGuide from "./IntegrationWithAndroidGuide";
 import IntegrationWithQRGuide from "./IntegrationWithQRGuide";
 import IntegrationReactNativeGuide from "./IntegrationReactNativeGuide";
 import IntegrationWithFlutterGuide from "./IntegrationWithFlutterGuide";
+import IntegrationDeepLinkAndroidIos from "./IntegrationDeepLinkAndroidIos";
 
 const useStyles = makeStyles((theme) => ({
   // containerStyle: {
@@ -65,6 +66,9 @@ const Navigation = () => {
             </Route>
             <Route exact path="/flutter-integration">
               <IntegrationWithFlutterGuide />
+            </Route>
+            <Route exact path="/deep-link-integration-android-ios">
+              <IntegrationDeepLinkAndroidIos />
             </Route>
             <Route exact path="/">
               <Home />

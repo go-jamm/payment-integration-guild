@@ -9,6 +9,7 @@ import AndroidIcon from "@mui/icons-material/Android";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import flutter from "../assets/images/flutter.svg";
 import react from "../assets/images/react.svg";
+import deepLink from "../assets/images/deep-link.png";
 
 import { ActiveMenuContext } from "../context/ActiveMenuContext";
 
@@ -100,6 +101,18 @@ const useStyles = makeStyles((theme) => ({
     "-webkit-filter": "grayscale(100%)",
     filter: "grayscale(100%)",
     "&:hover": {
+      "-webkit-filter": "grayscale(0%)",
+      filter: "grayscale(0%)",
+    },
+  },
+  deepLink: {
+    opacity: 0.4, // lower opacity by default
+    "-webkit-filter": "grayscale(100%)",
+    filter: "grayscale(100%)",
+    transition: "opacity 0.3s ease, filter 0.3s ease", 
+
+    "&:hover": {
+      opacity: 0.8, // full opacity on hover
       "-webkit-filter": "grayscale(0%)",
       filter: "grayscale(0%)",
     },
@@ -273,9 +286,7 @@ const Home = () => {
                 }}
                 className={classes.linkStyle}
               >
-                <div
-                  className={classes.card}
-                >
+                <div className={classes.card}>
                   <Grid container alignItems="center">
                     <Grid item xs={12} sm={9}>
                       <p className={classes.title}>Flutter Plugin</p>
@@ -295,6 +306,7 @@ const Home = () => {
                 </div>
               </Link>
             </Grid>
+
             <Grid item xs={12} sm={12} md={6}>
               <Link
                 to={{
@@ -302,9 +314,7 @@ const Home = () => {
                 }}
                 className={classes.linkStyle}
               >
-                <div
-                  className={classes.card}
-                >
+                <div className={classes.card}>
                   <Grid container alignItems="center">
                     <Grid item xs={12} sm={9}>
                       <p className={classes.title}>React Native Package</p>
@@ -318,6 +328,36 @@ const Home = () => {
                         alt=""
                         height="80"
                         className={classes.flutter}
+                      />
+                    </Grid>
+                  </Grid>
+                </div>
+              </Link>
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={6}>
+              <Link
+                to={{
+                  pathname: "/deep-link-integration-android-ios",
+                }}
+                className={classes.linkStyle}
+              >
+                <div className={classes.card}>
+                  <Grid container alignItems="center">
+                    <Grid item xs={12} sm={9}>
+                      <p className={classes.title}>
+                        Deep Link For Android and iOS application
+                      </p>
+                      <p className={classes.cardDetailFontStyle}>
+                        Easiest payment gateway to integrate with 24x7 support
+                      </p>
+                    </Grid>
+                    <Grid item xs={12} sm={3} className={classes.iconDiv}>
+                      <img
+                        src={deepLink}
+                        alt=""
+                        height="80"
+                        className={classes.deepLink}
                       />
                     </Grid>
                   </Grid>
