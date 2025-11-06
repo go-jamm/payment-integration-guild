@@ -554,10 +554,13 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
           />
         </div>
       </section>
+      <br />
+      <br />
+      <br />
 
       <section className={classes.sectionMarginBottom} id="ios">
         <p className={classes.title}>
-          FastPay App Navigation (Handoff + Fallback) - FastPay Developer
+         FastPay Merchant Payment SDK IOS Integration Guide (Swift)
         </p>
         <hr />
       </section>
