@@ -18,6 +18,7 @@ import { MenuContext } from "../../context/MenuContext";
 import { ActiveMenuContext } from "../../context/ActiveMenuContext";
 import { useHistory } from "react-router-dom";
 import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
+import { Alert, Tooltip } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -297,7 +298,8 @@ const QRGuideDetailSide = () => {
                   target="_blank"
                   href="https://staging-merchant.fast-pay.iq"
                 >
-                  <strong> Sandbox -</strong> https://staging-merchant.fast-pay.iq
+                  <strong> Sandbox -</strong>{" "}
+                  https://staging-merchant.fast-pay.iq
                 </a>
               </ListItemText>
             </ListItem>
@@ -997,6 +999,25 @@ const QRGuideDetailSide = () => {
         >
           <i>https://staging-qr.fast-pay.iq/swagger-ui.html</i>
         </a>
+      </section>
+
+      <section
+        className={classes.sectionMarginBottom}
+        id="swagger-documentation"
+      >
+        <Alert severity="info">
+          <a
+            style={{
+              textDecoration: "none",
+              cursor: "pointer",
+              fontWeight: "600",
+            }}
+            target="_blank"
+            href="https://developer.fast-pay.iq/deep-link-integration-android-ios"
+          >
+            Check here for Android & iOS Deep Link
+          </a>
+        </Alert>
       </section>
     </div>
   );

@@ -106,13 +106,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   deepLink: {
-    opacity: 0.4, // lower opacity by default
+    opacity: 0.2, // lower opacity by default
     "-webkit-filter": "grayscale(100%)",
     filter: "grayscale(100%)",
     transition: "opacity 0.3s ease, filter 0.3s ease", 
 
     "&:hover": {
-      opacity: 0.8, // full opacity on hover
+      opacity: 0.6, // full opacity on hover
       "-webkit-filter": "grayscale(0%)",
       filter: "grayscale(0%)",
     },

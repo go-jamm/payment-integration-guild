@@ -10,6 +10,7 @@ import { ActiveMenuContext } from "../../context/ActiveMenuContext";
 import { useHistory } from "react-router-dom";
 import { CopyBlock, dracula } from "react-code-blocks";
 import { Alert } from "@mui/material";
+import overFlow from "../../assets/images/fp.jpg";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -167,7 +168,7 @@ const instantiateFastPaySDK = () => {
     };
   };`;
 
-  const RegisterCallbackScheme = `<activity     android:name=".ui.PaymentCallbackActivity"     android:exported="true"> 
+  const RegisterCallbackScheme = `<activity  android:name=".ui.PaymentCallbackActivity" android:exported="true"> 
  
     <intent-filter android:label="FastPay Callback"> 
         <action android:name="android.intent.action.VIEW" /> 
@@ -175,7 +176,7 @@ const instantiateFastPaySDK = () => {
         <category android:name="android.intent.category.BROWSABLE" /> 
          
         <!-- Replace with your client URI --> 
-        <data             android:scheme="appfpclientMyApp"             android:host="fast-pay.cash" /> 
+        <data android:scheme="appfpclientMyApp" android:host="fast-pay.cash" /> 
     </intent-filter> 
 </activity> 
 `;
@@ -216,35 +217,46 @@ Uri.parse("https://play.google.com/store/apps/details?id=com.fastpay
 
   const ExampleCallbackURI = `appfpclientMyApp://fast-pay.cash?transactionStatus=success&transactionId=ORD789&amo unt=1000`;
 
-  const HandleThisCallback = `class PaymentCallbackActivity : AppCompatActivity() { 
- 
-    override fun onCreate(savedInstanceState: Bundle?) {         super.onCreate(savedInstanceState)         handlePaymentCallback(intent) 
-    } 
- 
-    override fun onNewIntent(intent: Intent?) {         super.onNewIntent(intent)         handlePaymentCallback(intent) 
-    } 
- 
-    private fun handlePaymentCallback(intent: Intent?) {         intent?.data?.let { uri ->             val transactionStatus = uri.getQueryParameter("transactionStatus")             val transactionId = uri.getQueryParameter("transactionId")             val amount = uri.getQueryParameter("amount") 
- 
-            Log.d("FastPaySDK", "Transaction: $transactionId - Status: $transactionStatus")             when (transactionStatus) { 
-                "success" -> showSuccessUI(transactionId, amount) 
-                "failed" -> showFailureUI(transactionId)                 else -> showPendingUI(transactionId) 
-            } 
-        } 
-    } 
- 
-    private fun showSuccessUI(transactionId: String?, amount: String?) { 
-        Toast.makeText(this, "Payment Successful: $amount", Toast.LENGTH_LONG).show() 
-    } 
- 
-    private fun showFailureUI(transactionId: String?) { 
-        Toast.makeText(this, "Payment Failed", Toast.LENGTH_LONG).show() 
-    } 
- 
-    private fun showPendingUI(transactionId: String?) { 
-        Toast.makeText(this, "Payment Pending", Toast.LENGTH_LONG).show() 
-    } 
-} 
+  const HandleThisCallback = `
+class PaymentCallbackActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        handlePaymentCallback(intent)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handlePaymentCallback(intent)
+    }
+
+    private fun handlePaymentCallback(intent: Intent?) {
+        intent?.data?.let { uri ->
+            val transactionStatus = uri.getQueryParameter("transactionStatus")
+            val transactionId = uri.getQueryParameter("transactionId")
+            val amount = uri.getQueryParameter("amount")
+
+            Log.d("FastPaySDK", "Transaction: $transactionId - Status: $transactionStatus")
+            when (transactionStatus) {
+                "success" -> showSuccessUI(transactionId, amount)
+                "failed" -> showFailureUI(transactionId)
+                else -> showPendingUI(transactionId)
+            }
+        }
+    }
+
+    private fun showSuccessUI(transactionId: String?, amount: String?) {
+        Toast.makeText(this, "Payment Successful: $amount", Toast.LENGTH_LONG).show()
+    }
+
+    private fun showFailureUI(transactionId: String?) {
+        Toast.makeText(this, "Payment Failed", Toast.LENGTH_LONG).show()
+    }
+
+    private fun showPendingUI(transactionId: String?) {
+        Toast.makeText(this, "Payment Pending", Toast.LENGTH_LONG).show()
+    }
+}
 `;
 
   const deepLinkFormate = `appFpp://fast-pay.cash/qrpay?qrdata=<qrToken>&clientUri=appfpclient<clientUri>&transacti onId=<orderId> `;
@@ -397,7 +409,7 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
     <div>
       <section className={classes.sectionMarginBottom} id="android">
         <p className={classes.title}>
-          FastPay Merchant Payment SDK Android Integration Guide (Kotlin)
+          FastPay Merchant Android Deep Link Integration Guide (Kotlin)
         </p>
         <hr />
       </section>
@@ -415,9 +427,9 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
               <CircleIcon />
             </ListItemIcon>
             <ListItemText>
-              The <strong>FastPay Merchant Payment SDK</strong> enables your
-              Android app to initiate payments through the{" "}
-              <strong>FastPay App</strong> using a <strong>deep link</strong>.
+              The <strong>FastPay Merchant</strong> enables your Android app to
+              initiate payments through the <strong>FastPay App</strong> using a{" "}
+              <strong>deep link</strong>.
             </ListItemText>
           </ListItem>
           <ListItem
@@ -448,6 +460,14 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
           </ListItem>
         </List>
 
+        <div id="overflow">
+          <p className={classes.subTitle}>Deep Link Flow Diagram</p>
+          <hr />
+          <div className="">
+            <img src={overFlow} alt="" />
+          </div>
+        </div>
+
         <p className={classes.tableTitle}>Deep Link Format</p>
         <div>
           <CopyBlock
@@ -459,6 +479,21 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
             codeBlock
           />
         </div>
+      </section>
+
+      <section className={classes.sectionMarginBottom} id="qr-token">
+        <Alert severity="info">
+          <a
+            href="https://developer.fast-pay.iq/qr-integration"
+            target="_blank"
+            style={{
+              textDecoration: "none",
+              fontWeight: 600,
+            }}
+          >
+            QR Token Guide
+          </a>
+        </Alert>
       </section>
 
       <section className={classes.sectionMarginBottom} id="IntegrationSteps">
@@ -560,14 +595,14 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
 
       <section className={classes.sectionMarginBottom} id="ios">
         <p className={classes.title}>
-         FastPay Merchant Payment SDK IOS Integration Guide (Swift)
+          FastPay Merchant IOS Deep Link Integration Guide (Swift)
         </p>
         <hr />
       </section>
 
       <section className={classes.sectionMarginBottom} id="introduction">
         <p>
-          This summarizes how the SDK navigates to the FastPay app and what
+          This summarizes how the Fastpay Merchant to the FastPay app and what
           happens if the app is not available.
         </p>
 
@@ -641,8 +676,8 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
                     delegate?.fastPayProcessStatus(.PAYMENT_WITH_FASTPAY_APP)
                   </code>
                   <br />
-                  Dismiss SDK UI, then open the URL again after dismissal to
-                  complete handoff.
+                  Dismiss Merchant app UI, then open the URL again after
+                  dismissal to complete handoff.
                 </>
               }
             />
@@ -667,8 +702,10 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
             />
           </ListItem>
 
-          <p>4. If no <code>qrToken</code> returned, skip deep link and remain
-                  in SDK flow.</p>
+          <p>
+            4. If no <code>qrToken</code> returned, skip deep link and remain in
+            SDK flow.
+          </p>
         </List>
 
         <p className={classes.subTitle}>Integration Notes (concise)</p>
@@ -838,7 +875,10 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
           wrapLines={true}
           codeBlock
         />
-        <p>Replace appfpclientYourApp everywhere with the exact scheme you added to your Info.plist.</p>
+        <p>
+          Replace appfpclientYourApp everywhere with the exact scheme you added
+          to your Info.plist.
+        </p>
       </section>
 
       {/* <section className={classes.sectionMarginBottom} id="ios-setup">
