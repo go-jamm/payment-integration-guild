@@ -169,7 +169,7 @@ const instantiateFastPaySDK = () => {
   };`;
 
   const RegisterCallbackScheme = `<activity  android:name=".ui.PaymentCallbackActivity" android:exported="true"> 
- 
+
     <intent-filter android:label="FastPay Callback"> 
         <action android:name="android.intent.action.VIEW" /> 
         <category android:name="android.intent.category.DEFAULT" /> 
@@ -178,6 +178,7 @@ const instantiateFastPaySDK = () => {
         <!-- Replace with your client URI --> 
         <data android:scheme="appfpclientMyApp" android:host="fast-pay.cash" /> 
     </intent-filter> 
+    
 </activity> 
 `;
 
@@ -197,22 +198,23 @@ const instantiateFastPaySDK = () => {
   };
 };`;
 
-  const LaunchFastPayApp = `fun openFastPayApp(context: Context, deepLinkUrl: String) {     try { 
-        // Attempt to open FastPay App directly         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(deepLinkUrl)) 
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK 
-        context.startActivity(intent) 
-        Log.d("FastPaySDK", "Opened FastPay app via deep link.") 
-    } catch (e: ActivityNotFoundException) { 
-        // FastPay app not installed → redirect to Play Store 
-        Log.w("FastPaySDK", "FastPay app not found. Redirecting to Play Store.") 
-        val playStoreIntent = Intent( 
-            Intent.ACTION_VIEW, 
-            
-Uri.parse("https://play.google.com/store/apps/details?id=com.fastpay
-.app")         ) 
-        playStoreIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK 
-        context.startActivity(playStoreIntent) 
-    } } 
+  const LaunchFastPayApp = `
+fun openFastPayApp(context: Context, deepLinkUrl: String) {
+    try {
+        // Attempt to open FastPay App directly
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(deepLinkUrl))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        context.startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        // FastPay app not installed → redirect to Play Store
+        val playStoreIntent = Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse("https://play.google.com/store/apps/details?id=com.fastpay.app")
+        )
+        playStoreIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        context.startActivity(playStoreIntent)
+    }
+}
 `;
 
   const ExampleCallbackURI = `appfpclientMyApp://fast-pay.cash?transactionStatus=success&transactionId=ORD789&amo unt=1000`;
@@ -236,7 +238,6 @@ class PaymentCallbackActivity : AppCompatActivity() {
             val transactionId = uri.getQueryParameter("transactionId")
             val amount = uri.getQueryParameter("amount")
 
-            Log.d("FastPaySDK", "Transaction: $transactionId - Status: $transactionStatus")
             when (transactionStatus) {
                 "success" -> showSuccessUI(transactionId, amount)
                 "failed" -> showFailureUI(transactionId)
@@ -482,7 +483,8 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
       </section>
 
       <section className={classes.sectionMarginBottom} id="qr-token">
-        <Alert severity="info">
+        <Alert severity="info" style={{ fontWeight: 600 }}>
+          For qrToke generation, please {""}
           <a
             href="https://developer.fast-pay.iq/qr-integration"
             target="_blank"
@@ -491,7 +493,7 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
               fontWeight: 600,
             }}
           >
-            QR Token Guide
+            check here
           </a>
         </Alert>
       </section>
@@ -694,18 +696,10 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
                   <code>
                     delegate?.fastPayProcessStatus(.PAYMENT_WITH_FASTPAY_SDK)
                   </code>
-                  <br />
-                  Keep user in SDK and render QR using the same{" "}
-                  <code>qrToken</code>.
                 </>
               }
             />
           </ListItem>
-
-          <p>
-            4. If no <code>qrToken</code> returned, skip deep link and remain in
-            SDK flow.
-          </p>
         </List>
 
         <p className={classes.subTitle}>Integration Notes (concise)</p>
@@ -727,19 +721,6 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
             />
           </ListItem>
         </List>
-
-        {/* <p className={classes.subTitle}>SDK Navigates</p>
-        <hr />
-        <div className={classes.copyBlockStyle}>
-          <CopyBlock
-            language={"javascript"}
-            text={callbackHandlingCode}
-            showLineNumbers={true}
-            theme={dracula}
-            wrapLines={true}
-            codeBlock
-          />
-        </div> */}
       </section>
 
       {/* <section className={classes.sectionMarginBottom} id="setup">
@@ -799,14 +780,17 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
           text={`extension String {
   func splitQueryString() -> [String: String] {
     var keyValuePairs: [String: String] = [:]
+    
     for component in components(separatedBy: "&") {
       let keyValue = component.components(separatedBy: "=")
+      
       if keyValue.count == 2 {
         let key = keyValue[0]
         let value = keyValue[1].removingPercentEncoding ?? ""
         keyValuePairs[key] = value
       }
     }
+    
     return keyValuePairs
   }
 }`}
@@ -876,8 +860,11 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
           codeBlock
         />
         <p>
-          Replace appfpclientYourApp everywhere with the exact scheme you added
-          to your Info.plist.
+          Replace{" "}
+          <strong style={{ color: "oklch(83.7% 0.128 66.29)" }}>
+            appfpclientYourApp
+          </strong>{" "}
+          everywhere with the exact scheme you added to your Info.plist.
         </p>
       </section>
 

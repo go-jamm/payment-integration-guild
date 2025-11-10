@@ -859,6 +859,27 @@ const QRGuideDetailSide = () => {
           />
         </div>
       </section>
+
+      <section
+        className={classes.sectionMarginBottom}
+        id="swagger-documentation"
+      >
+        <Alert severity="info" style={{ fontWeight: 600 }}>
+          For Android and iOS deep link integration, please {" "}
+          <a
+            style={{
+              textDecoration: "none",
+              cursor: "pointer",
+              fontWeight: "600",
+            }}
+            target="_blank"
+            href="https://developer.fast-pay.iq/deep-link-integration-android-ios"
+          >
+            check here.
+          </a>
+        </Alert>
+      </section>
+
       <section className={classes.sectionMarginBottom} id="test-credentials">
         <p className={classes.title}>Test Credentials</p>
         <hr className={classes.sectionMarginBottom} />
@@ -1001,24 +1022,7 @@ const QRGuideDetailSide = () => {
         </a>
       </section>
 
-      <section
-        className={classes.sectionMarginBottom}
-        id="swagger-documentation"
-      >
-        <Alert severity="info">
-          <a
-            style={{
-              textDecoration: "none",
-              cursor: "pointer",
-              fontWeight: "600",
-            }}
-            target="_blank"
-            href="https://developer.fast-pay.iq/deep-link-integration-android-ios"
-          >
-            Check here for Android & iOS Deep Link
-          </a>
-        </Alert>
-      </section>
+      
     </div>
   );
 };
