@@ -363,6 +363,66 @@ useEffect(() => {
 
 callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=failed&order_id=XXXXX`;
 
+  const app_links = `//Using app_links
+import 'package:app_links/app_links.dart';
+
+Future<void> _handleIncomingIntent() async {
+  final _appLinks = AppLinks();
+  final appLink = await _appLinks.getInitialAppLink();
+
+  if (appLink != null) {
+    var uri = Uri.parse(appLink.toString());
+    debugPrint(' here you can redirect from url as per your need ');
+  }
+  _linkSubscription = _appLinks.uriLinkStream.listen(
+    (uriValue) {
+      debugPrint('Redirect URI:.................$uriValue');
+    },
+    onError: (err) {
+      debugPrint('====>>> error : $err');
+    },
+    onDone: () {
+      _linkSubscription?.cancel();
+    },
+  );
+}`;
+
+  const callBackUrlFromFlutter = `Future<void> _handleIncomingIntent() async {
+  final _appLinks = AppLinks();
+
+  if (Platform.isAndroid) {
+    final uri = await _appLinks.getLatestLink();
+    debugPrint("Redirect URI: $uri?.queryParameters}");
+
+    final allQueryParams = uri?.queryParameters;
+    final status = allQueryParams?['status'];
+    final orderId = allQueryParams?['order_id'];
+
+    debugPrint("..........................STATUS::: $status, OrderId:::$orderId");
+  } else if (Platform.isIOS) {
+    final appLink = await _appLinks.getInitialLink();
+
+    if (appLink != null) {
+      var uri = Uri.parse(appLink.toString());
+      debugPrint(' here you can redirect from url as per your need ');
+    }
+
+    _linkSubscription = _appLinks.uriLinkStream.listen(
+      (uriValue) {
+        debugPrint('.................$uriValue');
+        debugPrint(' you will listen any url updates ');
+        debugPrint(' here you can redirect from url as per your need ');
+      },
+      onError: (err) {
+        debugPrint('====>>> error : $err');
+      },
+      onDone: () {
+        _linkSubscription?.cancel();
+      },
+    );
+  }
+}`;
+
   useEffect(() => {
     if (activeUseEffect === true) {
       if (fastPayMenuList.goTo !== null && fastPayMenuList.goTo !== "") {
@@ -866,6 +926,231 @@ callback URI pattern (FAILED): sdk://your.website.com/further/paths?status=faile
           </strong>{" "}
           everywhere with the exact scheme you added to your Info.plist.
         </p>
+      </section>
+      <br />
+      <br />
+
+      <section className={classes.sectionMarginBottom} id="flutter">
+        <p className={classes.title}>
+          FastPay Merchant Flutter Deep Link Integration Guide
+        </p>
+        <hr />
+      </section>
+
+      <section id="intoduction">
+        <Alert
+          icon={false}
+          sx={{
+            pl: 1,
+            mt: 3,
+            mb: 3,
+            borderLeft: "4px solid gray",
+            fontWeight: 500,
+            color: "#000",
+          }}
+        >
+          <span>
+            Warning This will reinitiate the whole application with applinks
+            data from the top page of the navigation queue. Thats means, after
+            payment from the fastpay app, it will redirect to your app with the
+            data.
+          </span>
+        </Alert>
+
+        <div>
+          <CopyBlock
+            language={"jsx"}
+            text={app_links}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+        <br />
+      </section>
+
+      <section id="IntegrationStepsFlutter">
+        <p className={classes.subTitle}>Android Setup</p>
+        <p>
+          Add the callback uri to the <strong>manifest</strong> file as shown
+          below
+        </p>
+        <div>
+          <CopyBlock
+            language={"jsx"}
+            text={`<intent-filter>
+    <action android:name="android.intent.action.VIEW" />
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    <data
+      android:scheme="sdk"
+      android:host="fp.com" />
+  </intent-filter>`}
+            theme={dracula}
+            codeBlock
+          />
+        </div>
+        <br />
+
+        <p className={classes.subTitle}>IOS Setup</p>
+        <p>
+          Add the callback uri to the <strong>info.plist</strong> file as shown
+          below.
+        </p>
+        <List>
+          <ListItem disableRipple sx={{ pl: 4 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`Create URI Create a URI with a unique name (our suggestion is to provide your app name with prefix text "appfpclientFastpayFlutterSdk", for example, if your app name is "FaceLook", your URI should be appfpclientFaceLook)`}
+            />
+          </ListItem>
+          <ListItem disableRipple sx={{ pl: 4 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`Add URI to your info.plist Now add this URI to your app info.plist file`}
+            />
+          </ListItem>
+        </List>
+        <div>
+          <CopyBlock
+            language={"jsx"}
+            text={`<key>CFBundleURLTypes</key>
+  <array>
+  <dict>
+  <key>CFBundleURLSchemes</key>
+  <array>
+  < string>appfpclientFastpayFlutterSdk</string> //Your given URI from SDK initialization request
+  </array>
+  </dict>
+  </array>`}
+            theme={dracula}
+            codeBlock
+          />
+        </div>
+        <br />
+      </section>
+
+      <section id="callBackUrl">
+        <p className={classes.subTitle}>
+          Callback Uri via app deeplinks results.
+        </p>
+
+        <div>
+          <CopyBlock
+            language={"jsx"}
+            text={`callback URI pattern (SUCCESS): appfpclientFastpayFlutterSdk/further/paths?status=success&transaction_id=XXXX&order_id=XXXX&amount=XXX&currency=XXX&mobile_number=XXXXXX&time=XXXX&name=XXXX
+callback URI pattern (FAILED): appfpclientFastpayFlutterSdk/further/paths?status=failed&order_id=XXXXX`}
+            theme={dracula}
+            showLineNumbers={false}
+            codeBlock
+          />
+        </div>
+        <br />
+
+        <p className={classes.subTitle}>
+          Handle incoming call back url from flutter
+        </p>
+        <div>
+          <CopyBlock
+            language={"jsx"}
+            text={callBackUrlFromFlutter}
+            theme={dracula}
+            showLineNumbers={false}
+            codeBlock
+          />
+        </div>
+        <br />
+
+        <p className={classes.subTitle}>Payment Result</p>
+        <hr />
+        <p>FastpayPaymentResponse class contains these params:</p>
+        <List>
+          <ListItem disableRipple sx={{ pl: 1 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`isSuccess : return true for a successful transaction else false.`}
+            />
+          </ListItem>
+          <ListItem disableRipple sx={{ pl: 1 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`errorMessage : if transaction failed return failed result`}
+            />
+          </ListItem>
+          <ListItem disableRipple sx={{ pl: 1 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`transactionStatus : Payment status weather it is success / failed.`}
+            />
+          </ListItem>
+          <ListItem disableRipple sx={{ pl: 1 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`transactionId : If payment is successful then a transaction id will be available.`}
+            />
+          </ListItem>
+          <ListItem disableRipple sx={{ pl: 1 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`orderId : Unique Order ID/Bill number for the transaction which was passed at initiation time.`}
+            />
+          </ListItem>
+          <ListItem disableRipple sx={{ pl: 1 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`paymentAmount : Payment amount for the transaction. “1000”`}
+            />
+          </ListItem>
+          <ListItem disableRipple sx={{ pl: 1 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`paymentCurrency : Payment currency for the transaction. (IQD)`}
+            />
+          </ListItem>
+          <ListItem disableRipple sx={{ pl: 1 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`payeeName : Payee name for a successful transaction.`}
+            />
+          </ListItem>
+          <ListItem disableRipple sx={{ pl: 1 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`payeeMobileNumber : Number: Payee name for a successful transaction.`}
+            />
+          </ListItem>
+          <ListItem disableRipple sx={{ pl: 1 }} className={classes.ItemStyle}>
+            <ListItemIcon>
+              <CircleIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary={`paymentTime : Payment occurrence time as the timestamp.`}
+            />
+          </ListItem>
+        </List>
+        <br />
       </section>
 
       {/* <section className={classes.sectionMarginBottom} id="ios-setup">

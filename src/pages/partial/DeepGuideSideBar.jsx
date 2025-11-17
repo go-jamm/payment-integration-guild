@@ -88,6 +88,7 @@ export default function DeepGuideSideBar() {
   const [openSetup, setOpenSetup] = React.useState(true);
   const [openUsage, setOpenUsage] = React.useState(true);
   const [openPaymentHandling, setOpenPaymentHandling] = React.useState(true);
+  const [openFlutter, setOpenFlutter] = React.useState(true);
 
   const { addList } = useContext(MenuContext);
   const { fastPayActiveId } = useContext(ActiveMenuContext);
@@ -107,6 +108,10 @@ export default function DeepGuideSideBar() {
 
   const handlePaymentHandlingClick = () => {
     setOpenPaymentHandling(!openPaymentHandling);
+  };
+
+  const handleFlutterClick = () => {
+    setOpenFlutter(!openFlutter);
   };
 
   return (
@@ -199,6 +204,64 @@ export default function DeepGuideSideBar() {
               <ArrowForwardIosIcon />
             </ListItemIcon>
             <ListItemText primary="Client App Callback" />
+          </ListItemButton>
+        </List>
+      </Collapse>
+
+      <ListItemButton
+        disableRipple={true}
+        className={`${classes.menuItem} ${
+          topic === "flutter" || topic === "intoduction" || topic === "examples"
+            ? classes.menuItemActive
+            : null
+        }`}
+        onClick={() => {
+          fnActive("flutter");
+          handleFlutterClick();
+        }}
+      >
+        <ListItemText primary="Flutter" />
+      </ListItemButton>
+      <Collapse in={openFlutter} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              topic === "intoduction" ? classes.menuSubItemActive : null
+            }`}
+            onClick={() => fnActive("intoduction")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Intoduction" />
+          </ListItemButton>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              topic === "IntegrationStepsFlutter" ? classes.menuSubItemActive : null
+            }`}
+            onClick={() => fnActive("IntegrationStepsFlutter")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Integration Steps" />
+          </ListItemButton>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              topic === "callBackUrl" ? classes.menuSubItemActive : null
+            }`}
+            onClick={() => fnActive("callBackUrl")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Call Back Url" />
           </ListItemButton>
         </List>
       </Collapse>
