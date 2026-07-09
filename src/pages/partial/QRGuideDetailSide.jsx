@@ -200,6 +200,33 @@ const QRGuideDetailSide = () => {
     }
   }
 }`;
+  const sample4 = `{
+  "code": 200,
+  "message": "Payment status retrieved successfully.",
+  "errors": [],
+  "data": {
+      "gw_transaction_id": "GW123456",
+      "merchant_order_id": "ORDS17845664344455",
+      "received_amount": 500,
+      "currency": "IQD",
+      "customer_name": "John Doe",
+      "customer_mobile_number": "+9647XXXXXXXX",
+      "at": "2026-07-09T14:22:00Z",
+      "transaction_id": "TXN789",
+      "order_id": "ORDS17845664344455",
+      "customer_account_no": "ACC001",
+      "received_at": "2026-07-09T14:22:05Z",
+      "payment_status": "PAID"
+  }
+}`;
+  const sample5 = `{
+  "code": 400,
+  "message": "Unsuccessful attempt",
+  "errors": [
+    "Invalid store credentials or order not found."
+   ],
+  "data": null
+}`;
 
   const classes = useStyles();
   const [activeUseEffect, setActiveUseEffect] = useState(false);
@@ -494,6 +521,52 @@ const QRGuideDetailSide = () => {
                 </TableCell>
                 <TableCell>Yes</TableCell>
               </TableRow>
+
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>successUrl</TableCell>
+                <TableCell>string</TableCell>
+                <TableCell>
+                  URL where the customer will be redirected after successful
+                  payment.
+                </TableCell>
+                <TableCell>No</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>cancelUrl</TableCell>
+                <TableCell>string</TableCell>
+                <TableCell>
+                  URL where the customer will be redirected if the payment is
+                  cancelled.
+                </TableCell>
+                <TableCell>No</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>callbackUrl</TableCell>
+                <TableCell>string</TableCell>
+                <TableCell>
+                  URL used to receive payment status updates.
+                </TableCell>
+                <TableCell>No</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>expiresIn</TableCell>
+                <TableCell>integer</TableCell>
+                <TableCell>
+                  Defines the payment expiration time in minutes. The accepted
+                  value range is 3 to 15 minutes. For example, expiresIn: 5
+                  means the payment will expire after 5 minutes. If omitted, the
+                  default expiration time of 10 minutes will be used.
+                </TableCell>
+                <TableCell>No</TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
@@ -723,6 +796,131 @@ const QRGuideDetailSide = () => {
           />
         </div>
       </section>
+
+      <section className={classes.sectionMarginBottom} id="get-payment-status">
+        <p className={classes.subTitle}>Get Payment Status</p>
+        <p className={classes.detailFontStyle}>
+          This API allows merchants to retrieve the current status of a payment
+          transaction using the associated order ID. The response indicates
+          whether the payment is PAID, UNPAID, or DECLINED, along with the
+          relevant transaction details.
+        </p>
+        <TableContainer component={Paper}>
+          <Table sx={{ Width: 650 }} aria-label="simple table">
+            <TableHead className={classes.tableStyle}>
+              <TableRow>
+                <TableCell>URL</TableCell>
+                <TableCell>Method</TableCell>
+                <TableCell>Headers</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>
+                  /api/v1/public/vending/status
+                  <br /> <br />
+                  <a
+                    className={classes.detailFontStyle}
+                    style={{ textDecoration: "none", cursor: "pointer" }}
+                    target="_blank"
+                    href="https://staging-qr.fast-pay.iq"
+                  >
+                    <strong>Sandbox Base URL:</strong>{" "}
+                    https://staging-qr.fast-pay.iq
+                  </a>
+                  <br /> <br />
+                  <a
+                    className={classes.detailFontStyle}
+                    style={{ textDecoration: "none", cursor: "pointer" }}
+                    target="_blank"
+                    href="https://qr.fast-pay.iq"
+                  >
+                    <strong> Production Base URL:</strong>{" "}
+                    https://qr.fast-pay.iq
+                  </a>
+                </TableCell>
+                <TableCell>POST</TableCell>
+                <TableCell>
+                  Accept: application/json
+                  <br />
+                  Content-Type: application/json
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <p className={classes.tableTitle}>Request Body:</p>
+        <TableContainer component={Paper}>
+          <Table sx={{ Width: 650 }} aria-label="simple table">
+            <TableHead className={classes.tableStyle}>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>Required</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>storeId</TableCell>
+                <TableCell> string</TableCell>
+                <TableCell>Unique identifier of the store/merchant.</TableCell>
+                <TableCell>Yes</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>storePassword</TableCell>
+                <TableCell> string</TableCell>
+                <TableCell>Store authentication password.</TableCell>
+                <TableCell>Yes</TableCell>
+              </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>orderId</TableCell>
+                <TableCell> string</TableCell>
+                <TableCell>
+                  Unique order reference ID generated by the merchant.
+                </TableCell>
+                <TableCell>Yes</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <p className={classes.tableTitle}>Sample Response:</p>
+        <div className={classes.copyBlockStyle}>
+          <CopyBlock
+            language={"jsx"}
+            text={sample4}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+        <p className={classes.detailFontStyle}>
+          Possible values for <b>payment_status</b>: PAID, UNPAID, DECLINED.
+        </p>
+        <p className={classes.tableTitle}>Sample Unsuccessful Response:</p>
+        <div className={classes.copyBlockStyle}>
+          <CopyBlock
+            language={"jsx"}
+            text={sample5}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+      </section>
+
       <section className={classes.sectionMarginBottom} id="refund-a-payment">
         <p className={classes.subTitle}>Refund A Payment</p>
 
@@ -865,7 +1063,7 @@ const QRGuideDetailSide = () => {
         id="swagger-documentation"
       >
         <Alert severity="info" style={{ fontWeight: 600 }}>
-          For Android and iOS deep link integration, please {" "}
+          For Android and iOS deep link integration, please{" "}
           <a
             style={{
               textDecoration: "none",
@@ -1021,8 +1219,6 @@ const QRGuideDetailSide = () => {
           <i>https://staging-qr.fast-pay.iq/swagger-ui.html</i>
         </a>
       </section>
-
-      
     </div>
   );
 };

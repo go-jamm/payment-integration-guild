@@ -181,8 +181,22 @@ export default function QRGuideSideBar() {
                 </ListItemIcon>
                 <ListItemText primary="Validating A Payment" />
               </ListItemButton>
+              
             </List>
           </Collapse>
+          <ListItemButton
+            disableRipple={true}
+            sx={{ pl: 4 }}
+            className={`${classes.menuSubItem} ${
+              topic === "get-payment-status" ? classes.menuSubItemActive : null
+            }`}
+            onClick={() => fnActive("get-payment-status")}
+          >
+            <ListItemIcon>
+              <ArrowForwardIosIcon />
+            </ListItemIcon>
+            <ListItemText primary="Get Payment Status" />
+          </ListItemButton>
           <ListItemButton
             disableRipple={true}
             sx={{ pl: 4 }}
