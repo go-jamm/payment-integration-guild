@@ -496,7 +496,7 @@ const QRGuideDetailSide = () => {
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>orderID</TableCell>
+                <TableCell>orderId</TableCell>
                 <TableCell> alphanumeric (8-32)</TableCell>
                 <TableCell>
                   Merchant Generated Unique Order Id. e.g. ARONGORD1001
