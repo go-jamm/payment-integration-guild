@@ -18,7 +18,8 @@ import { MenuContext } from "../../context/MenuContext";
 import { ActiveMenuContext } from "../../context/ActiveMenuContext";
 import { useHistory } from "react-router-dom";
 import { a11yLight, CopyBlock, dracula } from "react-code-blocks";
-import { Alert, Tooltip } from "@mui/material";
+import { Alert, Button, Tooltip } from "@mui/material";
+import { CustomParametersDialog } from "../../components/CustomParametersOverview";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -157,15 +158,52 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  noticeStyle: {
+    marginTop: "24px",
+    padding: "14px 16px",
+    border: "1px solid #f0c98a",
+    borderRadius: "10px",
+    background: "#fff6e8",
+    color: "#3a332b",
+    fontSize: "15px",
+    lineHeight: "24px",
+    [theme.breakpoints.down("md")]: {
+      fontSize: "13px",
+      lineHeight: "22px",
+    },
+  },
+  noticeMark: {
+    background: "#fff3a0",
+    padding: "0 4px",
+    borderRadius: "3px",
+    fontFamily: "source-code-pro, Menlo, Monaco, Consolas, monospace",
+    fontSize: "0.92em",
+  },
 }));
 const QRGuideDetailSide = () => {
   const sample = `{
- "code": 200,
- "messages": "QR generation request was successful",
- "errors": []
- "data": {
-    "qrUrl": "https://xxxxxxxxxxxxxxxxxxxxxx.png",
-    "qrText": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "code": 200,
+  "messages": "QR generation request was successful",
+  "errors": []
+  "data": {
+     "qrUrl": "https://xxxxxxxxxxxxxxxxxxxxxx.png",
+     "qrText": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+   }
+}`;
+
+  const sampleIpn = `{
+  "gw_transaction_id": "CUL1NUB731",
+  "merchant_order_id": "LAREVEORD1005",
+  "received_amount": 5000,
+  "currency": "IQD",
+  "status": "Success",
+  "customer_name": "John Doe",
+  "customer_mobile_number": "+964xxxxxxxxxx",
+  "at": "2020-11-26 13:54:01",
+  "custom_params": {
+    "memberId": "12345",
+    "sourceChannel": "mobile_app",
+    "promoCode": "SAVE10"
   }
 }`;
 
@@ -181,7 +219,12 @@ const QRGuideDetailSide = () => {
       "status": "success",
       "customer_name": "John Doe",
       "customer_mobile_number": "+964xxxxxxxxxx",
-      "at": ""2021-03-02 13:39:20""
+      "at": ""2021-03-02 13:39:20"",
+      "custom_params": {
+          "memberId": "12345",
+          "sourceChannel": "mobile_app"
+      }
+    }
   }
 }`;
 
@@ -216,8 +259,12 @@ const QRGuideDetailSide = () => {
       "order_id": "ORDS17845664344455",
       "customer_account_no": "ACC001",
       "received_at": "2026-07-09T14:22:05Z",
-      "payment_status": "PAID"
-  }
+      "payment_status": "PAID",
+      "custom_params": {
+          "memberId": "12345",
+          "sourceChannel": "mobile_app"
+        }
+    }
 }`;
   const sample5 = `{
   "code": 400,
@@ -230,6 +277,7 @@ const QRGuideDetailSide = () => {
 
   const classes = useStyles();
   const [activeUseEffect, setActiveUseEffect] = useState(false);
+  const [isValidationRulesOpen, setIsValidationRulesOpen] = useState(false);
   const { fastPayMenuList, addList } = useContext(MenuContext);
   const { addActiveId, fastPayActiveId } = useContext(ActiveMenuContext);
   let history = useHistory();
@@ -567,6 +615,33 @@ const QRGuideDetailSide = () => {
                 </TableCell>
                 <TableCell>No</TableCell>
               </TableRow>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>customParams</TableCell>
+                <TableCell>object</TableCell>
+                <TableCell>
+                  Optional map of merchant-defined keys to string, integer, or
+                  null values (max 4 keys). See validation rules. Stored with
+                  the payment and returned on notification, validate, and status
+                  when present.&nbsp;&nbsp;
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    disableElevation
+                    aria-haspopup="dialog"
+                    onClick={() => setIsValidationRulesOpen(true)}
+                    sx={{
+                      fontSize: "12px",
+                      padding: "2px 10px",
+                      textTransform: "none",
+                    }}
+                  >
+                    Validation Rule
+                  </Button>
+                </TableCell>
+                <TableCell>No</TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
@@ -674,13 +749,47 @@ const QRGuideDetailSide = () => {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell>at</TableCell>
-                  <TableCell> datetime (Y-m-d H:i:s)</TableCell>
+                  <TableCell sx={{ whiteSpace: "nowrap" }}>
+                    {" "}
+                    datetime (Y-m-d H:i:s)
+                  </TableCell>
                   <TableCell>2020-11-26 13:54:01</TableCell>
+                </TableRow>
+                <TableRow
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>custom_params</TableCell>
+                  <TableCell> object</TableCell>
+                  <TableCell>
+                    Same dynamic key/value map sent in customParams at QR
+                    generation (field name custom_params on the IPN body).
+                    Omitted if none were sent.
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
           </TableContainer>
         </div>
+        <p className={classes.tableTitle}>
+          Sample IPN body (with custom parameters):
+        </p>
+        <div className={classes.copyBlockStyle}>
+          <CopyBlock
+            language={"jsx"}
+            text={sampleIpn}
+            showLineNumbers={true}
+            theme={dracula}
+            wrapLines={true}
+            codeBlock
+          />
+        </div>
+        <p className={classes.noticeStyle} role="note">
+          Treat IPN data as untrusted input until validated via the Payment
+          Validation API. Use{" "}
+          <span className={classes.noticeMark}>custom_params</span> only for
+          display or internal correlation — not for authorization decisions
+          without your own checks.
+        </p>
       </section>
       <section
         className={classes.sectionMarginBottom}
@@ -737,7 +846,6 @@ const QRGuideDetailSide = () => {
             </TableBody>
           </Table>
         </TableContainer>
-
         <p className={classes.tableTitle}>Request Body:</p>
         <TableContainer component={Paper}>
           <Table sx={{ Width: 650 }} aria-label="simple table">
@@ -779,7 +887,35 @@ const QRGuideDetailSide = () => {
             </TableBody>
           </Table>
         </TableContainer>
+
+        <p className={classes.tableTitle}>
+          Response Data Fields (additional) :
+        </p>
+        <TableContainer component={Paper}>
+          <Table sx={{ Width: 650 }} aria-label="simple table">
+            <TableHead className={classes.tableStyle}>
+              <TableRow>
+                <TableCell>Field</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Description</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>custom_params</TableCell>
+                <TableCell> object</TableCell>
+                <TableCell>
+                  Merchant-defined key/value map from QR generation, if any.
+                  Proxied from the payment gateway validate response.
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
         <br />
+
         <img
           src={parameter2}
           style={{ display: "block", margin: "auto", maxWidth: "250px" }}
@@ -889,6 +1025,32 @@ const QRGuideDetailSide = () => {
                   Unique order reference ID generated by the merchant.
                 </TableCell>
                 <TableCell>Yes</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <p className={classes.tableTitle}>
+          Response Data Fields (additional) :
+        </p>
+        <TableContainer component={Paper}>
+          <Table sx={{ Width: 650 }} aria-label="simple table">
+            <TableHead className={classes.tableStyle}>
+              <TableRow>
+                <TableCell>Field</TableCell>
+                <TableCell>Type</TableCell>
+                <TableCell>Description</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>custom_params</TableCell>
+                <TableCell> object</TableCell>
+                <TableCell>
+                  Merchant-defined key/value map from QR generation, if any.
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -1219,6 +1381,10 @@ const QRGuideDetailSide = () => {
           <i>https://staging-qr.fast-pay.iq/swagger-ui.html</i>
         </a>
       </section>
+      <CustomParametersDialog
+        open={isValidationRulesOpen}
+        onClose={() => setIsValidationRulesOpen(false)}
+      />
     </div>
   );
 };
